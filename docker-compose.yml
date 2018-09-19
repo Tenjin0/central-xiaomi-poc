@@ -15,7 +15,6 @@ services:
       context: .
     container_name: central_xiaomi
     image: central_xiaomi
-    command: npm start
     ports:
       - "3000:3000"
     labels:
