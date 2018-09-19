@@ -20,3 +20,5 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:app.test.localhost.tv"
+    extra_hosts:
+      - "outside:${HOST_IP}"
