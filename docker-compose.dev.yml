@@ -6,7 +6,6 @@ services:
       dockerfile: Dockerfile-dev
       context: .
     container_name: central_xiaomi_dev
-    command: "npm run dev"
+    command: "npm run docker-dev"
     volumes:
-      - ./package.json:/app/package.json
       - ./src/server:/app/server
