@@ -6,7 +6,7 @@
   "scripts": {
     "docker-start": "pm2-docker start ecosystem.config.js",
     "docker-dev": "pm2-docker start ecosystem.config.js --watch --web",
-    "dev": "pm2-dev start ecosystem.config.js --watch",
+    "dev": "pm2-dev start ecosystem.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
