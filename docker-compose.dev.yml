@@ -9,3 +9,7 @@ services:
     command: "npm run docker-dev"
     volumes:
       - ./src/server:/app/server
+      - ./ecosystem.config.js:/src/ecosystem.config.js
+    ports:
+      - 9615:9615
+      - 3000:3000

@@ -22,3 +22,8 @@ services:
       - "traefik.frontend.rule=Host:app.test.localhost.tv"
     extra_hosts:
       - "outside:${HOST_IP}"
+    db:
+      image: spartakode/sqlite3
+      container_name: central_xiaomi_db
+      volumes:
+        - /src/server/central.db:/db/db.db
