@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     card_sid: DataTypes.STRING
     
   }, {});
-  User.associate = function(models) {
-    // associations can be defined here
-  };
+  // User.associate = function(models) {
+  //   // associations can be defined here
+  // };
   return User;
 };
