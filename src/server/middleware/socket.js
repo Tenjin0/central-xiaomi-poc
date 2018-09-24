@@ -3,24 +3,12 @@ module.exports = function (io, models) {
     var nxs = io.of('/xiaomisecurity');
     var nc = io.of('/camera');
 
-    var timeouts = [];
+    function setColors(socket, color, off) {
 
-    function clearTimeouts() {
-        for (let i = timeouts.length; i < 0; i--) {
-            var timeout = timeouts.shift()
-            clearTimeout(timeout);
-            
-        }
-    }
-    
-    function setColor(gateways, color, off) {
-
-        for (let i = 0; i < gateways.length; i++) {
-
-            nxs.emit("xiaomihome.device.color", gateways[i], null, color)
+        socket.emit("xiaomihome.device.color", "all", null, color)
             if (off) {
                 timeouts.push(setTimeout(() => {
-                    nxs.emit("xiaomihome.device.color", gateways[i], null, colors.off)
+                    socket.emit("xiaomihome.device.color", "all", null, colors.off)
                 }, 3000))
             }
         }
@@ -52,56 +40,54 @@ module.exports = function (io, models) {
             i: 100
         }
     }
-    const gatewaysSid = {}
-    gatewaysSid.prototype.keys = function() {
-        return Object.keys(this)
-    }
-    var doorsClosed = true
-    console.log("socket")
 
     nxs.on("central.init", function (value) {
         console.log("nxs", "central.init", value)
     })
 
     nxs.on('connection', function (socket) {
+        var wpt = {
+            status = "offline",
+            timeout = null
+        }
         console.log('a user connected');
 
         socket.on("xiaomihome.devices", (gateways) => {
 
+            wpt.status = "ready"
             for (let i = 0; i < gateways.length; i++) {
-                gatewaysSid[gateways[i].sid] = {
-                    status: 'ready',
-                    timeout: null
-                }
+                wpt.gateways.push([gateways[i].sid])
             }
-            console.log(gatewaysSid.keys())
-            setColor(gatewaysSid.keys(), colors.green, true)
+            setColor(socket, colors.green, true)
         })
 
         socket.on('central.init', function () {
             console.log("on", "central.init")
-            nxs.emit("xiaomihome.devices")
+            socket.emit("xiaomihome.devices")
 
         })
 
-        nxs.emit("central.init", ["xiaomihome.devices", "xiaomihome.device.color"], ["xiaomihome.gateway.read", "xiaomihome.devices", "nfc.data"])
+        socket.emit("central.init", ["xiaomihome.devices", "xiaomihome.device.color"], ["xiaomihome.gateway.read", "xiaomihome.devices", "nfc.data"])
 
         socket.on("xiaomihome.gateway.read", (gtsid, device) => {
             console.log(gtsid, device)
             if (device.model === "magnet" && device.event === "open") {
-                setColor([gtsid], colors.orange)
+                setColor(socket, colors.orange)
                 setTimeout(() => {
-                    setColor([gtsid], colors.red)
+                    setColor(socket, colors.red)
                 }, 10000)
             }
         })
  
         socket.on("nfc.data", (data) => {
-            console.log(data)
             models.User.find({where: {card_sid: data}}).then((user) => {
                 console.log(user)
                 if (user) {
-                    setColor(gatewaysSid.keys(), colors.green)
+                    setColor(socket, colors.green)
+                    if (wpt.timeout) {
+                        clearTimeout(wpt.timeout)
+                        wpt.timeout = null
+                    }
                 }
                 
             })
