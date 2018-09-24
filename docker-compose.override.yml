@@ -8,7 +8,7 @@ services:
     container_name: central_xiaomi_dev
     command: "npm run docker-dev"
     volumes:
-      - ./src/server:/app/server
+      - ./src/server:/app
       - ./ecosystem.config.js:/src/ecosystem.config.js
     ports:
       - 9615:9615

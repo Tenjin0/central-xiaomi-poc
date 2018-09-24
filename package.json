@@ -5,17 +5,20 @@
   "main": "index.js",
   "scripts": {
     "docker-start": "pm2-docker start ecosystem.config.js",
-    "docker-dev": "pm2-docker start ecosystem.config.js --watch --web",
-    "dev": "pm2-dev start ecosystem.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "docker-dev": "pm2-docker start ecosystem.config.js --watch --web --ignore=central.db,central.db-journal",
+    "dev": "pm2-dev start ecosystem.config.js --ignore=central.db,central.db-journal",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:migrate": "sequelize db:migrate --config ./src/server/config.js --migrations-path ./src/server/database/migrations/"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "sequelize": "^4.38.1",
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
+    "sqlite3": "^4.0.2",
     "ws": "^6.0.0"
   },
   "devDependencies": {

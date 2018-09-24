@@ -1,25 +1,26 @@
 var path = require("path")
 var processName = path.basename(process.argv[1]);
 var indexPath = "./server/index.js"
-
+require('dotenv').load();
 if (processName !== "pm2-docker") {
-    indexPath = path.join("src", indexPath)
+  indexPath = path.join("src", indexPath)
 }
 
-if (!process.env.HOST_IP) {
-  process.env.HOST_IP = "127.0.0.1"
-}
+console.log(process.env)
 
 module.exports = {
-  apps : [
+  apps: [
 
     // First application
     {
-      name      : 'CENTRAL',
-      script    : indexPath,
-      "ignore-watch" : [".git"],
-      "env" : {
-        "NODE_ENV": process.env.HOST_IP
+      name: 'CENTRAL',
+      script: indexPath,
+      "ignore_watch": ["node_modules", "public", "central.db", "central.db-journal"],
+      "watch_options": {
+        "followSymlinks": false
+      },
+      "env": {
+        "NODE_ENV": "development"
       }
     }
   ]

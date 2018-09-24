@@ -16,14 +16,25 @@ services:
     container_name: central_xiaomi
     image: central_xiaomi
     ports:
-      - "3000:3000"
+      - "${API_PORT}:${API_PORT}"
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:app.test.localhost.tv"
+      - "traefik.frontend.rule=Host:central.api.localhost.tv"
     extra_hosts:
       - "outside:${HOST_IP}"
-    db:
-      image: spartakode/sqlite3
-      container_name: central_xiaomi_db
       volumes:
-        - /src/server/central.db:/db/db.db
+      - ./src/server/central.db:/server/central.db
+      - ./src/server/central.db-journal:/server/central.db-journal
+  central_client:
+    build:
+      dockerfile: Dockerfile_client
+      context: .
+    container_name: central_xiaomi_client
+    image: central_xiaomi_client
+    ports:
+      - "${FRONT_PORT}:${FRONT_PORT}"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:central.localhost.tv"
+    extra_hosts:
+      - "outside:${HOST_IP}"
