@@ -11,7 +11,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
   central:
     build:
-      dockerfile: Dockerfile
+      dockerfile: ./src/server/Dockerfile
       context: .
     container_name: central_xiaomi
     image: central_xiaomi
@@ -23,18 +23,18 @@ services:
     extra_hosts:
       - "outside:${HOST_IP}"
     volumes:
-    - ./src/server/central.db:/server/central.db
-    - ./src/server/central.db-journal:/server/central.db-journal
-  central_client:
-    build:
-      dockerfile: Dockerfile_client
-      context: .
-    container_name: central_xiaomi_client
-    image: central_xiaomi_client
-    ports:
-      - "${FRONT_PORT}:${FRONT_PORT}"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:central.localhost.tv"
-    extra_hosts:
-      - "outside:${HOST_IP}"
+      - ./src/server/central.db:/server/central.db
+      - ./src/server/central.db-journal:/server/central.db-journal
+  # central_client:
+  #   build:
+  #     dockerfile: Dockerfile_client
+  #     context: .
+  #   container_name: central_xiaomi_client
+  #   image: central_xiaomi_client
+  #   ports:
+  #     - "${FRONT_PORT}:${FRONT_PORT}"
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.frontend.rule=Host:central.localhost.tv"
+  #   extra_hosts:
+  #     - "outside:${HOST_IP}"

@@ -3,13 +3,15 @@ version: '3.6'
 services:
   central:
     build:
-      dockerfile: Dockerfile-dev
+      dockerfile: ./src/server/Dockerfile-dev
       context: .
     container_name: central_xiaomi_dev
-    command: "npm run docker-dev"
+    command: "npm run dev"
     volumes:
       - ./src/server:/app
-      - ./ecosystem.config.js:/src/ecosystem.config.js
+      - ./src/server/node_modules:/app/node_modules
+      - ./src/server/central.db:/app/central.db
+      - ./src/server/central.db-journal:/app/central.db-journal
     ports:
       - 9615:9615
       - 3000:3000

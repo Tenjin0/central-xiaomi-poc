@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize")
 const path = require("path")
 const Op = Sequelize.Op;
+
 module.exports = {
     "development": {
         "dialect": "sqlite",
