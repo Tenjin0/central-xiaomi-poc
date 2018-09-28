@@ -3,17 +3,6 @@ module.exports = function (io, models) {
     var nxs = io.of('/xiaomisecurity');
     var nc = io.of('/camera');
 
-    function setColors(socket, color, off) {
-
-        socket.emit("xiaomihome.device.color", "all", null, color)
-            if (off) {
-                timeouts.push(setTimeout(() => {
-                    socket.emit("xiaomihome.device.color", "all", null, colors.off)
-                }, 3000))
-            }
-        }
-    }
-
     var colors = {
         off : {
             r: 0,
@@ -46,25 +35,15 @@ module.exports = function (io, models) {
     })
 
     nxs.on('connection', function (socket) {
-        var wpt = {
-            status = "offline",
-            timeout = null
-        }
+        // var wpt = {
+        //     status: "offline",
+        //     timeout: null,
+        //     gateways: []
+        // }
         console.log('a user connected');
 
-        socket.on("xiaomihome.devices", (gateways) => {
-
-            wpt.status = "ready"
-            for (let i = 0; i < gateways.length; i++) {
-                wpt.gateways.push([gateways[i].sid])
-            }
-            setColor(socket, colors.green, true)
-        })
-
         socket.on('central.init', function () {
-            console.log("on", "central.init")
-            socket.emit("xiaomihome.devices")
-
+            socket.emit("xiaomihome.device.color", "all", null, colors.green)
         })
 
         socket.emit("central.init", ["xiaomihome.devices", "xiaomihome.device.color"], ["xiaomihome.gateway.read", "xiaomihome.devices", "nfc.data"])
@@ -72,9 +51,9 @@ module.exports = function (io, models) {
         socket.on("xiaomihome.gateway.read", (gtsid, device) => {
             console.log(gtsid, device)
             if (device.model === "magnet" && device.event === "open") {
-                setColor(socket, colors.orange)
+                socket.emit("xiaomihome.device.color", "all", null, colors.orange)
                 setTimeout(() => {
-                    setColor(socket, colors.red)
+                    socket.emit("xiaomihome.device.color", "all", null, colors.red)
                 }, 10000)
             }
         })
@@ -83,11 +62,12 @@ module.exports = function (io, models) {
             models.User.find({where: {card_sid: data}}).then((user) => {
                 console.log(user)
                 if (user) {
-                    setColor(socket, colors.green)
-                    if (wpt.timeout) {
-                        clearTimeout(wpt.timeout)
-                        wpt.timeout = null
-                    }
+                    socket.emit("xiaomihome.device.color", "all", null, colors.green)
+
+                    // if (wpt.timeout) {
+                    //     clearTimeout(wpt.timeout)
+                    //     wpt.timeout = null
+                    // }
                 }
                 
             })

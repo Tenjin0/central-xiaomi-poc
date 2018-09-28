@@ -13,7 +13,7 @@ app.use((req, res, next) => {
     next()
 })
 
-require("./routes")(app)
+require("../routes")(app)
 
 const listener = http.listen(3001, () => {
     console.log(`Server is running on http://localhost:${listener.address().port} or http://127.0.0.1:${listener.address().port}`);

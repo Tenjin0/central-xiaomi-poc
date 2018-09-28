@@ -23,8 +23,8 @@ services:
     extra_hosts:
       - "outside:${HOST_IP}"
     volumes:
-      - ./src/server/central.db:/server/central.db
-      - ./src/server/central.db-journal:/server/central.db-journal
+      - ./src/server:/app
+      - ./src/server/central.db:/app/central.db
   # central_client:
   #   build:
   #     dockerfile: Dockerfile_client
