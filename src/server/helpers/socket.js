@@ -6,16 +6,15 @@ module.exports = function (io, models) {
     function setColors(socket, color, off) {
 
         socket.emit("xiaomihome.device.color", "all", null, color)
-            if (off) {
-                timeouts.push(setTimeout(() => {
-                    socket.emit("xiaomihome.device.color", "all", null, colors.off)
-                }, 3000))
-            }
+        if (off) {
+            timeouts.push(setTimeout(() => {
+                socket.emit("xiaomihome.device.color", "all", null, colors.off)
+            }, 3000))
         }
     }
 
     var colors = {
-        off : {
+        off: {
             r: 0,
             g: 0,
             b: 0,
@@ -47,8 +46,8 @@ module.exports = function (io, models) {
 
     nxs.on('connection', function (socket) {
         var wpt = {
-            status = "offline",
-            timeout = null
+            status: "offline",
+            timeout: null
         }
         console.log('a user connected');
 
@@ -78,9 +77,13 @@ module.exports = function (io, models) {
                 }, 10000)
             }
         })
- 
+
         socket.on("nfc.data", (data) => {
-            models.User.find({where: {card_sid: data}}).then((user) => {
+            models.User.find({
+                where: {
+                    card_sid: data
+                }
+            }).then((user) => {
                 console.log(user)
                 if (user) {
                     setColor(socket, colors.green)
@@ -89,7 +92,7 @@ module.exports = function (io, models) {
                         wpt.timeout = null
                     }
                 }
-                
+
             })
         })
 
