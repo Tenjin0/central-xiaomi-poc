@@ -4,11 +4,12 @@
   "description": "a central to handle xiaomiHome door state",
   "main": "index.js",
   "scripts": {
-    "start": "pm2-docker start ecosystem.config.js",
+    "start": "pm2-docker sta rt ecosystem.config.js",
     "dev": "npm i sqlite3 && pm2-docker start ecosystem.config.js --watch --web",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "db:migrate": "./node_modules/sequelize-cli/lib/sequelize  db:migrate --config ./config.js --migrations-path ./database/migrations/",
-    "db:migrate:down": "./node_modules/sequelize-cli/lib/sequelize  db:migrate:undo --config ./config.js --migrations-path ./database/migrations/"
+    "db:migrate": "./node_modules/sequelize-cli/lib/sequelize  --config ./config.js --migrations-path ./database/migrations/ --seeders-path ./database/seeders db:migrate",
+    "db:migrate:down": "./node_modules/sequelize-cli/lib/sequelize --config ./config.js --migrations-path ./database/migrations/ --seeders-path ./database/seeders db:migrate:undo",
+    "db:seed:all": "./node_modules/sequelize-cli/lib/sequelize --config ./config.js --migrations-path ./database/migrations/ --seeders-path ./database/seeders db:seed:all"
   },
   "author": "",
   "license": "ISC",

@@ -11,7 +11,6 @@ services:
       - ./src/server:/app
       - ./src/server/node_modules:/app/node_modules
       - ./src/server/central.db:/app/central.db
-      - ./src/server/central.db-journal:/app/central.db-journal
     ports:
       - 9615:9615
       - 3000:3000
