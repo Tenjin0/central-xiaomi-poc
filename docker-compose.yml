@@ -1,14 +1,5 @@
 version: '3.6'
 services:
-  central-reverse-proxy:
-    image: traefik # The official Traefik docker image
-    container_name: central_xiaomi_proxy
-    command: --api --docker.exposedbydefault=false # Enables the web UI and tells Træfik to listen to docker, without exposing by default
-    ports:
-      - "80:80"     # The HTTP port
-      - "8081:8080" # The Web UI (enabled by --api)
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
   central:
     build:
       dockerfile: ./src/server/Dockerfile
@@ -23,8 +14,9 @@ services:
     extra_hosts:
       - "outside:${HOST_IP}"
     volumes:
-      - ./src/server:/app
       - ./src/server/central.db:/app/central.db
+    ports :
+      - 3001:3001
   # central_client:
   #   build:
   #     dockerfile: Dockerfile_client

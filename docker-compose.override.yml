@@ -13,4 +13,4 @@ services:
       - ./src/server/central.db:/app/central.db
     ports:
       - 9615:9615
-      - 3000:3000
+      - 3001:3001

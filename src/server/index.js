@@ -5,4 +5,3 @@ models.sequelize.sync({ force: false,logging: console.log, alter: false }).then(
 
     require("./middleware/server")
 })
-

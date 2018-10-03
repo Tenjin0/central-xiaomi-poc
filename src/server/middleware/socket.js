@@ -4,7 +4,7 @@ module.exports = function (io, models) {
     var nc = io.of('/camera');
 
     var colors = {
-        off : {
+        off: {
             r: 0,
             g: 0,
             b: 0,
@@ -30,49 +30,111 @@ module.exports = function (io, models) {
         }
     }
 
-    nxs.on("central.init", function (value) {
-        console.log("nxs", "central.init", value)
-    })
+    function changeColor(socket, color) {
+        return new Promise((resolve, reject) => {
+            socket.once("xiaomihome.device.color", (data) => {
+                socket.status = color
+                resolve(data)
+            })
+            socket.once("xiaomihome.device.color.error", (err) => {
+                reject(err)
+            })
+            socket.emit("xiaomihome.device.color", "all", null, colors[color])
+        })
+    }
 
-    nxs.on('connection', function (socket) {
-        // var wpt = {
-        //     status: "offline",
-        //     timeout: null,
-        //     gateways: []
-        // }
-        console.log('a user connected');
+    function cameraDetection(socket) {
+
+
+        socket.emit("camera.device.start", {
+            deviceid: 0,
+            fps: 1,
+            height: 200,
+            width: 200
+        })
+
+        setTimeout(async () => {
+            socket.emit("camera.device.stop", 0)
+            await changeColor(socket, "green")
+        }, 10000)
+    }
+
+    nxs.on('connection', async function (socket) {
+
+        socket.doors = {}
+        socket.timeout = null;
 
         socket.on('central.init', function () {
-            socket.emit("xiaomihome.device.color", "all", null, colors.green)
+
+            socket.emit("xiaomihome.devices")
         })
 
-        socket.emit("central.init", ["xiaomihome.devices", "xiaomihome.device.color"], ["xiaomihome.gateway.read", "xiaomihome.devices", "nfc.data"])
+        socket.on("xiaomihome.devices", async function (devices) {
 
-        socket.on("xiaomihome.gateway.read", (gtsid, device) => {
-            console.log(gtsid, device)
-            if (device.model === "magnet" && device.event === "open") {
-                socket.emit("xiaomihome.device.color", "all", null, colors.orange)
-                setTimeout(() => {
-                    socket.emit("xiaomihome.device.color", "all", null, colors.red)
-                }, 10000)
+            for (let i = 0; i < devices.length; i++) {
+
+                for (let j = 0; j < devices[i].sensors.length; j++) {
+                    const sensor = devices[i].sensors[j];
+                    if (sensor.model === "magnet") {
+                        socket.doors[sensor.sid] = sensor.state
+                    }
+                }
+
+            }
+            await changeColor(socket, "green")
+        })
+
+        socket.emit("central.init", ["camera.device.start", "camera.device.stop", "camera.device.data", "xiaomihome.devices", "xiaomihome.device.color", "xiaomihome.device.sound"], ["camera.start", "camera.stop", "xiaomihome.gateway.read", "xiaomihome.devices", "xiaomihome.device.color", "xiaomihome.device.color.error", "nfc.data"])
+
+        socket.on("xiaomihome.gateway.read", async (gtsid, device) => {
+
+            if (device.model === "magnet") {
+                socket.doors[device.sid] = device.event
+            }
+            if ( socket.status === "green" && device.model === "magnet" && device.event === "open") {
+                socket.doors[device.sid] = device.event
+                await changeColor(socket, "orange")
+                if (socket.timeout) {
+                    clearTimeout(socket.timeout)
+                }
+                socket.timeout = setTimeout(async () => {
+                    await changeColor(socket, "red")
+                    cameraDetection(socket)
+                }, 3000)
             }
         })
- 
-        socket.on("nfc.data", (data) => {
-            models.User.find({where: {card_sid: data}}).then((user) => {
-                console.log(user)
-                if (user) {
-                    socket.emit("xiaomihome.device.color", "all", null, colors.green)
 
-                    // if (wpt.timeout) {
-                    //     clearTimeout(wpt.timeout)
-                    //     wpt.timeout = null
-                    // }
+        socket.on("nfc.data", (data) => {
+            models.User.find({
+                where: {
+                    card_content: data
                 }
-                
+            }).then(async (user) => {
+                if (user) {
+                    if (user.card_content === data) {
+                        await changeColor(socket, "green")
+                        socket.emit("xiaomihome.device.sound", "all", null, {
+                            track: 100010,
+                            volume: 1
+                        })
+                        clearTimeout(socket.timeout)
+                        socket.status = "ready"
+
+                    } else {
+                        socket.emit("xiaomihome.device.sound", "all", null, {
+                            track: 100011,
+                            volume: 1
+                        })
+                    }
+
+                }
+
             })
         })
 
+        socket.on("camera.device.data", (data) => {
+            
+        })
         socket.on('disconnect', function () {
             console.log('user disconnected');
         })
