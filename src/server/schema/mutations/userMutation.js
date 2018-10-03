@@ -4,30 +4,29 @@ const {
 	GraphQLNonNull,
 } = require('graphql');
 
-const User = require("../../database/models").User
+const { User } = require('../../database/models');
 
 
 const {
-	UserType
+	userType,
 } = require('../types');
 
 const createUser = {
-	type: UserType,
+	type: userType,
 	description: 'The mutation that allows you to create a new User',
-	args: {},
-	resolve: (value, {
-		userId,
-		note
-	}) => (
-		User.create({
-			userId,
-			note,
-		})
-	),
+	args: {
+		first_name: { type: GraphQLString },
+		last_name: { type: GraphQLString },
+		card_content: { type: GraphQLString },
+	},
+	resolve: async (value, args) => {
+		console.log(args);
+		return User.create(args);
+	},
 };
 
 const updateUser = {
-	type: UserType,
+	type: userType,
 	description: 'The mutation that allows you to update an existing User by Id',
 	args: {
 		id: {
@@ -45,12 +44,12 @@ const updateUser = {
 		card_content: {
 			name: 'card_content',
 			type: new GraphQLNonNull(GraphQLString),
-		}
+		},
 	},
 	resolve: async (user, {
-		id
+		id,
 	}) => {
-		console.log(user)
+		console.log(user);
 		const foundUser = await User.findById(id);
 
 		if (!foundUser) {
@@ -62,7 +61,7 @@ const updateUser = {
 };
 
 const deleteUser = {
-	type: UserType,
+	type: userType,
 	description: 'The mutation that allows you to delete a existing User by Id',
 	args: {
 		id: {
@@ -71,7 +70,7 @@ const deleteUser = {
 		},
 	},
 	resolve: async (user, {
-		id
+		id,
 	}) => {
 		const foundUser = await User.findById(id);
 

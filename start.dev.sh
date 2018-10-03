@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo pm2-dev start ecosystem.config.js
+pm2-dev start ecosystem.config.js

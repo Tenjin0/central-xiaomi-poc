@@ -1,5 +1,5 @@
-const userType = require("./userTypes")
+const userType = require('./userTypes');
 
 module.exports = {
-    userType
-}
+	...userType,
+};

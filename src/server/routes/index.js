@@ -1,7 +1,6 @@
+const graphql = require('./graphql');
 
 module.exports = (app) => {
-
-    // require('./auth')(app);
-    require('./graphql')(app);
-}
-
+	// require('./auth')(app);
+	graphql(app);
+};
