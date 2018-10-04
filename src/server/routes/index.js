@@ -1,12 +1,6 @@
-const users = require("./users")
+const graphql = require('./graphql');
 
 module.exports = (app) => {
-
-    app.get("/", (req, res) => {
-    
-        res.send("Hello World central")
-    })
-    
-    app.use('/api/users', users);
-}
-
+	// require('./auth')(app);
+	graphql(app);
+};
