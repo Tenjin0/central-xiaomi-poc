@@ -1,0 +1,12 @@
+FROM node:10-alpine
+
+RUN mkdir -p /app
+WORKDIR /app
+
+COPY ./src/server /app
+
+RUN npm install -g pm2
+
+RUN npm install
+
+EXPOSE 3001
