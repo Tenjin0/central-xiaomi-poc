@@ -3,7 +3,7 @@ FROM node:10-alpine
 
 WORKDIR /app
 
-COPY ./src/server /app
+COPY . /app
 
 RUN npm install --only=production && \
 npm cache clean --force

@@ -3,14 +3,14 @@ version: '3.6'
 services:
   central:
     build:
-      dockerfile: ./src/server/Dockerfile-dev
+      dockerfile: ./api/Dockerfile-dev
       context: .
     container_name: central_xiaomi_dev
     command: "npm run dev"
     volumes:
-      - ./src/server:/app
-      - ./src/server/node_modules:/app/node_modules
-      - ./src/server/central.db:/app/central.db
+      - ./api:/app
+      - ./api/node_modules:/app/node_modules
+      - ./api/central.db:/app/central.db
     ports:
       - 9615:9615
       - 3001:3001

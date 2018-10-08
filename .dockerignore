@@ -5,4 +5,5 @@
 *Dockerfile*
 *docker-compose*
 node_modules
-src/server/node_modules
+api/node_modules
+client/node_modules

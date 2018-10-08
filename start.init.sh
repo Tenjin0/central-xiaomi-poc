@@ -1,3 +1,4 @@
 #!/bin/bash
-sudo rm -rf src/server/node_modules/sqlite3
-npm i -S src/server
+sudo rm -rf api/node_modules/sqlite3
+npm i -S api
+npm i -S client

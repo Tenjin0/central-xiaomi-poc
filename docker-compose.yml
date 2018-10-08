@@ -2,7 +2,7 @@ version: '3.6'
 services:
   central:
     build:
-      dockerfile: ./src/server/Dockerfile
+      dockerfile: ./api/Dockerfile
       context: .
     container_name: central_xiaomi
     image: central_xiaomi
