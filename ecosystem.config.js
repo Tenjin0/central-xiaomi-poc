@@ -4,9 +4,8 @@ module.exports = {
     // First application
     {
       name: 'CENTRAL',
-      script: "./index.js",
+      script: "./client/index.js",
       "ignore_watch": ["node_modules"],
-      "watch": ["./index.js"],
       "watch_options": {
         "followSymlinks": false
       },

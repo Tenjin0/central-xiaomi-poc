@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-	"test": "echo \"Error: no test specified\" && exit 1",
-	"build": "./node_modules/.bin/webpack",
-	"start": "npm run build && node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/.bin/webpack",
+    "start": "npm run build && node index.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +20,7 @@
     "@types/react": "^16.4.16",
     "@types/react-dom": "^16.0.8",
     "html-webpack-plugin": "^3.2.0",
+    "redux": "^4.0.0",
     "source-map-loader": "^0.2.4",
     "ts-loader": "^5.2.1",
     "webpack": "^4.20.2",
