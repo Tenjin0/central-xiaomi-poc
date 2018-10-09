@@ -3,7 +3,7 @@ module.exports = {
 
     // First application
     {
-      name: 'CENTRAL',
+      name: 'CLIENT',
       script: "./client/index.js",
       "ignore_watch": ["node_modules"],
       "watch_options": {

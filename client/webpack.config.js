@@ -2,12 +2,11 @@ const path = require('path');
 var webpack = require('webpack')
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-
-module.exports = {
+const config = {
 	mode: "none",
     entry: {
         app: [path.join(__dirname, './src/app/App.tsx'), 'webpack-hot-middleware/client'],
-        vendor: ['react/index.js', 'react-dom/index.js', 'redux/lib/redux.js']
+        vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-router-dom', 'redux-thunk', 'react-router-redux']
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -36,3 +35,5 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin()
     ]
 }
+
+module.exports = config
