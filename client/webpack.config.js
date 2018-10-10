@@ -15,11 +15,6 @@ const config = {
     devtool: 'source-map',
     resolve: {
 		extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
-		modules: [path.resolve(__dirname, "..", "node_modules", "client", "node_modules")]
-
-	},
-	resolveLoader: {
-		modules: [path.resolve(__dirname, "..", "node_modules", "client", "node_modules")]
 	},
     module: {
         rules: [
