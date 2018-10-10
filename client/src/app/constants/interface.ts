@@ -4,7 +4,7 @@ export interface IUsersState {
 	users: IUsers
 } 
 
-interface IUsers {
+export interface IUsers {
 	first_name: string,
 	last_name: string,
 	card_content: string

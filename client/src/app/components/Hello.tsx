@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-export interface HelloProps {
-}
+// export interface IHelloProps {
+// }
 
-export default class Hello extends React.Component<HelloProps, any> {
+export default class Hello extends React.Component<{}, any> {
   public render() {
 	return (
 	  <div>

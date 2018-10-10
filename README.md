@@ -11,6 +11,8 @@ https://www.youtube.com/watch?v=6zK3ogTtpJQ&list=PL7sCSgsRZ-slZBE_8vsxzs1Rgrj7SV
 https://www.youtube.com/watch?v=xm4LX5fJKZ8&list=PLcCp4mjO-z98WAu4sd0eVha1g-NMfzHZk
 
 https://github.com/flexdinesh/react-redux-boilerplate (webpack)
+
+https://tech.ovoenergy.com/react-redux-typescript/(TYPE)
 TODO
 	dockerizer le client
 	config .env avec docker

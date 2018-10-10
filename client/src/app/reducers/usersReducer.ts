@@ -1,15 +1,29 @@
 import { Reducer } from "redux"
+import { UsersActions, UsersActionTypes } from "../constants/action-types"
 import { IUsersState } from "../constants/interface"
-import { UsersActions } from "../constants/action-types"
+
 const initialState: IUsersState = {
-	isLoading: false,
 	isFailure: false,
+	isLoading: false,
 	users: null
 }
 
 const usersReducer: Reducer<IUsersState> = (state: IUsersState = initialState, action) => {
+
 	switch ((action as UsersActions).type) {
-		case "USERS_RECEIVED":
+		case UsersActionTypes.USERS_REQUESTED:
+		return {
+			...state,
+			isFailure: false,
+			isLoading: true,
+		}		
+		case UsersActionTypes.USERS_REQUEST_FAILED:
+		return {
+			...state,
+			isFailure: true,
+			isLoading: false,
+		}
+		case UsersActionTypes.USERS_REQUEST_SUCEEDED:
 			return {
 				...state,
 				isFailure: false,
