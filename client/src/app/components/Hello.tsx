@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-interface IProps {
-   compiler: string,
-   framework: string,
-   bundler: string
+export interface HelloProps {
 }
 
-export class Hello extends React.Component<IProps, {}> {
-   render() {
-
-   	return <h1>This is a {this.props.framework} application using pm2, express, redux, graphql, {this.props.compiler} with {this.props.bundler}</h1>
-   }
+export default class Hello extends React.Component<HelloProps, any> {
+  public render() {
+	return (
+	  <div>
+		Hello
+	  </div>
+	);
+  }
 }

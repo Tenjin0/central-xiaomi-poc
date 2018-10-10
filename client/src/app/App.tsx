@@ -1,26 +1,19 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
-import {
-	ConnectedRouter
-} from 'react-router-redux'
+import { Route, Switch } from "react-router-dom"
 
-import store, { history } from './store'
+import Home from "./components/Home"
+import Hello from "./components/Hello"
 
-import { Hello } from './components/Hello';
+export interface AppProps {
+}
 
-
-declare let module: any
-
-ReactDOM.render(
-	<Provider store={store}>
-		<ConnectedRouter history={history}>
-			<Hello compiler="Typescript" framework="React" bundler="Webpack" />
-		</ConnectedRouter>
-	</Provider>,
-document.getElementById('root'));
-
-
-if (module.hot) {
-	module.hot.accept();
- }
+export default class App extends React.Component<AppProps, any> {
+	public render() {
+		return (
+			<Switch>
+				<Route exact path="/" component={Home} />
+				<Route path="/hello" component={Hello} />
+			</Switch>
+		);
+	}
+}
