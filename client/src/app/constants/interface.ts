@@ -1,10 +1,10 @@
 export interface IUsersState {
 	isLoading: boolean,
 	isFailure: boolean,
-	users: IUsers
+	data: IUser[]
 } 
 
-export interface IUsers {
+export interface IUser {
 	first_name: string,
 	last_name: string,
 	card_content: string

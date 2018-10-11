@@ -5,11 +5,13 @@ import { IUsersState } from "../constants/interface"
 const initialState: IUsersState = {
 	isFailure: false,
 	isLoading: false,
-	users: null
+	data: []
 }
 
 const usersReducer: Reducer<IUsersState> = (state: IUsersState = initialState, action) => {
 
+	console.log(action)
+	console.log(state)
 	switch ((action as UsersActions).type) {
 		case UsersActionTypes.USERS_REQUESTED:
 		return {
@@ -24,11 +26,11 @@ const usersReducer: Reducer<IUsersState> = (state: IUsersState = initialState, a
 			isLoading: false,
 		}
 		case UsersActionTypes.USERS_REQUEST_SUCEEDED:
+			console.log("je passe pas",  action.payload.data)
 			return {
-				...state,
 				isFailure: false,
 				isLoading: false,
-				users: action.data
+				data: action.payload.data
 			}
 		default:
 			return state

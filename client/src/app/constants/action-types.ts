@@ -1,10 +1,11 @@
 import { Action } from "redux";
-import { IUsers } from "./interface";
+import { IUser } from "./interface";
 
 export enum UsersActionTypes {
 	USERS_REQUESTED = "USERS_REQUESTED",
 	USERS_REQUEST_FAILED = "USERS_REQUEST_FAILED",
 	USERS_REQUEST_SUCEEDED = "USERS_REQUEST_SUCEEDED",
+	userRequestSuceededAction = "userRequestSuceededAction"
 }
 
 export interface IRequestUsersAction extends Action {
@@ -21,7 +22,7 @@ export interface IRequestUsersSuceededAction extends Action {
 
 	type: UsersActionTypes.USERS_REQUEST_SUCEEDED;
 	payload: {
-		data : IUsers[]
+		data : IUser[]
 	}
 }
 
