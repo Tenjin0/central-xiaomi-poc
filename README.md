@@ -12,7 +12,9 @@ https://www.youtube.com/watch?v=xm4LX5fJKZ8&list=PLcCp4mjO-z98WAu4sd0eVha1g-NMfz
 
 https://github.com/flexdinesh/react-redux-boilerplate (webpack)
 
-https://tech.ovoenergy.com/react-redux-typescript/(TYPE)
+https://tech.ovoenergy.com/react-redux-typescript/ (TYPE)
+
+https://medium.com/@khwsc1/step-by-step-guide-of-simple-routing-transition-effect-for-react-with-react-router-v4-and-9152db1566a0 (transition)
 TODO
 	dockerizer le client
 	config .env avec docker
