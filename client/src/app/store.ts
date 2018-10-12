@@ -1,9 +1,9 @@
-import { createStore, applyMiddleware, compose } from 'redux'
+import createHistory from 'history/createBrowserHistory'
 import {
 	routerMiddleware,
 } from 'react-router-redux'
+import { applyMiddleware, compose, createStore} from 'redux'
 import thunk from 'redux-thunk'
-import createHistory from 'history/createBrowserHistory'
 import reducer from "./reducers"
 export const history = createHistory()
 
@@ -13,12 +13,12 @@ const middleware = [
 	routerMiddleware(history)
 ]
 
-interface MyWindow extends Window {
-	__REDUX_DEVTOOLS_EXTENSION__(): any;
+interface IMyWindow extends Window {
 	process: any;
+	__REDUX_DEVTOOLS_EXTENSION__(): any;
 }
 
-declare var window: MyWindow;
+declare var window: IMyWindow;
 
 // if (window.process.env.NODE_ENV === 'development') {
 const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__
