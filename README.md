@@ -15,7 +15,21 @@ https://github.com/flexdinesh/react-redux-boilerplate (webpack)
 https://tech.ovoenergy.com/react-redux-typescript/ (TYPE)
 
 https://medium.com/@khwsc1/step-by-step-guide-of-simple-routing-transition-effect-for-react-with-react-router-v4-and-9152db1566a0 (transition)
+
+Material-ui / Typescript
+https://github.com/goemen/react-material-ui-typescript
+https://github.com/mui-org/material-ui/blob/master/examples/create-react-app-with-typescript/
+
 TODO
 	dockerizer le client
 	config .env avec docker
 	config .env sans docker
+
+	routes
+		users
+		view user
+		add user
+		update user
+		delete user
+		images
+		image/:id

@@ -5,13 +5,12 @@ import { IUsersState } from "../constants/interface"
 const initialState: IUsersState = {
 	isFailure: false,
 	isLoading: false,
+	// tslint:disable-next-line:object-literal-sort-keys
 	data: []
 }
 
 const usersReducer: Reducer<IUsersState> = (state: IUsersState = initialState, action) => {
 
-	console.log(action)
-	console.log(state)
 	switch ((action as UsersActions).type) {
 		case UsersActionTypes.USERS_REQUESTED:
 		return {
@@ -26,10 +25,10 @@ const usersReducer: Reducer<IUsersState> = (state: IUsersState = initialState, a
 			isLoading: false,
 		}
 		case UsersActionTypes.USERS_REQUEST_SUCEEDED:
-			console.log("je passe pas",  action.payload.data)
 			return {
 				isFailure: false,
 				isLoading: false,
+				// tslint:disable-next-line:object-literal-sort-keys
 				data: action.payload.data
 			}
 		default:

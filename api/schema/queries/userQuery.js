@@ -31,8 +31,14 @@ const userQuery = {
 const usersQuery = {
 	type: GraphQLList(userType),
 	resolve: (source, args, root, ast) => {
-		const fields = ast.fieldNodes[0].selectionSet.selections.map(selection => selection.name.value);
-		return User.all({ attributes: fields });
+		const attributes = Object.keys(User.attributes);
+		const fields = ast.fieldNodes[0].selectionSet.selections
+			.map(selection => selection.name.value)
+			.filter(attribute => attributes.indexOf(attribute) >= 0);
+
+		return User.all({
+			attributes: fields,
+		});
 	},
 };
 

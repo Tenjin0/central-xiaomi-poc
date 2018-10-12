@@ -2,11 +2,12 @@ const path = require('path');
 var webpack = require('webpack')
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const config = {
 	mode: "none",
     entry: {
         app: [path.join(__dirname, './src/index.tsx'), 'webpack-hot-middleware/client'],
-        vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-router-dom', 'redux-thunk', 'react-router-redux']
+        vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-router-dom', 'redux-thunk', 'react-router-redux', 'graphql', 'apollo-boost', 'graphql-tag', '@material-ui/core', '@material-ui/icons']
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -14,7 +15,7 @@ const config = {
     },
     devtool: 'source-map',
 	resolve: {
-		extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+		extensions: ['mjs', '.js', '.jsx', '.json', '.ts', '.tsx'], // .mjs must be before .js
 		modules: [path.resolve(__dirname, "..", "node_modules", "client", "node_modules")]
 
 	},
@@ -26,8 +27,13 @@ const config = {
             {
                 test: /\.(ts|tsx)$/,
                 loader: 'ts-loader'
-            },
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader"}
+			},
+			{
+				test: /\.mjs$/, // for graphql
+				include: /node_modules/,
+				type: "javascript/auto",
+			},
+            { enforce: "pre", test: /\.js$/, loader: "source-map-loader",  exclude: [/node_modules/, /build/, /__test__/],}
         ]
     },
     plugins: [

@@ -1,14 +1,15 @@
 
 import * as React from 'react';
-import { Dispatch } from 'redux';
-import { getUsers } from "../actions/users"
+import { connect } from 'react-redux';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk'
-import { connect } from 'react-redux';
-import { IUsersState, IUser } from '../constants/interface';
+import { getUsers } from "../actions/users"
 
-export interface UsersContainerProps {
-	requestUsers: Function
+import { IUser, IUsersState } from '../constants/interface';
+
+export interface IUsersContainerProps {
+
+	requestUsers: (args?:any) => Promise<void>
 	isLoading: boolean,
 	isFailure: boolean,
 	data: IUser[]
@@ -16,9 +17,10 @@ export interface UsersContainerProps {
 
 
 
-class UsersContainer extends React.Component<UsersContainerProps, any> {
+class UsersContainer extends React.Component<IUsersContainerProps, any> {
 
-	componentDidMount() {
+	public componentDidMount() {
+
 		this.props.requestUsers()
 	}
 
@@ -51,7 +53,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, void, Action>) => {
 	return {
-		requestUsers: (arg: any) => dispatch(getUsers(arg)),
+		requestUsers: (arg?: any) => dispatch(getUsers(arg)),
 	};
 }
 

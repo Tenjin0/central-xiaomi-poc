@@ -1,8 +1,9 @@
-import { Action, ActionCreator, Dispatch, AnyAction } from "redux"
+import { Action, ActionCreator } from "redux"
 import { ThunkAction, ThunkDispatch} from "redux-thunk"
-import { IRequestUsersAction,IRequestUsersSuceededAction, UsersActionTypes, UsersActions } from "../constants/action-types"
-import apiService from "../service/api"
-import { IUser, IUsersState } from "../constants/interface";
+
+import { IRequestUsersAction,IRequestUsersSuceededAction, UsersActionTypes } from "../constants/action-types"
+import { IUser } from "../constants/interface";
+import api from "../service/api"
 
 const usesrRequestedAction: ActionCreator<IRequestUsersAction> = () => ({
 
@@ -12,24 +13,18 @@ const usesrRequestedAction: ActionCreator<IRequestUsersAction> = () => ({
 const userRequestSuceededAction: ActionCreator<IRequestUsersSuceededAction> = (data: IUser[]) => ({
 
 	type: UsersActionTypes.USERS_REQUEST_SUCEEDED,
+	// tslint:disable-next-line:object-literal-sort-keys
 	payload: {
-		data: data
+		data
 	}
 })
-
-// export const getUsers: ActionCreator<ThunkAction<Promise<void>, any, void, AnyAction>> = (params?: any) =>  async (dispatch, getState) => {
-
-// 	dispatch(usesrRequestedAction)
-// 	const data = await apiService.getUsers()
-// 	dispatch(userRequestSuceededAction(data))
-// }
 
 export const getUsers = (arg: any)  => {
 
 	return async (dispatch: ThunkDispatch<any, void, Action>) => {
 	  
 		dispatch(usesrRequestedAction())
-		const data = await apiService.geFakeUsers()
+		const data = await api.getUsers()
 		dispatch(userRequestSuceededAction(data))
 	}
 }
