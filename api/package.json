@@ -11,7 +11,7 @@
     "db:migrate:down": "./node_modules/sequelize-cli/lib/sequelize --config ./config.js --migrations-path ./database/migrations/ --seeders-path ./database/seeders db:migrate:undo",
     "db:seed:all": "./node_modules/sequelize-cli/lib/sequelize --config ./config.js --migrations-path ./database/migrations/ --seeders-path ./database/seeders db:seed:all"
   },
-  "author": "",
+  "author": "Patrice PETIT",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^6.0.0",

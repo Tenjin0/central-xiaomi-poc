@@ -17,16 +17,16 @@ services:
       - ./src/server/central.db:/app/central.db
     ports :
       - 3001:3001
-  # central_client:
-  #   build:
-  #     dockerfile: Dockerfile_client
-  #     context: .
-  #   container_name: central_xiaomi_client
-  #   image: central_xiaomi_client
-  #   ports:
-  #     - "${FRONT_PORT}:${FRONT_PORT}"
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.frontend.rule=Host:central.localhost.tv"
-  #   extra_hosts:
-  #     - "outside:${HOST_IP}"
+  central_client:
+    build:
+      dockerfile: ./client/Dockerfile
+      context: .
+    container_name: central_xiaomi_client
+    image: central_xiaomi_client
+    ports:
+      - 3000:3000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:central.localhost.tv"
+    extra_hosts:
+      - "outside:${HOST_IP}"

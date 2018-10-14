@@ -5,6 +5,7 @@ import { IUser } from "../constants/interface";
 const _users: IUser[] = [
 	{
 		id: 1,
+		// tslint:disable-next-line:object-literal-sort-keys
 		first_name: "toto",
 		last_name: "Dupont",
 		card_content: "azerty"
@@ -14,6 +15,7 @@ const _users: IUser[] = [
 
 		first_name: "titi",
 		last_name: "Dupont",
+		// tslint:disable-next-line:object-literal-sort-keys
 		card_content: "qsdfgh"
 	},
 	{
@@ -59,7 +61,6 @@ class ServiceApi {
 			  id
 			  first_name
 			  last_name
-			  card_content
 			}
 		  }
 		`

@@ -14,3 +14,18 @@ services:
     ports:
       - 9615:9615
       - 3001:3001
+  central_client:
+    build:
+      dockerfile: ./api/Dockerfile-dev
+      context: .
+    container_name: central_xiaomi_client
+	command: "npm run start"
+    image: central_xiaomi_client
+    ports:
+      - 3000:3000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:central.localhost.tv"
+    extra_hosts:
+      - "outside:${HOST_IP}"
+

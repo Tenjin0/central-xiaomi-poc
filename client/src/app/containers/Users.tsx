@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk'
 import { getUsers } from "../actions/users"
-
-import { IUser, IUsersState } from '../constants/interface';
+import UsersComponent from '../components/Users'
+import { IUser } from '../constants/interface';
 
 export interface IUsersContainerProps {
 
@@ -25,21 +25,10 @@ class UsersContainer extends React.Component<IUsersContainerProps, any> {
 	}
 
 	public render() {
-		const users = this.props.data
+		const users = this.props.data || []
 		return (
 			<div>
-				Users :
-				<ul>
-					{
-						users && users && users.map((user: IUser, index) => {
-							return <li key={"user-" + index}>
-								<div>{user.first_name}</div>
-								<div>{user.last_name}</div>
-								<div>{user.card_content}</div>
-							</li>
-						})
-					}
-				</ul>
+				<UsersComponent users={users} />
 			</div>
 		);
 	}

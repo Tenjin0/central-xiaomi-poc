@@ -4,10 +4,10 @@ var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
-	mode: "none",
+	mode: "development",
     entry: {
         app: [path.join(__dirname, './src/index.tsx'), 'webpack-hot-middleware/client'],
-        vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-router-dom', 'redux-thunk', 'react-router-redux', 'graphql', 'apollo-boost', 'graphql-tag', '@material-ui/core', '@material-ui/icons']
+        vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-router-dom', 'redux-thunk', 'react-router-redux', 'graphql', 'apollo-boost', 'graphql-tag', '@material-ui/core', '@material-ui/icons', 'mui-datatables']
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
