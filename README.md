@@ -20,6 +20,8 @@ Material-ui / Typescript
 https://github.com/goemen/react-material-ui-typescript
 https://github.com/mui-org/material-ui/blob/master/examples/create-react-app-with-typescript/
 
+https://gist.github.com/dnorthrupva/eec46b9c775f171c3a310b6d2dbdd040
+
 TODO
 	dockerizer le client
 	config .env avec docker
