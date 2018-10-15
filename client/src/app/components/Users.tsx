@@ -1,4 +1,4 @@
-import MUIDataTable from "mui-datatables";
+import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
 import * as React from 'react';
 import { IUser } from '../constants/interface';
 
@@ -10,25 +10,23 @@ export interface IUsersComponentProps {
 export default class UsersComponent extends React.Component<IUsersComponentProps, any> {
 
 	public render() {
-		const columns = ["Name", "Company", "City", "State"];
-
-		const data = [
-			["Joe James", "Test Corp", "Yonkers", "NY"],
-			["John Walsh", "Test Corp", "Hartford", "CT"],
-			["Bob Herm", "Test Corp", "Tampa", "FL"],
-			["James Houston", "Test Corp", "Dallas", "TX"],
-		];
-
-		const options = {
-			filterType: 'checkbox',
-		};
 		return (
-			<MUIDataTable
-				title={"Employee List"}
-				data={data}
-				columns={columns}
-				options={options}
-			/>
+			<div>
+				Users:
+				<Grid
+					rows={[
+						{ id: 0, product: 'DevExtreme', owner: 'DevExpress' },
+						{ id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
+					]}
+					columns={[
+						{ name: 'id', title: 'ID' },
+						{ name: 'product', title: 'Product' },
+						{ name: 'owner', title: 'Owner' },
+					]}>
+					<Table />
+					<TableHeaderRow />
+				</Grid>
+			</div>
 		);
 	}
 }

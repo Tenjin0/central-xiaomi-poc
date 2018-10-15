@@ -26,7 +26,7 @@ ReactDOM.render(
 		<CssBaseline/>
 		<Provider store={store}>
 			<ConnectedRouter history={history}>
-				<App />
+				<App history={history}/>
 			</ConnectedRouter>
 		</Provider>
 	</MuiThemeProvider>

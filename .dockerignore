@@ -3,6 +3,7 @@
 
 .git
 *Dockerfile*
+*Dockerfile-dev*
 *docker-compose*
 node_modules
 api/node_modules

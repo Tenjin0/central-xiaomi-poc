@@ -20,6 +20,7 @@ const _users: IUser[] = [
 	},
 	{
 		id: 3,
+		// tslint:disable-next-line:object-literal-sort-keys
 		first_name: "tutu",
 		last_name: "Dupont",
 		card_content: "wxcvbn"
@@ -33,7 +34,6 @@ class ServiceApi {
 	private client: any
 
 	constructor() {
-		console.log("create a new instance")
 		const URI = "http://localhost:3001/graphql";
 
 		this.client = new ApolloClient({
@@ -41,19 +41,18 @@ class ServiceApi {
 		})
 	}
 
-	getFakeUsers = () => {
+	public getFakeUsers = () => {
 
 		return new Promise<IUser[]>((resolve, reject) => {
 
 			setTimeout(() => {
-				console.log(_users)
 				resolve(_users)
 			}, 1000)
 		})
 
 	}
 
-	getUsers = () => {
+	public getUsers = () => {
 
 		const query = gql`
 		{
@@ -65,7 +64,6 @@ class ServiceApi {
 		  }
 		`
 		  return this.client.query({ query }).then((response: any) => {
-			  console.log(response.data.users)
 			  return response.data.users
 		  })
 

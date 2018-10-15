@@ -5,15 +5,18 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
 	mode: "development",
-    entry: {
-        app: [path.join(__dirname, './src/index.tsx'), 'webpack-hot-middleware/client'],
-        vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-router-dom', 'redux-thunk', 'react-router-redux', 'graphql', 'apollo-boost', 'graphql-tag', '@material-ui/core', '@material-ui/icons', 'mui-datatables']
-    },
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'js/[name].bundle.js'
-    },
-    devtool: 'source-map',
+	entry: {
+		app: [path.join(__dirname, './src/index.tsx'), 'webpack-hot-middleware/client'],
+		vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-router-dom', 'redux-thunk',
+			'react-router-redux', 'graphql', 'apollo-boost', 'graphql-tag', '@material-ui/core',
+			'@material-ui/icons', '@devexpress/dx-react-core', '@devexpress/dx-react-grid', '@devexpress/dx-react-grid-material-ui'
+		]
+	},
+	output: {
+		path: path.resolve(__dirname, 'dist'),
+		filename: 'js/[name].bundle.js'
+	},
+	devtool: 'source-map',
 	resolve: {
 		extensions: ['mjs', '.js', '.jsx', '.json', '.ts', '.tsx'], // .mjs must be before .js
 		modules: [path.resolve(__dirname, "..", "node_modules", "client", "node_modules")]
@@ -22,30 +25,36 @@ const config = {
 	resolveLoader: {
 		modules: [path.resolve(__dirname, "..", "node_modules", "client", "node_modules")]
 	},
-    module: {
-        rules: [
-            {
-                test: /\.(ts|tsx)$/,
-                loader: 'ts-loader'
+	module: {
+		rules: [{
+				test: /\.(ts|tsx)$/,
+				loader: 'ts-loader'
 			},
 			{
 				test: /\.mjs$/, // for graphql
 				include: /node_modules/,
 				type: "javascript/auto",
 			},
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader",  exclude: [/node_modules/, /build/, /__test__/],}
-        ]
-    },
-    plugins: [
-        new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'src', 'app', 'index.html') }),
-        new webpack.HotModuleReplacementPlugin()
+			{
+				enforce: "pre",
+				test: /\.js$/,
+				loader: "source-map-loader",
+				exclude: [/node_modules/, /build/, /__test__/],
+			}
+		]
+	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: path.resolve(__dirname, 'src', 'app', 'index.html')
+		}),
+		new webpack.HotModuleReplacementPlugin()
 	],
 	optimization: {
-	  namedModules: true,
-	  splitChunks: {
-		name: 'vendor',
-		minChunks: 2
-	  }
+		namedModules: true,
+		splitChunks: {
+			name: 'vendor',
+			minChunks: 2
+		}
 	}
 }
 
