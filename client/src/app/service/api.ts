@@ -29,7 +29,7 @@ const _users: IUser[] = [
 ]
 
 
-class ServiceApi {
+export class ServiceApi {
 
 	private client: any
 

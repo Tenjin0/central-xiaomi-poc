@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import {
 	ConnectedRouter
 } from 'react-router-redux'
-import { ApiContextProvider, IApiContext } from './app/apiContext';
+import { ApiContextProvider } from './app/apiContext';
 import api from './app/service/api'
 import store, { history } from './app/store'
 

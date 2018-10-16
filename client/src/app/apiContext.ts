@@ -1,7 +1,7 @@
 import React, { createContext } from "react"; // on importe createContext qui servira à la création d'un ou plusieurs contextes
-
+import {ServiceApi} from './service/api'
 export interface IApiContext {
-	api: any
+	api: ServiceApi
 }
 
 const ApiContext = createContext<IApiContext>({
