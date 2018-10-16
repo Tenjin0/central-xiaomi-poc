@@ -1,6 +1,6 @@
 import ApolloClient from "apollo-boost";
 import gql from 'graphql-tag';
-import { IUser } from "../constants/interface";
+import { IUser, IUserData } from "../constants/interface";
 
 const _users: IUser[] = [
 	{
@@ -63,10 +63,34 @@ class ServiceApi {
 			}
 		  }
 		`
-		  return this.client.query({ query }).then((response: any) => {
-			  return response.data.users
-		  })
+		return this.client.query({ query }).then((response: any) => {
+			return response.data.users
+		})
 
+	}
+
+	public addUsers = (user: IUserData) => {
+		const ADD_USER = gql`
+			mutation addUser($first_name: String!, $last_name: String!, $card_data: String!) {
+				addTodo(tfirst_name: String!, $last_name: String!, $card_data: String!) {
+				id
+				}
+			}
+		`;
+		return this.client
+		.mutate({
+		  mutation: ADD_USER,
+		  variables: {
+			first_name: user.first_name,
+			last_name: user.last_name,
+			// tslint:disable-next-line:object-literal-sort-keys
+			card_data: user.card_data,
+		  },
+		})
+		.then((response: any) => {
+			console.log(response.data)
+			return response.data
+		})
 	}
 
 }

@@ -54,8 +54,8 @@ const mapPropsToValues = (props: any) => {
 	}
 }
 
-const handleSubmit = (...args: any) => {
-	console.log(args)
+const handleSubmit = (values: any, actions: any) => {
+	console.log(values)
 
 	// actions.setSubmitting(false);
 }
@@ -91,20 +91,27 @@ class IUserForm extends React.Component<InjectedFormikProps<IFormProps, IFormVal
 				<form className={classes.form} onSubmit={handleSubmit}>
 					<TextField
 						id="first_name"
+						name="first_name"
 						label="first name"
 						className={classes.textField}
 						value={values.first_name}
+						onChange={handleChange}
 						margin="normal"
 					/>
 					<TextField
 						id="last_name"
+						name="last_name"
 						label="last name"
 						className={classes.textField}
 						value={values.last_name}
+						onChange={handleChange}
 						margin="normal"
 					/>
 					<input
+						id="card_data"
+						name="card_data"
 						type="hidden"
+						onChange={handleChange}
 						value={values.card_data}
 					/>
 					<div className={classes.buttons}>
@@ -121,6 +128,7 @@ class IUserForm extends React.Component<InjectedFormikProps<IFormProps, IFormVal
 export default compose(
 	withStyles(styles),
 	withFormik({
+
 		enableReinitialize: true,
 		handleSubmit,
 		mapPropsToValues,

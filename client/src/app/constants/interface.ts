@@ -3,10 +3,12 @@ export interface IUsersState {
 	isFailure: boolean
 	data: IUser[]
 } 
-
-export interface IUser {
-	id: number
+export interface IUserData {
 	first_name: string
 	last_name: string
 	card_data: string
 }
+export interface IUser extends IUserData{
+	id: number
+}
+
