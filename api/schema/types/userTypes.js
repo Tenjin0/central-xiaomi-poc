@@ -16,7 +16,7 @@ const userType = new GraphQLObjectType({
 		last_name: {
 			type: GraphQLString,
 		},
-		card_content: {
+		card_data: {
 			type: GraphQLString,
 		},
 	}),

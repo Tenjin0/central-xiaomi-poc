@@ -15,16 +15,8 @@ module.exports = {
       last_name: {
         type: Sequelize.STRING
       },
-      card_sid: {
+      card_data: {
         type: Sequelize.STRING
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
       }
     });
   },

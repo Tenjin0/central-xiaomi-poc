@@ -5,6 +5,8 @@ WORKDIR /app
 
 COPY . /app
 
+RUN npm install -g pm2
+
 RUN npm install --only=production && \
 npm cache clean --force
 

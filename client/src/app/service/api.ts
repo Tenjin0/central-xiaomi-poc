@@ -8,7 +8,7 @@ const _users: IUser[] = [
 		// tslint:disable-next-line:object-literal-sort-keys
 		first_name: "toto",
 		last_name: "Dupont",
-		card_content: "azerty"
+		card_data: "azerty"
 	},
 	{
 		id: 2,
@@ -16,14 +16,14 @@ const _users: IUser[] = [
 		first_name: "titi",
 		last_name: "Dupont",
 		// tslint:disable-next-line:object-literal-sort-keys
-		card_content: "qsdfgh"
+		card_data: "qsdfgh"
 	},
 	{
 		id: 3,
 		// tslint:disable-next-line:object-literal-sort-keys
 		first_name: "tutu",
 		last_name: "Dupont",
-		card_content: "wxcvbn"
+		card_data: "wxcvbn"
 	}
 
 ]

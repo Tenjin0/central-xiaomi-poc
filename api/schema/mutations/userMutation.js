@@ -17,7 +17,7 @@ const createUser = {
 	args: {
 		first_name: { type: GraphQLString },
 		last_name: { type: GraphQLString },
-		card_content: { type: GraphQLString },
+		card_data: { type: GraphQLString },
 	},
 	resolve: async (value, args) => {
 		console.log(args);
@@ -41,8 +41,8 @@ const updateUser = {
 			name: 'last_name',
 			type: new GraphQLNonNull(GraphQLString),
 		},
-		card_content: {
-			name: 'card_content',
+		card_data: {
+			name: 'card_data',
 			type: new GraphQLNonNull(GraphQLString),
 		},
 	},

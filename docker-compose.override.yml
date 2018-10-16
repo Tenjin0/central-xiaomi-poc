@@ -5,7 +5,8 @@ services:
     build:
       dockerfile: ./Dockerfile-dev
       context: ./api
-    container_name: central_xiaomi_dev
+    container_name: central_xiaomi_api_dev
+    image: central_xiaomi_api
     command: "npm run dev"
     volumes:
       - ./api:/app
@@ -18,7 +19,7 @@ services:
     build:
       dockerfile: ./Dockerfile-dev
       context: ./client
-    container_name: central_xiaomi_client
+    container_name: central_xiaomi_client_dev
     command: "npm run start"
     image: central_xiaomi_client
     ports:
@@ -26,6 +27,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:central.localhost.tv"
-    extra_hosts:
-      - "outside:${HOST_IP}"
+    # extra_hosts:
+    #   - "outside:${HOST_IP}"
 

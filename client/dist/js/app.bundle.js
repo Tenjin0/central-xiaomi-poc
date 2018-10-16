@@ -103888,7 +103888,7 @@ class UsersContainer extends React.Component {
                 return React.createElement("li", { key: "user-" + index },
                     React.createElement("div", null, user.first_name),
                     React.createElement("div", null, user.last_name),
-                    React.createElement("div", null, user.card_content));
+                    React.createElement("div", null, user.card_data));
             }))));
     }
 }
@@ -103969,19 +103969,19 @@ const _users = [
         id: 1,
         first_name: "toto",
         last_name: "Dupont",
-        card_content: "azerty"
+        card_data: "azerty"
     },
     {
         id: 2,
         first_name: "titi",
         last_name: "Dupont",
-        card_content: "qsdfgh"
+        card_data: "qsdfgh"
     },
     {
         id: 3,
         first_name: "tutu",
         last_name: "Dupont",
-        card_content: "wxcvbn"
+        card_data: "wxcvbn"
     }
 ];
 class ServiceApi {
@@ -104001,7 +104001,7 @@ class ServiceApi {
 			  id
 			  first_name
 			  last_name
-			  card_content
+			  card_data
 			}
 		  }
 		`;

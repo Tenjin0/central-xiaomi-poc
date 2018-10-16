@@ -1,44 +1,129 @@
-import { Formik } from 'formik';
+import { withStyles, WithStyles } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import createStyles from '@material-ui/core/styles/createStyles';
+import TextField from '@material-ui/core/TextField';
+import { Formik, InjectedFormikProps, withFormik } from 'formik';
 import * as React from 'react';
+import { compose } from 'redux'
 
 export interface IUserFormProps {
 }
 
-export default class IUserForm extends React.Component<IUserFormProps, any> {
+const styles = (theme: Theme) =>
+	createStyles({
+		container: {
+			display: 'flex',
+			flexWrap: 'wrap',
+			// tslint:disable-next-line:object-literal-sort-keys
+			flexDirection:'column',
+			alignItems: 'center'
+		},
+		form: {
+			display: 'flex',
+			flexDirection: 'column'
+		},
+		textField: {
+			marginLeft: theme.spacing.unit,
+			marginRight: theme.spacing.unit,
+			width: 200,
+		},
+		// tslint:disable-next-line:object-literal-sort-keys
+		button: {
+			margin: theme.spacing.unit,
+		},
+		buttons: {
+			display: "flex",
+			// tslint:disable-next-line:object-literal-sort-keys
+			justifyContent:'flex-end',
+			marginTop: '1em'
+		},
+		// tslint:disable-next-line:object-literal-sort-keys
+		dense: {
+			marginTop: 19,
+		},
+		menu: {
+			width: 200,
+		},
+	})
 
-	public handleSubmit = (values: any, actions:any) => {
-		setTimeout(() => {
-			alert(JSON.stringify(values, null, 2));
-			actions.setSubmitting(false);
-		}, 1000);
+const mapPropsToValues = (props: any) => {
+	console.log(props)
+	return {
+
 	}
+}
 
-	public renderForm = (props: any) => {
+const handleSubmit = (...args: any) => {
+	console.log(args)
 
-		console.log(props)
-		return (<form onSubmit={props.handleSubmit}>
-			<input
-				type="text"
-				onChange={props.handleChange}
-				onBlur={props.handleBlur}
-				value={props.values.name}
-				name="name"
-			/>
-			{props.errors.name && <div id="feedback">{props.errors.name}</div>}
-			<button type="submit">Submit</button>
-		</form>)
-	}
+	// actions.setSubmitting(false);
+}
+
+
+interface IFormValues {
+	first_name: string;
+	last_name: string;
+	card_data: string;
+  }
+  
+  interface IFormProps {
+	first_name?: string;
+	last_name?: string;
+	card_data?: string;
+  }
+class IUserForm extends React.Component<InjectedFormikProps<IFormProps, IFormValues>& WithStyles<typeof styles>, any> {
 
 	public render() {
+		const { classes } = this.props;
+		const {
+			values,
+			errors,
+			touched,
+			handleChange,
+			handleBlur,
+			// tslint:disable-next-line:no-shadowed-variable
+			handleSubmit,
+			isSubmitting
+		} = this.props;
 		return (
-			<div>
-				<h1>My Form</h1>
-				<Formik
-					initialValues={{ name: 'jared' }}
-					onSubmit={this.handleSubmit}
-					render={this.renderForm}
-				/>
+			<div className={classes.container}>
+				<form className={classes.form} onSubmit={handleSubmit}>
+					<TextField
+						id="first_name"
+						label="first name"
+						className={classes.textField}
+						value={values.first_name}
+						margin="normal"
+					/>
+					<TextField
+						id="last_name"
+						label="last name"
+						className={classes.textField}
+						value={values.last_name}
+						margin="normal"
+					/>
+					<input
+						type="hidden"
+						value={values.card_data}
+					/>
+					<div className={classes.buttons}>
+					<Button type="submit" variant="text" color="primary" className={classes.button}>
+						Submit
+					</Button>
+					</div>
+				</form>
 			</div>
 		);
 	}
 }
+
+export default compose(
+	withStyles(styles),
+	withFormik({
+		enableReinitialize: true,
+		handleSubmit,
+		mapPropsToValues,
+		validateOnChange: true,
+	})
+)(IUserForm);

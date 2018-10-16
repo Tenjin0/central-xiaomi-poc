@@ -15,7 +15,7 @@ module.exports = {
     return queryInterface.bulkInsert('Users', [{
       first_name: "Patrice",
       last_name: "PETIT",
-      card_content: "275ccc0b"
+      card_data: "275ccc0b"
     }], {});
   },
 

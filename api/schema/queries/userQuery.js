@@ -18,7 +18,7 @@ const userQuery = {
 		id: {
 			type: GraphQLID,
 		},
-		card_content: {
+		card_data: {
 			name: 'card',
 			type: GraphQLString,
 		},
