@@ -7,6 +7,8 @@ import { Provider } from 'react-redux'
 import {
 	ConnectedRouter
 } from 'react-router-redux'
+import { ApiContextProvider, IApiContext } from './app/apiContext';
+import api from './app/service/api'
 import store, { history } from './app/store'
 
 import App from './app/App';
@@ -24,11 +26,13 @@ const theme = createMuiTheme({
 ReactDOM.render(
 	<MuiThemeProvider theme={theme}>
 		<CssBaseline/>
-		<Provider store={store}>
-			<ConnectedRouter history={history}>
-				<App history={history}/>
-			</ConnectedRouter>
-		</Provider>
+		<ApiContextProvider value={{api}}>
+			<Provider store={store}>
+				<ConnectedRouter history={history}>
+					<App history={history}/>
+				</ConnectedRouter>
+			</Provider>
+		</ApiContextProvider>
 	</MuiThemeProvider>
 ,
 	document.getElementById('root'));
