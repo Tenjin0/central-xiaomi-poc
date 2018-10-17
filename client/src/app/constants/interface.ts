@@ -12,3 +12,7 @@ export interface IUser extends IUserData{
 	id: number
 }
 
+export interface IFormState {
+	isLoading: boolean
+	isFailure: boolean
+} 

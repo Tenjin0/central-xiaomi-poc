@@ -1,3 +1,6 @@
 {
-	"extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier", "tslint-immutable"]
-  }
+	"extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier", "tslint-immutable"],
+	"rules" : {
+		"no-angle-bracket-type-assertion": false
+	}
+}

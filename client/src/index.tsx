@@ -7,9 +7,11 @@ import { Provider } from 'react-redux'
 import {
 	ConnectedRouter
 } from 'react-router-redux'
-import { ApiContextProvider } from './app/apiContext';
 import api from './app/service/api'
+import { ApiContextProvider } from './app/service/apiContext';
 import store, { history } from './app/store'
+
+import io from 'socket.io-client';
 
 import App from './app/App';
 
@@ -45,3 +47,17 @@ if (module.hot) {
 		store.replaceReducer(nextRootReducer);
 	});
 }
+
+
+const socket = io('http://localhost:3001');
+const clientSocket = io('/client');
+
+clientSocket.on('connect', () => {
+	console.log("connect to central")
+});
+clientSocket.on('nfc.data', (data: any) => {
+	console.log(data)
+});
+clientSocket.on('disconnect', () => {
+	console.log("disconnect from central")
+});

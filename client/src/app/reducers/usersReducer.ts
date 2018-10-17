@@ -9,9 +9,9 @@ const initialState: IUsersState = {
 	data: []
 }
 
-const usersReducer: Reducer<IUsersState> = (state: IUsersState = initialState, action) => {
+const usersReducer: Reducer<IUsersState> = (state: IUsersState = initialState, action: UsersActions) => {
 
-	switch ((action as UsersActions).type) {
+	switch (action.type) {
 		case UsersActionTypes.USERS_REQUESTED:
 		return {
 			...state,

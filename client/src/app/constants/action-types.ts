@@ -5,8 +5,14 @@ export enum UsersActionTypes {
 	USERS_REQUESTED = "USERS_REQUESTED",
 	USERS_REQUEST_FAILED = "USERS_REQUEST_FAILED",
 	USERS_REQUEST_SUCEEDED = "USERS_REQUEST_SUCEEDED",
-	userRequestSuceededAction = "userRequestSuceededAction"
 }
+
+export enum FormActionTypes {
+	FORM_DATALOAD_REQUESTED = "FORM_DATALOAD_REQUESTED",
+	FORM_DATALOAD_FAILED = "FORM_DATALOAD_FAILED",
+	FORM_DATALOAD_SUCEEDED = "FORM_DATALOAD_SUCEEDED",
+}
+
 
 export interface IRequestUsersAction extends Action {
 
@@ -26,6 +32,22 @@ export interface IRequestUsersSuceededAction extends Action {
 	}
 }
 
+export interface IFormDataLoadAction extends Action {
+
+	type: FormActionTypes.FORM_DATALOAD_REQUESTED
+}
+
+export interface IFormDataLoadFailedAction extends Action {
+
+	type: FormActionTypes.FORM_DATALOAD_FAILED
+}
+
+export interface IFormDataLoadSuceededAction extends Action {
+
+	type: FormActionTypes.FORM_DATALOAD_SUCEEDED;
+}
+
 export type  UsersActions = IRequestUsersAction | IRequestUsersFailedAction | IRequestUsersSuceededAction
+export type  FormActions = IFormDataLoadAction | IFormDataLoadFailedAction | IFormDataLoadSuceededAction
 
 
