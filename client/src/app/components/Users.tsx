@@ -10,6 +10,7 @@ export interface IUsersComponentProps {
 export default class UsersComponent extends React.Component<IUsersComponentProps, any> {
 
 	public render() {
+		console.log(this.props)
 		return (
 			<div>
 				Users:

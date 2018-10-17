@@ -1,7 +1,7 @@
 module.exports = function centralSocket(io, models) {
 	const nxs = io.of('/xiaomisecurity');
 	const nc = io.of('/camera');
-	const nclient = io.of('/client');
+	const nclients = io.of('/client');
 
 	const colors = {
 		off: {
@@ -29,7 +29,6 @@ module.exports = function centralSocket(io, models) {
 			i: 100,
 		},
 	};
-
 	nxs.on('central.init', (value) => {
 		console.log('nxs', 'central.init', value);
 	});
@@ -48,7 +47,7 @@ module.exports = function centralSocket(io, models) {
 
 		socket.emit('central.init', ['xiaomihome.devices', 'xiaomihome.device.color'], ['xiaomihome.gateway.read', 'xiaomihome.devices', 'nfc.data']);
 
-		socket.on('xiaomihome.gateway.read', (gtsid, device) => {
+		nclients.on('xiaomihome.gateway.read', (gtsid, device) => {
 			console.log(gtsid, device);
 			if (device.model === 'magnet' && device.event === 'open') {
 				socket.emit('xiaomihome.device.color', 'all', null, colors.orange);
@@ -74,6 +73,8 @@ module.exports = function centralSocket(io, models) {
 					// }
 				}
 			});
+			socket.to('/client').emit('nfc.data', data);
+			nclients.emit('nfc.data', data);
 		});
 
 		socket.on('disconnect', () => {
