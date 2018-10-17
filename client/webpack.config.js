@@ -19,11 +19,11 @@ const config = {
 	devtool: 'source-map',
 	resolve: {
 		extensions: ['mjs', '.js', '.jsx', '.json', '.ts', '.tsx'], // .mjs must be before .js
-		modules: [path.resolve(__dirname, "..", "node_modules", "client", "node_modules")]
+		modules: [path.resolve(__dirname, "..", "node_modules", "client", "node_modules")] // this need to be remove in a docker container
 
 	},
-	resolveLoader: {
-		modules: [path.resolve(__dirname, "..", "node_modules", "client", "node_modules")]
+	resolveLoader: { // this need to be remove in a docker container
+		modules: [path.resolve(__dirname, "..", "node_modules", "client", "node_modules")] 
 	},
 	module: {
 		rules: [{

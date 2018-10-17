@@ -6,7 +6,7 @@
    "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
       "build": "./node_modules/.bin/webpack",
-      "start": "npm run build && pm2-docker start ecosystem.config.js"
+      "start": "pm2-docker start ecosystem.config.js"
    },
    "author": "Patrice PETIT",
    "license": "ISC",
