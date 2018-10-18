@@ -2,12 +2,10 @@ import { withStyles } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 import { withFormik } from 'formik';
-import * as React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux'
 import * as Yup from 'yup';
 import UserFormComponent from '../components/UserForm'
-import {ApiContextConsumer} from '../service/apiContext'
 import { withApi } from '../service/apiContext'
 
 
@@ -69,12 +67,12 @@ const handleSubmit = (values: any, actions: any) => {
 }
 
 const mapPropsToValues = (props: any) => {
-	console.log(props)
+	console.log("mapPropsToValues", props)
 	return {
 		first_name: '',
 		last_name: '',
 		// tslint:disable-next-line:object-literal-sort-keys
-		card_data: ''
+		// card_data: ''
 	}
 }
 
@@ -102,12 +100,12 @@ const mapStateToProps = (state: any) => {
 export default compose(
 	connect(mapStateToProps),
 	withStyles(styles),
-	withFormik({
+	withApi, // before withFormik
+	withFormik({ // must be last
 		enableReinitialize: true,
 		handleSubmit,
 		mapPropsToValues,
 		validateOnChange: true,
 		validationSchema,
 	}),
-	withApi
 )(UserFormComponent);

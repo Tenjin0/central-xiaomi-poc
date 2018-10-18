@@ -1,8 +1,20 @@
 module.exports = function centralSocket(io, models) {
+
 	const nxs = io.of('/xiaomisecurity');
 	const nc = io.of('/camera');
 	const nclients = io.of('/client');
 
+	let imageToStore = null;
+	const storeImage = () => {
+		let count = 3;
+		const timeout = setInterval(() => {
+			count--;
+			console.log(imageToStore)
+			if (count !== 0) {
+				clearTimeout(timeout);
+			}
+		}, 3000);
+	};
 	const colors = {
 		off: {
 			r: 0,
@@ -29,6 +41,7 @@ module.exports = function centralSocket(io, models) {
 			i: 100,
 		},
 	};
+
 	nxs.on('central.init', (value) => {
 		console.log('nxs', 'central.init', value);
 	});
@@ -42,19 +55,32 @@ module.exports = function centralSocket(io, models) {
 		console.log('a user connected');
 
 		socket.on('central.init', () => {
-			socket.emit('xiaomihome.device.color', 'all', null, colors.green)
+			socket.emit('xiaomihome.device.color', 'all', null, colors.green);
 		});
 
-		socket.emit('central.init', ['xiaomihome.devices', 'xiaomihome.device.color'], ['xiaomihome.gateway.read', 'xiaomihome.devices', 'nfc.data']);
+		socket.emit('central.init', ['xiaomihome.devices', 'xiaomihome.device.color', 'camera.device.start'], ['xiaomihome.gateway.read', 'xiaomihome.devices', 'nfc.data']);
 
-		nclients.on('xiaomihome.gateway.read', (gtsid, device) => {
-			console.log(gtsid, device);
+		nxs.on('xiaomihome.gateway.read', (gtsid, device) => {
 			if (device.model === 'magnet' && device.event === 'open') {
 				socket.emit('xiaomihome.device.color', 'all', null, colors.orange);
+
 				setTimeout(() => {
 					socket.emit('xiaomihome.device.color', 'all', null, colors.red);
+
+					const camera = {
+						deviceid: 0,
+						fps: 5,
+						height: 200,
+						width: 200,
+					};
+					socket.emit('camera.device.start', camera);
+					storeImage()
 				}, 10000);
 			}
+		});
+
+		socket.on('camera.device.data', (camera) => {
+			imageToStore = camera.buffer;
 		});
 
 		socket.on('nfc.data', (data) => {
@@ -63,7 +89,6 @@ module.exports = function centralSocket(io, models) {
 					card_data: data,
 				},
 			}).then((user) => {
-				console.log(user);
 				if (user) {
 					socket.emit('xiaomihome.device.color', 'all', null, colors.green);
 
@@ -73,6 +98,7 @@ module.exports = function centralSocket(io, models) {
 					// }
 				}
 			});
+			console.log('socket');
 			socket.to('/client').emit('nfc.data', data);
 			nclients.emit('nfc.data', data);
 		});
@@ -84,3 +110,4 @@ module.exports = function centralSocket(io, models) {
 
 	return nc;
 };
+

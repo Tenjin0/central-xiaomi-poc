@@ -1,6 +1,8 @@
 import ApolloClient from "apollo-boost";
 import gql from 'graphql-tag';
+import * as io from 'socket.io-client';
 import { IUser, IUserData } from "../constants/interface";
+
 
 const _users: IUser[] = [
 	{
@@ -29,7 +31,7 @@ const _users: IUser[] = [
 ]
 
 
-export class ServiceApi {
+export default class ServiceApi {
 
 	private client: any
 
@@ -88,12 +90,12 @@ export class ServiceApi {
 		  },
 		})
 		.then((response: any) => {
-			console.log(response.data)
+
 			return response.data
 		})
 	}
 
 }
-const api = new ServiceApi()
+export const api = new ServiceApi()
+export const socket = io('http://localhost:3001/client');
 
-export default api

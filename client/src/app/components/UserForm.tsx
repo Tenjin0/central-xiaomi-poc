@@ -5,6 +5,7 @@ import { InjectedFormikProps } from 'formik';
 import * as React from 'react';
 import { IFormState } from '../constants/interface'
 import { styles } from '../containers/UserForm'
+import { IApiContext } from '../service/apiContext';
 
 interface IFormValues {
 	first_name: string;
@@ -15,13 +16,39 @@ interface IFormValues {
 interface IFormProps {
 	first_name?: string;
 	last_name?: string;
+}
+
+interface IUserFormState {
 	card_data?: string;
 }
 
 
 
-export default class UserForm extends React.Component<InjectedFormikProps<IFormProps, IFormValues> & WithStyles<typeof styles> & IFormState, any> {
+export default class UserForm extends React.Component<InjectedFormikProps<IFormProps, IFormValues> & WithStyles<typeof styles> & IFormState & IApiContext, IUserFormState> {
 
+	constructor(props: any) {
+		super(props)
+		this.state = {
+			card_data: ""
+		}
+	}
+
+	public componentDidMount() {
+		if (this.props.socket) {
+			this.props.socket.on("nfc.data", (data: string) => {
+				this.state = {
+					card_data: data
+				}
+				this.setState(this.state)
+			})
+		}
+	}
+
+	public componentWillUnmount() {
+		if (this.props.socket) {
+			this.props.socket.removeListener("nfc.data")
+		}
+	}
 	public render() {
 		const { classes } = this.props;
 		const {
@@ -29,10 +56,13 @@ export default class UserForm extends React.Component<InjectedFormikProps<IFormP
 			errors,
 			handleChange,
 			// tslint:disable-next-line:no-shadowed-variable
-			handleSubmit		} = this.props;
-		console.log(errors)
+			handleSubmit } = this.props;
+			console.log(errors)
+			console.log(values)
 		return (
 			<div className={classes.container}>
+
+				<h1>Register User</h1>
 				<form className={classes.form} onSubmit={handleSubmit}>
 					<TextField
 						id="first_name"
@@ -56,8 +86,8 @@ export default class UserForm extends React.Component<InjectedFormikProps<IFormP
 						id="card_data"
 						name="card_data"
 						type="hidden"
-						onChange={handleChange}
-						value={values.card_data}
+						
+						value={this.state.card_data}
 					/>
 					<div className={classes.buttons}>
 						<Button type="submit" variant="text" color="primary" className={classes.button}>

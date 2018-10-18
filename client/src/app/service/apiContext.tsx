@@ -1,11 +1,16 @@
 import * as React from 'react';
-import { ServiceApi } from './api'
+import * as io from 'socket.io-client';
+import ServiceApi from './api'
+
 export interface IApiContext {
-	api: ServiceApi
+	api: ServiceApi,
+	socket: SocketIOClient.Socket 
+	
 }
 
 const ApiContext = React.createContext<IApiContext>({
-	api: null
+	api: null,
+	socket: null
 });
 
 

@@ -1,9 +1,9 @@
 import { Action, ActionCreator } from "redux"
-import { ThunkAction, ThunkDispatch} from "redux-thunk"
+import { ThunkAction, ThunkDispatch } from "redux-thunk"
 
-import { IRequestUsersAction,IRequestUsersSuceededAction, UsersActionTypes } from "../constants/action-types"
+import { IRequestUsersAction, IRequestUsersSuceededAction, UsersActionTypes } from "../constants/action-types"
 import { IUser } from "../constants/interface";
-import api from "../service/api"
+import { api } from "../service/api"
 
 const usesrRequestedAction: ActionCreator<IRequestUsersAction> = () => ({
 
@@ -19,10 +19,10 @@ const userRequestSuceededAction: ActionCreator<IRequestUsersSuceededAction> = (d
 	}
 })
 
-export const getUsers = (arg: any)  => {
+export const getUsers = (arg: any) => {
 
 	return async (dispatch: ThunkDispatch<any, void, Action>) => {
-	  
+
 		dispatch(usesrRequestedAction())
 		const data = await api.getUsers()
 		dispatch(userRequestSuceededAction(data))

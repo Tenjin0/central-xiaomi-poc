@@ -7,11 +7,9 @@ import { Provider } from 'react-redux'
 import {
 	ConnectedRouter
 } from 'react-router-redux'
-import api from './app/service/api'
+import {api, socket} from './app/service/api'
 import { ApiContextProvider } from './app/service/apiContext';
 import store, { history } from './app/store'
-
-import * as io from 'socket.io-client';
 
 import App from './app/App';
 
@@ -28,7 +26,7 @@ const theme = createMuiTheme({
 ReactDOM.render(
 	<MuiThemeProvider theme={theme}>
 		<CssBaseline/>
-		<ApiContextProvider value={{api}}>
+		<ApiContextProvider value={{api, socket}}>
 			<Provider store={store}>
 				<ConnectedRouter history={history}>
 					<App history={history}/>
@@ -47,17 +45,3 @@ if (module.hot) {
 		store.replaceReducer(nextRootReducer);
 	});
 }
-
-
-// const socket = io('http://localhost:3001');
-// const clientSocket = io('/client');
-
-// clientSocket.on('connect', () => {
-// 	console.log("connect to central")
-// });
-// clientSocket.on('nfc.data', (data: any) => {
-// 	console.log(data)
-// });
-// clientSocket.on('disconnect', () => {
-// 	console.log("disconnect from central")
-// });

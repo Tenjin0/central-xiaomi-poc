@@ -4,8 +4,8 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import Hello from "./components/Hello"
 import Home from "./components/Home"
-import UserForm from "./components/UserForm"
 import Nav from "./containers/Nav"
+import UserForm from "./containers/UserForm"
 import UsersContainer from "./containers/Users"
 
 export interface IAppProps {
