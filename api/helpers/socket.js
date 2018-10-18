@@ -1,15 +1,19 @@
 module.exports = function centralSocket(io, models) {
-
 	const nxs = io.of('/xiaomisecurity');
 	const nc = io.of('/camera');
 	const nclients = io.of('/client');
-
+	// 	var rawImg = req.body.imageByteArray,
+	//     base64Data = rawImg.replace(/^data:image\/png;base64,/, ''),
+	//     dirpath = config.root + '/files/Documents/',
+	//     imageName = req.body.filename + '.png',
+	//     imageLocation = dirpath + imageName;
+	//   fs.writeFile(imageLocation, base64Data, 'base64', function(err) {});
 	let imageToStore = null;
-	const storeImage = () => {
+	const storeImagesFromCamera = () => {
 		let count = 3;
 		const timeout = setInterval(() => {
-			count--;
-			console.log(imageToStore)
+			count -= 1;
+			console.log(imageToStore);
 			if (count !== 0) {
 				clearTimeout(timeout);
 			}
@@ -74,7 +78,7 @@ module.exports = function centralSocket(io, models) {
 						width: 200,
 					};
 					socket.emit('camera.device.start', camera);
-					storeImage()
+					storeImagesFromCamera();
 				}, 10000);
 			}
 		});
@@ -110,4 +114,3 @@ module.exports = function centralSocket(io, models) {
 
 	return nc;
 };
-

@@ -1,10 +1,14 @@
 const { Op } = require('sequelize');
 const path = require('path');
 
-module.exports = {
+const config = {
+	dbFile: 'central.db',
+	storeImagePath: process.env.cameraPath || 'public/camera',
+};
+const database = {
 	development: {
 		dialect: 'sqlite',
-		storage: path.join(__dirname, './central.db'),
+		storage: path.join(__dirname, config.dbFile),
 		operatorsAliases: Op,
 	},
 	test: {
@@ -14,7 +18,11 @@ module.exports = {
 	},
 	production: {
 		dialect: 'sqlite',
-		storage: path.join(__dirname, './central.db'),
+		storage: path.join(__dirname, config.dbFile),
 		operatorsAliases: Op,
 	},
 };
+
+config.database = database;
+
+module.exports = config;
