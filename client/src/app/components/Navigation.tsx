@@ -10,9 +10,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import * as React from 'react';
 
+
 const styles = (theme: Theme) =>
 	createStyles({
 		root: {
+			marginBottom: '5em',
 			width: '100%',
 		},
 		// tslint:disable-next-line:object-literal-sort-keys

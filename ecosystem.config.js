@@ -21,7 +21,8 @@ module.exports = {
         "followSymlinks": false
       },
       "env": {
-        "NODE_ENV": "development"
+		"NODE_ENV": "development",
+		"FROM_PARENT_FOLDER": true
       }
     }
   ]

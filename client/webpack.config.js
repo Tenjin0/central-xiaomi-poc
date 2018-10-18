@@ -1,8 +1,7 @@
 const path = require('path');
 var webpack = require('webpack')
-
+const pathToNodeModules = process.env.FROM_PARENT_FOLDER ? path.resolve(__dirname, "..", "node_modules", "client", "node_modules") : path.resolve(__dirname, "node_modules")
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-
 const config = {
 	mode: "development",
 	entry: {
@@ -19,11 +18,11 @@ const config = {
 	devtool: 'source-map',
 	resolve: {
 		extensions: ['mjs', '.js', '.jsx', '.json', '.ts', '.tsx'], // .mjs must be before .js
-		modules: [path.resolve(__dirname, "..", "node_modules", "client", "node_modules")] // this need to be remove in a docker container
+		modules: [pathToNodeModules] // this need to be remove in a docker container
 
 	},
 	resolveLoader: { // this need to be remove in a docker container
-		modules: [path.resolve(__dirname, "..", "node_modules", "client", "node_modules")] 
+		modules: [pathToNodeModules] 
 	},
 	module: {
 		rules: [{

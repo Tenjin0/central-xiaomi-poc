@@ -21,6 +21,9 @@ services:
       context: ./client
     container_name: central_xiaomi_client_dev
     command: "npm run start"
+    volumes:
+      - ./client:/app
+      - ./client/node_modules:/app/node_modules
     image: central_xiaomi_client
     ports:
       - 3000:3000
