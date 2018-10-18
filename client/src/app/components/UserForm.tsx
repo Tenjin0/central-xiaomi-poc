@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { InjectedFormikProps } from 'formik';
 import * as React from 'react';
+import * as Yup from 'yup';
 import { IFormState } from '../constants/interface'
 import { styles } from '../containers/UserForm'
 import { IApiContext } from '../service/apiContext';
@@ -19,16 +20,19 @@ interface IFormProps {
 }
 
 interface IUserFormState {
+	first_name?: string;
+	last_name?: string;
 	card_data?: string;
 }
 
-
-
-export default class UserForm extends React.Component<InjectedFormikProps<IFormProps, IFormValues> & WithStyles<typeof styles> & IFormState & IApiContext, IUserFormState> {
+export default class UserForm extends React.Component<WithStyles<typeof styles> & IFormState & IApiContext, IUserFormState> {
 
 	constructor(props: any) {
 		super(props)
 		this.state = {
+			first_name: "",
+			last_name: "",
+			// tslint:disable-next-line:object-literal-sort-keys
 			card_data: "dxqffdfdg"
 		}
 	}
@@ -49,16 +53,36 @@ export default class UserForm extends React.Component<InjectedFormikProps<IFormP
 			this.props.socket.removeListener("nfc.data")
 		}
 	}
+	public validateForm = () => {
+		Yup.object().shape({
+			first_name: Yup.string()
+				.min(2, 'Too Short!')
+				.max(50, 'Too Long!')
+				.required('Required'),
+			last_name: Yup.string()
+				.min(2, 'Too Short!')
+				.max(50, 'Too Long!')
+				.required('Required'),
+			// tslint:disable-next-line:object-literal-sort-keys
+			card_data: Yup.string()
+				.required('Required'),
+		});
+	}
+	public handleSubmit = () => {
+		// this.props.api.addUsers()
+		// this.props.
+	}
+
 	public render() {
 		const { classes } = this.props;
-		const {
-			values,
-			errors,
-			handleChange,
-			// tslint:disable-next-line:no-shadowed-variable
-			handleSubmit } = this.props;
-			console.log(errors)
-			console.log(values)
+		// const {
+		// 	values,
+		// 	errors,
+		// 	handleChange,
+		// 	// tslint:disable-next-line:no-shadowed-variable
+		// 	handleSubmit } = this.props;
+		// 	console.log(errors)
+		// 	console.log(values)
 		return (
 			<div className={classes.container}>
 
@@ -93,7 +117,7 @@ export default class UserForm extends React.Component<InjectedFormikProps<IFormP
 					<div className={classes.buttons}>
 						<Button type="submit" variant="text" color="primary" className={classes.button}>
 							Submit
-					</Button>
+						</Button>
 					</div>
 				</form>
 			</div>

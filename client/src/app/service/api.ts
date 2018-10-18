@@ -45,7 +45,7 @@ export default class ServiceApi {
 
 	public getFakeUsers = () => {
 
-		return new Promise<IUser[]>((resolve, reject) => {
+		return new Promise<IUser[]>((resolve, ) => {
 
 			setTimeout(() => {
 				resolve(_users)
@@ -91,7 +91,7 @@ export default class ServiceApi {
 		})
 		.then((response: any) => {
 
-			return response.data
+			return Promise.resolve(response.data)
 		})
 	}
 
