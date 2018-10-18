@@ -29,7 +29,7 @@ export default class UserForm extends React.Component<InjectedFormikProps<IFormP
 	constructor(props: any) {
 		super(props)
 		this.state = {
-			card_data: ""
+			card_data: "dxqffdfdg"
 		}
 	}
 
@@ -85,8 +85,9 @@ export default class UserForm extends React.Component<InjectedFormikProps<IFormP
 					<input
 						id="card_data"
 						name="card_data"
-						type="hidden"
-						
+						type="text"
+						readOnly={true}
+						onChange={handleChange}
 						value={this.state.card_data}
 					/>
 					<div className={classes.buttons}>

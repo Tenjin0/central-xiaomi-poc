@@ -9,13 +9,16 @@ module.exports = function centralSocket(io, models) {
 	//     imageLocation = dirpath + imageName;
 	//   fs.writeFile(imageLocation, base64Data, 'base64', function(err) {});
 	let imageToStore = null;
-	const storeImagesFromCamera = () => {
+	const cameraId = 0;
+
+	const storeImagesFromCamera = (socket) => {
 		let count = 3;
 		const timeout = setInterval(() => {
 			count -= 1;
 			console.log(imageToStore);
 			if (count !== 0) {
 				clearTimeout(timeout);
+				socket.emit('camera.device.stop', cameraId);
 			}
 		}, 3000);
 	};
@@ -62,7 +65,7 @@ module.exports = function centralSocket(io, models) {
 			socket.emit('xiaomihome.device.color', 'all', null, colors.green);
 		});
 
-		socket.emit('central.init', ['xiaomihome.devices', 'xiaomihome.device.color', 'camera.device.start'], ['xiaomihome.gateway.read', 'xiaomihome.devices', 'nfc.data']);
+		socket.emit('central.init', ['xiaomihome.devices', 'xiaomihome.device.color', 'camera.device.start', 'camera.device.stop'], ['xiaomihome.gateway.read', 'xiaomihome.devices', 'nfc.data']);
 
 		nxs.on('xiaomihome.gateway.read', (gtsid, device) => {
 			if (device.model === 'magnet' && device.event === 'open') {
@@ -72,13 +75,13 @@ module.exports = function centralSocket(io, models) {
 					socket.emit('xiaomihome.device.color', 'all', null, colors.red);
 
 					const camera = {
-						deviceid: 0,
+						deviceid: cameraId,
 						fps: 5,
 						height: 200,
 						width: 200,
 					};
 					socket.emit('camera.device.start', camera);
-					storeImagesFromCamera();
+					storeImagesFromCamera(socket);
 				}, 10000);
 			}
 		});
@@ -95,11 +98,6 @@ module.exports = function centralSocket(io, models) {
 			}).then((user) => {
 				if (user) {
 					socket.emit('xiaomihome.device.color', 'all', null, colors.green);
-
-					// if (wpt.timeout) {
-					//     clearTimeout(wpt.timeout)
-					//     wpt.timeout = null
-					// }
 				}
 			});
 			console.log('socket');

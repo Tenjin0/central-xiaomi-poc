@@ -72,7 +72,7 @@ const mapPropsToValues = (props: any) => {
 		first_name: '',
 		last_name: '',
 		// tslint:disable-next-line:object-literal-sort-keys
-		// card_data: ''
+		card_data: ''
 	}
 }
 
