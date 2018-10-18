@@ -49,15 +49,15 @@ if (module.hot) {
 }
 
 
-const socket = io('http://localhost:3001');
-const clientSocket = io('/client');
+// const socket = io('http://localhost:3001');
+// const clientSocket = io('/client');
 
-clientSocket.on('connect', () => {
-	console.log("connect to central")
-});
-clientSocket.on('nfc.data', (data: any) => {
-	console.log(data)
-});
-clientSocket.on('disconnect', () => {
-	console.log("disconnect from central")
-});
+// clientSocket.on('connect', () => {
+// 	console.log("connect to central")
+// });
+// clientSocket.on('nfc.data', (data: any) => {
+// 	console.log(data)
+// });
+// clientSocket.on('disconnect', () => {
+// 	console.log("disconnect from central")
+// });
