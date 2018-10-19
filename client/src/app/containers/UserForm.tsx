@@ -46,19 +46,7 @@ export const styles = (theme: Theme) =>
 		},
 	})
 
-const validationSchema = Yup.object().shape({
-	first_name: Yup.string()
-		.min(2, 'Too Short!')
-		.max(50, 'Too Long!')
-		.required('Required'),
-	last_name: Yup.string()
-		.min(2, 'Too Short!')
-		.max(50, 'Too Long!')
-		.required('Required'),
-	// tslint:disable-next-line:object-literal-sort-keys
-	card_data: Yup.string()
-		.required('Required'),
-});
+
 
 const handleSubmit = (values: any, actions: any) => {
 	console.log(values)
@@ -101,11 +89,11 @@ export default compose(
 	connect(mapStateToProps),
 	withStyles(styles),
 	withApi, // before withFormik
-	withFormik({ // must be last
-		enableReinitialize: true,
-		handleSubmit,
-		mapPropsToValues,
-		validateOnChange: true,
-		validationSchema,
-	}),
+	// withFormik({ // must be last
+	// 	enableReinitialize: true,
+	// 	handleSubmit,
+	// 	mapPropsToValues,
+	// 	validateOnChange: true,
+	// 	validationSchema,
+	// }),
 )(UserFormComponent);

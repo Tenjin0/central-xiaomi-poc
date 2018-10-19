@@ -27,14 +27,28 @@ interface IUserFormState {
 
 export default class UserForm extends React.Component<WithStyles<typeof styles> & IFormState & IApiContext, IUserFormState> {
 
+	private validateForm: Yup.Schema<IUserFormState>
 	constructor(props: any) {
 		super(props)
 		this.state = {
 			first_name: "",
 			last_name: "",
 			// tslint:disable-next-line:object-literal-sort-keys
-			card_data: "dxqffdfdg"
+			card_data: ""
 		}
+		this.validateForm = Yup.object().shape({
+			first_name: Yup.string()
+				.min(2, 'Too Short!')
+				.max(50, 'Too Long!')
+				.required('Required'),
+			last_name: Yup.string()
+				.min(2, 'Too Short!')
+				.max(50, 'Too Long!')
+				.required('Required'),
+			// tslint:disable-next-line:object-literal-sort-keys
+			card_data: Yup.string()
+				.required('Required'),
+		});
 	}
 
 	public componentDidMount() {
@@ -53,22 +67,24 @@ export default class UserForm extends React.Component<WithStyles<typeof styles> 
 			this.props.socket.removeListener("nfc.data")
 		}
 	}
-	public validateForm = () => {
-		Yup.object().shape({
-			first_name: Yup.string()
-				.min(2, 'Too Short!')
-				.max(50, 'Too Long!')
-				.required('Required'),
-			last_name: Yup.string()
-				.min(2, 'Too Short!')
-				.max(50, 'Too Long!')
-				.required('Required'),
-			// tslint:disable-next-line:object-literal-sort-keys
-			card_data: Yup.string()
-				.required('Required'),
-		});
+
+
+	public handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+		console.log('handleSubmit')
+		// this.props.api.addUsers()
+		// this.props.
 	}
-	public handleSubmit = () => {
+
+	public handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const key: string = e.target.id;
+		this.state[key] = e.target.value
+		this.setState(this.state);
+		this.validateForm.validate(this.state, { abortEarly: false }).then((...value) => {
+			console.log(value)
+		}).catch((err) => {
+			console.log(err)
+		})
 		// this.props.api.addUsers()
 		// this.props.
 	}
@@ -87,14 +103,14 @@ export default class UserForm extends React.Component<WithStyles<typeof styles> 
 			<div className={classes.container}>
 
 				<h1>Register User</h1>
-				<form className={classes.form} onSubmit={handleSubmit}>
+				<form className={classes.form} onSubmit={this.handleSubmit}>
 					<TextField
 						id="first_name"
 						name="first_name"
 						label="first name"
 						className={classes.textField}
-						value={values.first_name}
-						onChange={handleChange}
+						value={this.state.first_name}
+						onChange={this.handleChange}
 						margin="normal"
 					/>
 					<TextField
@@ -102,8 +118,8 @@ export default class UserForm extends React.Component<WithStyles<typeof styles> 
 						name="last_name"
 						label="last name"
 						className={classes.textField}
-						value={values.last_name}
-						onChange={handleChange}
+						value={this.state.last_name}
+						onChange={this.handleChange}
 						margin="normal"
 					/>
 					<input
@@ -111,8 +127,8 @@ export default class UserForm extends React.Component<WithStyles<typeof styles> 
 						name="card_data"
 						type="text"
 						readOnly={true}
-						onChange={handleChange}
 						value={this.state.card_data}
+						onChange={this.handleChange}
 					/>
 					<div className={classes.buttons}>
 						<Button type="submit" variant="text" color="primary" className={classes.button}>

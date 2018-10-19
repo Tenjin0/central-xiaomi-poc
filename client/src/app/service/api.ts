@@ -97,5 +97,7 @@ export default class ServiceApi {
 
 }
 export const api = new ServiceApi()
-export const socket = io('http://localhost:3001/client');
+export const socket = io('http://localhost:3001/client', {
+	reconnection: false
+});
 
