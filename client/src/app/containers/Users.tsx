@@ -5,13 +5,11 @@ import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk'
 import { getUsers } from "../actions/users"
 import UsersComponent from '../components/Users'
-import { IUser } from '../constants/interface';
+import { IFormState, IUser } from '../constants/interface';
 
-export interface IUsersContainerProps {
+export interface IUsersContainerProps extends IFormState {
 
 	requestUsers: (args?:any) => Promise<void>
-	isLoading: boolean,
-	isFailure: boolean,
 	data: IUser[]
 }
 

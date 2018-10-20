@@ -1,10 +1,10 @@
 import { withStyles } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
-import { withFormik } from 'formik';
 import { connect } from 'react-redux';
-import { compose } from 'redux'
-import * as Yup from 'yup';
+import { Action, compose } from 'redux'
+import { ThunkDispatch } from 'redux-thunk';
+import { formFailed, formLoading, formSuceeded } from "../actions/form"
 import UserFormComponent from '../components/UserForm'
 import { withApi } from '../service/apiContext'
 
@@ -46,24 +46,6 @@ export const styles = (theme: Theme) =>
 		},
 	})
 
-
-
-const handleSubmit = (values: any, actions: any) => {
-	console.log(values)
-
-	// actions.setSubmitting(false);
-}
-
-const mapPropsToValues = (props: any) => {
-	console.log("mapPropsToValues", props)
-	return {
-		first_name: '',
-		last_name: '',
-		// tslint:disable-next-line:object-literal-sort-keys
-		card_data: ''
-	}
-}
-
 // class UserFormContainer extends React.Component<any, any> {
 
 // 	public render() {
@@ -85,8 +67,16 @@ const mapStateToProps = (state: any) => {
 	}
 }
 
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, void, Action>) => {
+	return {
+		formFailed: () => dispatch(formFailed),
+		formLoading: () => dispatch(formLoading),
+		formSuceeded: () => dispatch(formSuceeded),
+	};
+}
+
 export default compose(
-	connect(mapStateToProps),
+	connect(mapStateToProps, mapDispatchToProps),
 	withStyles(styles),
 	withApi, // before withFormik
 	// withFormik({ // must be last

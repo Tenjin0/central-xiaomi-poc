@@ -32,7 +32,7 @@ export interface IRequestUsersSuceededAction extends Action {
 	}
 }
 
-export interface IFormDataLoadAction extends Action {
+export interface IFormDataLoadingAction extends Action {
 
 	type: FormActionTypes.FORM_DATALOAD_REQUESTED
 }
@@ -48,6 +48,6 @@ export interface IFormDataLoadSuceededAction extends Action {
 }
 
 export type  UsersActions = IRequestUsersAction | IRequestUsersFailedAction | IRequestUsersSuceededAction
-export type  FormActions = IFormDataLoadAction | IFormDataLoadFailedAction | IFormDataLoadSuceededAction
+export type  FormActions = IFormDataLoadingAction | IFormDataLoadFailedAction | IFormDataLoadSuceededAction
 
 

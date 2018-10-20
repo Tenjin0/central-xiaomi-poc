@@ -1,49 +1,41 @@
 import { WithStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { InjectedFormikProps } from 'formik';
 import * as React from 'react';
 import * as Yup from 'yup';
-import { IFormState } from '../constants/interface'
+import { IFormState, IUser, IUserData } from '../constants/interface'
 import { styles } from '../containers/UserForm'
 import { IApiContext } from '../service/apiContext';
 
-interface IFormValues {
-	first_name: string;
-	last_name: string;
-	card_data: string;
-}
 
-interface IFormProps {
-	first_name?: string;
-	last_name?: string;
-}
-
-interface IUserFormState {
-	first_name?: string;
-	last_name?: string;
-	card_data?: string;
+interface IUserFormState extends IUser {
+	formErrors: IUserData
 }
 
 export default class UserForm extends React.Component<WithStyles<typeof styles> & IFormState & IApiContext, IUserFormState> {
 
-	private validateForm: Yup.Schema<IUserFormState>
+	private validateForm: Yup.Schema<any>
+
 	constructor(props: any) {
+
 		super(props)
+
 		this.state = {
+			id: 0,
+			// tslint:disable-next-line:object-literal-sort-keys
 			first_name: "",
 			last_name: "",
 			// tslint:disable-next-line:object-literal-sort-keys
-			card_data: ""
+			card_data: "",
+			formErrors: { first_name: '', last_name: '', card_data: '' },
 		}
+
 		this.validateForm = Yup.object().shape({
 			first_name: Yup.string()
-				.min(2, 'Too Short!')
-				.max(50, 'Too Long!')
+				.min(3, 'Need at least 3 characters')
 				.required('Required'),
 			last_name: Yup.string()
-				.min(2, 'Too Short!')
-				.max(50, 'Too Long!')
+				.min(3, 'Need at least 3 characters')
 				.required('Required'),
 			// tslint:disable-next-line:object-literal-sort-keys
 			card_data: Yup.string()
@@ -52,9 +44,11 @@ export default class UserForm extends React.Component<WithStyles<typeof styles> 
 	}
 
 	public componentDidMount() {
+
 		if (this.props.socket) {
 			this.props.socket.on("nfc.data", (data: string) => {
 				this.state = {
+					...this.state,
 					card_data: data
 				}
 				this.setState(this.state)
@@ -63,6 +57,7 @@ export default class UserForm extends React.Component<WithStyles<typeof styles> 
 	}
 
 	public componentWillUnmount() {
+
 		if (this.props.socket) {
 			this.props.socket.removeListener("nfc.data")
 		}
@@ -70,35 +65,41 @@ export default class UserForm extends React.Component<WithStyles<typeof styles> 
 
 
 	public handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
 		e.preventDefault()
-		console.log('handleSubmit')
-		// this.props.api.addUsers()
+		const user: IUserData = {
+			first_name: this.state.first_name,
+			last_name: this.state.last_name,
+			// tslint:disable-next-line:object-literal-sort-keys
+			card_data: this.state.card_data
+		}
+		this.props.api.addUsers(user).then((data) => {
+			console.log(data)
+		}).catch((err) => {
+			console.log(err)
+		})
 		// this.props.
 	}
 
 	public handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
 		const key: string = e.target.id;
 		this.state[key] = e.target.value
 		this.setState(this.state);
-		this.validateForm.validate(this.state, { abortEarly: false }).then((...value) => {
-			console.log(value)
-		}).catch((err) => {
-			console.log(err)
+		this.validateForm.validate(this.state, { abortEarly: false })
+		.catch((err: Yup.ValidationError) => {
+			const fieldsErrors = err.inner
+			for (const iterator of fieldsErrors) {
+				this.state.formErrors[iterator.path] = iterator.message
+			}
+			this.setState(this.state)
 		})
-		// this.props.api.addUsers()
-		// this.props.
 	}
 
 	public render() {
+		console.log(Object.keys(this.props))
 		const { classes } = this.props;
-		// const {
-		// 	values,
-		// 	errors,
-		// 	handleChange,
-		// 	// tslint:disable-next-line:no-shadowed-variable
-		// 	handleSubmit } = this.props;
-		// 	console.log(errors)
-		// 	console.log(values)
+
 		return (
 			<div className={classes.container}>
 
@@ -111,7 +112,10 @@ export default class UserForm extends React.Component<WithStyles<typeof styles> 
 						className={classes.textField}
 						value={this.state.first_name}
 						onChange={this.handleChange}
+						error={this.state.formErrors.first_name.length > 0}
+						helperText={this.state.formErrors.first_name}
 						margin="normal"
+						variant="outlined"
 					/>
 					<TextField
 						id="last_name"
@@ -121,6 +125,9 @@ export default class UserForm extends React.Component<WithStyles<typeof styles> 
 						value={this.state.last_name}
 						onChange={this.handleChange}
 						margin="normal"
+						variant="outlined"
+						error={this.state.formErrors.last_name.length > 0}
+						helperText={this.state.formErrors.last_name}
 					/>
 					<input
 						id="card_data"

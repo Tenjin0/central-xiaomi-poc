@@ -71,7 +71,7 @@ export default class ServiceApi {
 
 	}
 
-	public addUsers = (user: IUserData) => {
+	public addUsers = (user: IUserData): Promise<IUser> => { 
 		const ADD_USER = gql`
 			mutation addUser($first_name: String!, $last_name: String!, $card_data: String!) {
 				addTodo(tfirst_name: String!, $last_name: String!, $card_data: String!) {
@@ -91,7 +91,7 @@ export default class ServiceApi {
 		})
 		.then((response: any) => {
 
-			return Promise.resolve(response.data)
+			return response.data
 		})
 	}
 

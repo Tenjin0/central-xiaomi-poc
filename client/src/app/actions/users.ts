@@ -1,6 +1,5 @@
 import { Action, ActionCreator } from "redux"
 import { ThunkAction, ThunkDispatch } from "redux-thunk"
-
 import { IRequestUsersAction, IRequestUsersSuceededAction, UsersActionTypes } from "../constants/action-types"
 import { IUser } from "../constants/interface";
 import { api } from "../service/api"
@@ -18,6 +17,9 @@ const userRequestSuceededAction: ActionCreator<IRequestUsersSuceededAction> = (d
 		data
 	}
 })
+
+
+
 
 export const getUsers = (arg: any) => {
 
