@@ -15,14 +15,12 @@ export default class UsersComponent extends React.Component<IUsersComponentProps
 			<div>
 				Users:
 				<Grid
-					rows={[
-						{ id: 0, product: 'DevExtreme', owner: 'DevExpress' },
-						{ id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
-					]}
+					rows={this.props.users}
 					columns={[
 						{ name: 'id', title: 'ID' },
-						{ name: 'product', title: 'Product' },
-						{ name: 'owner', title: 'Owner' },
+						{ name: 'first_name', title: 'First name' },
+						{ name: 'last_name', title: 'Last name' },
+						{ name: 'action', title: 'Action'}
 					]}>
 					<Table />
 					<TableHeaderRow />

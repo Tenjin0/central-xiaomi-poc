@@ -43,7 +43,7 @@ export const styles = (theme: Theme) =>
 		buttons: {
 			display: "flex",
 			// tslint:disable-next-line:object-literal-sort-keys
-			justifyContent: 'flex-end',
+			justifyContent: 'space-between',
 			marginTop: '1em'
 		},
 		// tslint:disable-next-line:object-literal-sort-keys
