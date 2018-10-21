@@ -3,16 +3,17 @@ export interface IUsersState {
 	isFailure: boolean
 	data: IUser[]
 } 
-export interface IUserData {
+export interface IUser {
+	id?: number
 	first_name: string
 	last_name: string
 	card_data: string
-}
-export interface IUser extends IUserData{
-	id: number
 }
 
 export interface IFormState {
 	isLoading: boolean
 	isFailure: boolean
+	isSubmiting: boolean
+	isValid: boolean
+
 } 

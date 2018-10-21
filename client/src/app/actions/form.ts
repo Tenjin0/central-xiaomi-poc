@@ -20,8 +20,20 @@ const formFailedAction: ActionCreator<FormActions> = () => ({
 	type: FormActionTypes.FORM_DATALOAD_FAILED
 })
 
+const formSubmitAction: ActionCreator<FormActions> = () => ({
+
+	type: FormActionTypes.FORM_DATA_SUBMITING
+})
 
 
+const formIsValidAction: ActionCreator<FormActions> = (isValid: boolean) => ({
+
+	type: FormActionTypes.FORM_DATA_IS_VALID,
+	// tslint:disable-next-line:object-literal-sort-keys
+	payload: {
+		isValid
+	}
+})
 
 export const formLoading = () => {
 
@@ -46,4 +58,21 @@ export const formSuceeded = () => {
 		dispatch(formSuceedAction())
 	}
 }
+
+export const formSubmitting = () => {
+
+	return async (dispatch: ThunkDispatch<any, void, Action>) => {
+
+		dispatch(formSubmitAction())
+	}
+}
+
+export const formIsValid = (isValid: boolean) => {
+
+	return  (dispatch: ThunkDispatch<any, void, Action>) => {
+
+		dispatch(formIsValidAction(isValid))
+	}
+}
+
 

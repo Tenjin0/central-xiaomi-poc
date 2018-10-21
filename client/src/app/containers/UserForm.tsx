@@ -4,9 +4,18 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import { connect } from 'react-redux';
 import { Action, compose } from 'redux'
 import { ThunkDispatch } from 'redux-thunk';
-import { formFailed, formLoading, formSuceeded } from "../actions/form"
+import { formFailed, formIsValid, formLoading, formSubmitting, formSuceeded } from "../actions/form"
 import UserFormComponent from '../components/UserForm'
-import { withApi } from '../service/apiContext'
+import { withService } from '../service/apiContext'
+
+
+export interface IUserFormDispatch {
+	dispatchFormLoading: () => Promise<void>
+	dispatchFormSubmiting: () => Promise<void>
+	dispatchFormFailed: () => Promise<void>
+	dispatchFormSuceeded: () => Promise<void>
+	dispatchformIsValid: (isValid: boolean) => Promise<void>
+}
 
 
 export const styles = (theme: Theme) =>
@@ -69,16 +78,19 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, void, Action>) => {
 	return {
-		formFailed: () => dispatch(formFailed),
-		formLoading: () => dispatch(formLoading),
-		formSuceeded: () => dispatch(formSuceeded),
+		dispatchFormLoading: () => dispatch(formLoading()),
+		dispatchFormSubmiting: () => dispatch(formSubmitting()),
+		// tslint:disable-next-line:object-literal-sort-keys
+		dispatchFormFailed: () => dispatch(formFailed),
+		dispatchFormSuceeded: () => dispatch(formSuceeded()),
+		dispatchformIsValid: (isValid: boolean) => dispatch(formIsValid(isValid)),
 	};
 }
 
 export default compose(
 	connect(mapStateToProps, mapDispatchToProps),
 	withStyles(styles),
-	withApi, // before withFormik
+	withService, // before withFormik
 	// withFormik({ // must be last
 	// 	enableReinitialize: true,
 	// 	handleSubmit,

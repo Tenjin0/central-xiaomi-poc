@@ -20,9 +20,9 @@ export const ApiContextProvider = ApiContext.Provider;
 
 export const ApiContextConsumer = ApiContext.Consumer;
 
-export const  withApi = <P extends IApiContext>(Comp: React.ComponentClass): React.ComponentClass<P> => {
+export const  withService = <P extends IApiContext>(Comp: React.ComponentClass): React.ComponentClass<P> => {
 
-	class WithApi extends React.Component<P> {
+	class WithService extends React.Component<P> {
 		public render() {
 			return (
 				<ApiContextConsumer>
@@ -33,7 +33,7 @@ export const  withApi = <P extends IApiContext>(Comp: React.ComponentClass): Rea
 
 		}
 	}
-	return WithApi
+	return WithService
 }
 
 // export const withApi = <P extends object>(

@@ -3,31 +3,42 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import * as React from 'react';
 import * as Yup from 'yup';
-import { IFormState, IUser, IUserData } from '../constants/interface'
-import { styles } from '../containers/UserForm'
+import { IFormState, IUser } from '../constants/interface'
+import { IUserFormDispatch, styles } from '../containers/UserForm'
 import { IApiContext } from '../service/apiContext';
 
 
 interface IUserFormState extends IUser {
-	formErrors: IUserData
+	formErrors: IUser
+	action: string // replace by type ADD/UPDATE
 }
 
-export default class UserForm extends React.Component<WithStyles<typeof styles> & IFormState & IApiContext, IUserFormState> {
+
+interface IUserFormProps {
+	match: any
+}
+
+export default class UserForm extends React.Component<WithStyles<typeof styles> & IFormState & IApiContext & IUserFormDispatch & IUserFormProps, IUserFormState> {
 
 	private validateForm: Yup.Schema<any>
-
+	private formErrorsInit: IUser
 	constructor(props: any) {
 
 		super(props)
 
+		this.formErrorsInit = { first_name: '', last_name: '', card_data: '' }
+
 		this.state = {
-			id: 0,
+			id: -1,
 			// tslint:disable-next-line:object-literal-sort-keys
 			first_name: "",
 			last_name: "",
 			// tslint:disable-next-line:object-literal-sort-keys
-			card_data: "",
-			formErrors: { first_name: '', last_name: '', card_data: '' },
+			card_data: "azeqsd",
+			action: "",
+			formErrors: {
+				...this.formErrorsInit
+			},
 		}
 
 		this.validateForm = Yup.object().shape({
@@ -54,6 +65,30 @@ export default class UserForm extends React.Component<WithStyles<typeof styles> 
 				this.setState(this.state)
 			})
 		}
+		if (this.props.match.params && this.props.match.params.id) {
+			this.state = {
+				...this.state,
+				action: "UPDATE"
+			}
+			this.props.api.getUser(this.props.match.params.id).then((data: IUser) => {
+				this.state = {
+					...this.state,
+					...data
+				}
+				this.props.dispatchFormSuceeded()
+			}).catch((err: any) => {
+				this.props.dispatchFormFailed()
+				// display error message
+			})
+			this.props.dispatchFormSubmiting()
+
+		} else {
+			this.state = {
+				...this.state,
+				action: "ADD"
+			}
+		}
+		this.setState(this.state)
 	}
 
 	public componentWillUnmount() {
@@ -67,37 +102,71 @@ export default class UserForm extends React.Component<WithStyles<typeof styles> 
 	public handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
 		e.preventDefault()
-		const user: IUserData = {
+
+		const user: IUser = {
 			first_name: this.state.first_name,
 			last_name: this.state.last_name,
 			// tslint:disable-next-line:object-literal-sort-keys
 			card_data: this.state.card_data
 		}
-		this.props.api.addUsers(user).then((data) => {
-			console.log(data)
+
+		if (this.state.action === 'ADD') {
+			user.id = this.state.id
+		}
+
+		const submitAction = this.state.action === 'ADD' ? this.props.api.createUser : this.props.api.updateUser
+		submitAction(user).then(() => {
+			this.state = {
+				...this.state,
+				...this.formErrorsInit,
+				formErrors: {
+					...this.formErrorsInit
+				}
+			}
+			this.props.dispatchFormSuceeded()
 		}).catch((err) => {
-			console.log(err)
+			this.props.dispatchFormFailed()
 		})
-		// this.props.
+
+		this.props.dispatchFormSubmiting()
 	}
 
 	public handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
 		const key: string = e.target.id;
 		this.state[key] = e.target.value
-		this.setState(this.state);
-		this.validateForm.validate(this.state, { abortEarly: false })
-		.catch((err: Yup.ValidationError) => {
-			const fieldsErrors = err.inner
-			for (const iterator of fieldsErrors) {
-				this.state.formErrors[iterator.path] = iterator.message
+
+		this.state = {
+			...this.state,
+			formErrors: {
+				...this.formErrorsInit
+			}
+		}
+
+		this.validateForm.validate(this.state, { abortEarly: false }).then((value) => {
+			this.props.dispatchformIsValid(true);
+			this.state = {
+				...this.state,
+				formErrors: {
+					...this.formErrorsInit
+				}
 			}
 			this.setState(this.state)
 		})
+			.catch((err: Yup.ValidationError) => {
+				this.props.dispatchformIsValid(false);
+				const fieldsErrors = err.inner
+
+				for (const iterator of fieldsErrors) {
+					this.state.formErrors[iterator.path] = iterator.message
+				}
+
+				this.setState(this.state)
+			})
 	}
 
 	public render() {
-		console.log(Object.keys(this.props))
+
 		const { classes } = this.props;
 
 		return (
@@ -138,7 +207,10 @@ export default class UserForm extends React.Component<WithStyles<typeof styles> 
 						onChange={this.handleChange}
 					/>
 					<div className={classes.buttons}>
-						<Button type="submit" variant="text" color="primary" className={classes.button}>
+						<Button disabled={true} type="button" variant="text" color="secondary" className={classes.button}>
+							Reset
+						</Button>
+						<Button disabled={!this.props.isValid} type="submit" variant="text" color="primary" className={classes.button}>
 							Submit
 						</Button>
 					</div>

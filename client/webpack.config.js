@@ -8,11 +8,13 @@ const config = {
 		app: [path.join(__dirname, './src/index.tsx'), 'webpack-hot-middleware/client'],
 		vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-router-dom', 'redux-thunk',
 			'react-router-redux', 'graphql', 'apollo-boost', 'graphql-tag', '@material-ui/core',
-			'@material-ui/icons', '@devexpress/dx-react-core', '@devexpress/dx-react-grid', '@devexpress/dx-react-grid-material-ui'
+			'@material-ui/icons', '@devexpress/dx-react-core', '@devexpress/dx-react-grid',
+			'@devexpress/dx-react-grid-material-ui', 'socket.io-client'
 		]
 	},
 	output: {
 		path: path.resolve(__dirname, 'dist'),
+		publicPath: '/',
 		filename: 'js/[name].bundle.js'
 	},
 	devtool: 'source-map',

@@ -5,7 +5,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Hello from "./components/Hello"
 import Home from "./components/Home"
 import Nav from "./containers/Nav"
-import UserForm from "./containers/UserForm"
+import UserFormContainer from "./containers/UserForm"
 import UsersContainer from "./containers/Users"
 
 export interface IAppProps {
@@ -19,8 +19,8 @@ export default class App extends React.Component<IAppProps, any> {
 				<Switch>
 					<Route exact={true} path="/" component={Home} />
 					<Route exact={true} path="/hello" component={Hello} />
-					<Route exact={true} path="/user" component={UserForm} />
-					<Route exact={true} path="/user/:id" component={UserForm} />
+					<Route exact={true} path="/user" component={UserFormContainer} />
+					<Route exact={true} path="/user/:id" component={UserFormContainer} />
 					<Route exact={true} path="/users" component={UsersContainer} />
 					<Redirect from='*' to='/' />
 				</Switch>

@@ -11,6 +11,8 @@ export enum FormActionTypes {
 	FORM_DATALOAD_REQUESTED = "FORM_DATALOAD_REQUESTED",
 	FORM_DATALOAD_FAILED = "FORM_DATALOAD_FAILED",
 	FORM_DATALOAD_SUCEEDED = "FORM_DATALOAD_SUCEEDED",
+	FORM_DATA_SUBMITING = "FORM_DATA_SUBMITING",
+	FORM_DATA_IS_VALID = "FORM_DATA_IS_VALID",
 }
 
 
@@ -28,7 +30,7 @@ export interface IRequestUsersSuceededAction extends Action {
 
 	type: UsersActionTypes.USERS_REQUEST_SUCEEDED;
 	payload: {
-		data : IUser[]
+		data: IUser[]
 	}
 }
 
@@ -46,8 +48,26 @@ export interface IFormDataLoadSuceededAction extends Action {
 
 	type: FormActionTypes.FORM_DATALOAD_SUCEEDED;
 }
+export interface IFormDataSubmitingAction extends Action {
 
-export type  UsersActions = IRequestUsersAction | IRequestUsersFailedAction | IRequestUsersSuceededAction
-export type  FormActions = IFormDataLoadingAction | IFormDataLoadFailedAction | IFormDataLoadSuceededAction
+	type: FormActionTypes.FORM_DATA_SUBMITING;
+}
+export interface IFormDataSubmitingAction extends Action {
+
+	type: FormActionTypes.FORM_DATA_SUBMITING;
+}
+
+export interface IFormDataIsValidAction extends Action {
+
+	type: FormActionTypes.FORM_DATA_IS_VALID;
+	payload: {
+		isValid: boolean
+	}
+}
+
+
+export type UsersActions = IRequestUsersAction | IRequestUsersFailedAction | IRequestUsersSuceededAction
+export type FormActions = IFormDataLoadingAction | IFormDataLoadFailedAction | IFormDataLoadSuceededAction |
+	IFormDataSubmitingAction | IFormDataIsValidAction
 
 

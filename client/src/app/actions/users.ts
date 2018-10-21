@@ -19,8 +19,6 @@ const userRequestSuceededAction: ActionCreator<IRequestUsersSuceededAction> = (d
 })
 
 
-
-
 export const getUsers = (arg: any) => {
 
 	return async (dispatch: ThunkDispatch<any, void, Action>) => {

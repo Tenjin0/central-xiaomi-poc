@@ -1,10 +1,10 @@
-import ApolloClient from "apollo-boost";
+import ApolloClient, { InMemoryCache } from "apollo-boost";
 import gql from 'graphql-tag';
 import * as io from 'socket.io-client';
-import { IUser, IUserData } from "../constants/interface";
+import { IUser } from "../constants/interface";
 
 
-const _users: IUser[] = [
+const USERS: IUser[] = [
 	{
 		id: 1,
 		// tslint:disable-next-line:object-literal-sort-keys
@@ -39,7 +39,11 @@ export default class ServiceApi {
 		const URI = "http://localhost:3001/graphql";
 
 		this.client = new ApolloClient({
-			uri: URI
+			uri: URI,
+			// tslint:disable-next-line:object-literal-sort-keys
+			cache: new InMemoryCache({
+				addTypename: false
+			  })
 		})
 	}
 
@@ -48,15 +52,33 @@ export default class ServiceApi {
 		return new Promise<IUser[]>((resolve, ) => {
 
 			setTimeout(() => {
-				resolve(_users)
+				resolve(USERS)
 			}, 1000)
+		})
+
+	}
+
+	public getUser = (id: number) => {
+
+		const GET_USER_BY_ID = gql`
+			query user($id: ID!) {
+				user(id: $id) {
+				id
+				first_name
+				last_name
+				card_data
+				}
+			}
+		`;
+		return this.client.query({ query: GET_USER_BY_ID, variables: { id } }).then((response: any) => {
+			return response.data.user
 		})
 
 	}
 
 	public getUsers = () => {
 
-		const query = gql`
+		const GET_USERS = gql`
 		{
 			users {
 			  id
@@ -65,34 +87,60 @@ export default class ServiceApi {
 			}
 		  }
 		`
-		return this.client.query({ query }).then((response: any) => {
+		return this.client.query({ query: GET_USERS }).then((response: any) => {
 			return response.data.users
 		})
 
 	}
 
-	public addUsers = (user: IUserData): Promise<IUser> => { 
+	public createUser = (user: IUser): Promise<IUser> => {
+
 		const ADD_USER = gql`
-			mutation addUser($first_name: String!, $last_name: String!, $card_data: String!) {
-				addTodo(tfirst_name: String!, $last_name: String!, $card_data: String!) {
-				id
+			mutation createUser($first_name: String!, $last_name: String!, $card_data: String!) {
+				createUser(first_name: $first_name, last_name: $last_name, card_data: $card_data) {
+					id
 				}
 			}
 		`;
 		return this.client
-		.mutate({
-		  mutation: ADD_USER,
-		  variables: {
-			first_name: user.first_name,
-			last_name: user.last_name,
-			// tslint:disable-next-line:object-literal-sort-keys
-			card_data: user.card_data,
-		  },
-		})
-		.then((response: any) => {
+			.mutate({
+				mutation: ADD_USER,
+				variables: {
+					first_name: user.first_name,
+					last_name: user.last_name,
+					// tslint:disable-next-line:object-literal-sort-keys
+					card_data: user.card_data,
+				},
+			})
+			.then((response: any) => {
+				return response.data
+			})
+	}
 
-			return response.data
-		})
+	public updateUser = (user: IUser): Promise<IUser> => {
+
+		const UPDATE_USER = gql`
+			mutation updateUser($id: ID!, $first_name: String!, $last_name: String!, $card_data: String!) {
+				updateUser(id:$id, first_name: $first_name, last_name: $last_name, card_data: $card_data) {
+					id
+				}
+			}
+		`;
+		return this.client
+			.mutate({
+				mutation: UPDATE_USER,
+				variables: {
+					id: user.id,
+					// tslint:disable-next-line:object-literal-sort-keys
+					first_name: user.first_name,
+					last_name: user.last_name,
+					// tslint:disable-next-line:object-literal-sort-keys
+					card_data: user.card_data,
+				},
+			})
+			.then((response: any) => {
+				return response.data
+			})
 	}
 
 }

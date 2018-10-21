@@ -55,7 +55,7 @@ class CentralNavBar extends React.Component<ICentralNavBar & WithStyles<typeof s
 						</Typography>
 						<div className={classes.grow} />
 						<div>
-							<IconButton color="inherit" data-location={"/user"} onClick={this.handleChange}>
+							<IconButton color="inherit" data-location={"/user/1"} onClick={this.handleChange}>
 							<AccountCircleIcon />
 							</IconButton>
 							<IconButton color="inherit" data-location={"/users"} onClick={this.handleChange}>
