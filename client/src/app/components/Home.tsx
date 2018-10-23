@@ -6,7 +6,7 @@ export interface IHomeProps {
 
 
 
-export default class Home extends React.Component<IHomeProps, any> {
+export default class Home extends React.PureComponent<IHomeProps, any> {
 
 
 	public handleChangePage = () => {

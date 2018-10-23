@@ -36,7 +36,7 @@ interface ICentralNavBar {
 	history: any
 }
 	
-class CentralNavBar extends React.Component<ICentralNavBar & WithStyles<typeof styles>, {}> {
+class CentralNavBar extends React.PureComponent<ICentralNavBar & WithStyles<typeof styles>, {}> {
 
 	public handleChange = (e: React.MouseEvent<HTMLInputElement>) => {
 		this.props.history.push(e.currentTarget.dataset.location)

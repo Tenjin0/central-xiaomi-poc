@@ -7,9 +7,21 @@ export interface IUsersComponentProps {
 }
 
 
-export default class UsersComponent extends React.Component<IUsersComponentProps, any> {
+
+export default class UsersComponent extends React.PureComponent<IUsersComponentProps, any> {
+
 
 	public render() {
+
+		const Cell = (props: any) => {
+			console.log(props)
+			const { column } = props;
+			if (column.name === 'action') {
+			  return <Table.Cell {...props} ><button> add </button></Table.Cell>;
+			} 
+			return <Table.Cell {...props} />;
+		  };
+	
 		console.log(this.props)
 		return (
 			<div>
@@ -22,7 +34,10 @@ export default class UsersComponent extends React.Component<IUsersComponentProps
 						{ name: 'last_name', title: 'Last name' },
 						{ name: 'action', title: 'Action'}
 					]}>
-					<Table />
+					
+					<Table
+						cellComponent={Cell}
+					/>
 					<TableHeaderRow />
 				</Grid>
 			</div>

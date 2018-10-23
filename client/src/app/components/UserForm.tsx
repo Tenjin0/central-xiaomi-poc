@@ -18,7 +18,7 @@ interface IUserFormProps {
 	match: any
 }
 
-export default class UserForm extends React.Component<WithStyles<typeof styles> & IFormState & IApiContext & IUserFormDispatch & IUserFormProps, IUserFormState> {
+export default class UserForm extends React.PureComponent<WithStyles<typeof styles> & IFormState & IApiContext & IUserFormDispatch & IUserFormProps, IUserFormState> {
 
 	private validateForm: Yup.Schema<any>
 	private formErrorsInit: IUser
