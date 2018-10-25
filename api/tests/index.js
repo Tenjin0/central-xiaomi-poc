@@ -1,26 +1,11 @@
-const path = require("path");
+const { User } = require('../database/models');
 
-const test = {
-	development: {
-		dialect: 'sqlite',
-		getName() {
-			return test.storeImagePath;
-		},
-	},
-	test: {
-		dialect: 'sqlite',
-		storage: ':memory',
-	},
-	production: {
-		dialect: 'sqlite',
-	},
-	storeImagePath: process.env.cameraPath || 'public/camera',
+const args = {
+	first_name: 'azeer',
+	last_name: 'fgdfgfsd',
+	card_data: 'fgdfgfsd',
+	created_at: new Date(),
 };
-const imagePath = "public/camera";
-const dateTime = new Date();
-console.log(dateTime.toLocaleTimeString().replace(/:/g, ''));
-console.log(dateTime.toLocaleDateString().replace(/-/g, ''));
-const folderInstanceCamera = path.join(imagePath, `${dateTime.toLocaleDateString().replace(/-/g, '')}-${dateTime.toLocaleTimeString().replace(/:/g, '')}`);
-
-
-console.log(folderInstanceCamera);
+User.all().then((users) => {
+	console.log(users);
+});

@@ -19,6 +19,6 @@ module.exports = function graphqlRoute(app) {
 
 	app.use('/graphql', ExpressGraphQL({
 		schema,
-		graphiql: NODE_ENV === 'development',
+		graphiql: true,
 	}));
 };

@@ -14,15 +14,14 @@ export default class UsersComponent extends React.PureComponent<IUsersComponentP
 	public render() {
 
 		const Cell = (props: any) => {
-			console.log(props)
+
 			const { column } = props;
 			if (column.name === 'action') {
 			  return <Table.Cell {...props} ><button> add </button></Table.Cell>;
 			} 
 			return <Table.Cell {...props} />;
-		  };
+		};
 	
-		console.log(this.props)
 		return (
 			<div>
 				Users:

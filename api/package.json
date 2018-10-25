@@ -18,10 +18,11 @@
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
     "graphql": "^14.0.2",
+    "moment": "^2.22.2",
     "sequelize": "^4.38.1",
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
-    "sqlite3": "^4.0.2",
+    "sqlite3": "^4.0.3",
     "ws": "^6.0.0"
   },
   "devDependencies": {
