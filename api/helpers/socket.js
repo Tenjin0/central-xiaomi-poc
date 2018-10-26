@@ -1,6 +1,35 @@
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
+const moment = require('moment');
 const config = require('../config');
+const { Camera } = require('../database/models');
+
+const colors = {
+	off: {
+		r: 0,
+		g: 0,
+		b: 0,
+		i: 0,
+	},
+	orange: {
+		r: 255,
+		g: 70,
+		b: 0,
+		i: 100,
+	},
+	red: {
+		r: 255,
+		g: 0,
+		b: 0,
+		i: 100,
+	},
+	green: {
+		r: 0,
+		g: 255,
+		b: 0,
+		i: 100,
+	},
+};
 
 module.exports = function centralSocket(io, models) {
 	const nxs = io.of('/xiaomisecurity');
@@ -19,7 +48,7 @@ module.exports = function centralSocket(io, models) {
 
 	const saveImage = (folder, indice, arrayBufferImage) => {
 		const imagepathToStore = `${folder}/${indice}.png`;
-		console.log(imagepathToStore);
+
 		fs.writeFile(imagepathToStore, arrayBufferImage, 'base64', (err) => {
 			console.log(err); // writes out file without error, but it's not a valid image
 		});
@@ -27,58 +56,29 @@ module.exports = function centralSocket(io, models) {
 
 	const storeImagesFromCamera = (socket) => {
 		let count = 0;
-		const timeout = setInterval(() => {
-			console.log('setInterval', count, imageToStore);
-			const dateTime = new Date();
-			console.log(dateTime.toLocaleTimeString() + dateTime.toLocaleTimeString().replace(/:/g, ''));
-			console.log(dateTime.toLocaleDateString() + dateTime.toLocaleDateString().replace(/-/g, ''));
-			const folderInstanceCamera = path.join(imagePath, `${dateTime.toLocaleDateString().replace(/-/g, '')}-${dateTime.toLocaleTimeString().replace(/:/g, '')}`);
+		const now = moment();
+		const folderInstanceCamera = path.join(imagePath, now.format('x'));
 
+		Camera.create({
+			path: folderInstanceCamera,
+			created_at: now.format('YYYY-MM-DD HH:mm:ss.SSS'),
+		});
 
-			console.log(folderInstanceCamera)
-			fs.mkdir(folderInstanceCamera, (e) => {
-				if (!e || (e && e.code === 'EEXIST')) {
-					//do something with contents
+		fs.mkdir(folderInstanceCamera, (e) => {
+			if (!e || (e && e.code === 'EEXIST')) {
+				const timeout = setInterval(() => {
+					// do something with contents
 					saveImage(folderInstanceCamera, count, imageToStore);
-				} else {
-					//debug
-				}
-			});
+					count += 1;
 
-			count += 1;
-			if (count > 2) {
-				clearTimeout(timeout);
-				socket.emit('camera.device.stop', cameraId);
+					if (count > 2) {
+						clearTimeout(timeout);
+						socket.emit('camera.device.stop', cameraId);
+						socket.emit('xiaomihome.device.color', 'all', null, colors.green);
+					}
+				}, 3000);
 			}
-		}, 3000);
-	};
-
-
-	const colors = {
-		off: {
-			r: 0,
-			g: 0,
-			b: 0,
-			i: 0,
-		},
-		orange: {
-			r: 255,
-			g: 70,
-			b: 0,
-			i: 100,
-		},
-		red: {
-			r: 255,
-			g: 0,
-			b: 0,
-			i: 100,
-		},
-		green: {
-			r: 0,
-			g: 255,
-			b: 0,
-			i: 100,
-		},
+		});
 	};
 
 	nxs.on('central.init', (value) => {
@@ -102,9 +102,7 @@ module.exports = function centralSocket(io, models) {
 			['xiaomihome.gateway.read', 'xiaomihome.devices', 'nfc.data', 'camera.device.data']);
 
 		socket.on('xiaomihome.gateway.read', (gtsid, device) => {
-			console.log('event', device);
 			if (device.model === 'magnet' && device.event === 'open') {
-				console.log('A door has been open');
 				socket.emit('xiaomihome.device.color', 'all', null, colors.orange);
 
 				setTimeout(() => {

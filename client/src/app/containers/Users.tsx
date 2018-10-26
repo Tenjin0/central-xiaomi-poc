@@ -10,7 +10,8 @@ import { IFormState, IUser } from '../constants/interface';
 export interface IUsersContainerProps extends IFormState {
 
 	requestUsers: (args?:any) => Promise<void>
-	data: IUser[]
+	data: IUser[],
+	history: any
 }
 
 
@@ -23,18 +24,20 @@ class UsersContainer extends React.Component<IUsersContainerProps, any> {
 	}
 
 	public render() {
+		console.log(this.props)
 		const users = this.props.data || []
 		return (
 			<div>
-				<UsersComponent users={users} />
+				<UsersComponent history={this.props.history} users={users} />
 			</div>
 		);
 	}
 }
 
 const mapStateToProps = (state: any) => {
+	console.log(state)
 	return {
-		...state.users
+		...state.users,
 	}
 }
 

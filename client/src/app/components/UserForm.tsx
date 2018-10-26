@@ -115,6 +115,7 @@ export default class UserForm extends React.PureComponent<WithStyles<typeof styl
 		}
 
 		const submitAction = this.state.action === 'ADD' ? this.props.api.createUser : this.props.api.updateUser
+
 		submitAction(user).then(() => {
 			this.state = {
 				...this.state,
