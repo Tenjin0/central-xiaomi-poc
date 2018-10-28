@@ -14,7 +14,7 @@ const config = {
 	},
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		publicPath: '/',
+		publicPath: "/",
 		filename: 'js/[name].bundle.js'
 	},
 	devtool: 'source-map',
@@ -46,17 +46,18 @@ const config = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			template: path.resolve(__dirname, 'src', 'app', 'index.html')
+			template: path.resolve(__dirname, 'src', 'app', 'index.html'),
+			baseUrl: "/"
 		}),
 		new webpack.HotModuleReplacementPlugin()
 	],
-	optimization: {
-		namedModules: true,
-		splitChunks: {
-			name: 'vendor',
-			minChunks: 2
-		}
-	}
+	// optimization: {
+	// 	namedModules: true,
+	// 	splitChunks: {
+	// 		name: 'vendor',
+	// 		minChunks: 2
+	// 	}
+	// }
 }
 
 module.exports = config

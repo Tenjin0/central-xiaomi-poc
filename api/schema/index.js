@@ -13,7 +13,7 @@ const {
 const {
 	createUser,
 	updateUser,
-	deleteUser,
+	// deleteUser,
 } = require('./mutations');
 
 const RootQuery = new GraphQLObjectType({
@@ -25,12 +25,13 @@ const RootQuery = new GraphQLObjectType({
 	}),
 });
 
+
 const RootMutation = new GraphQLObjectType({
 	name: 'rootMutation',
 	description: 'This is the root mutation which holds all possible WRITE entrypoints for the GraphQL API',
 	fields: {
 		createUser,
-		// updateUser,
+		updateUser,
 		// deleteUser
 	},
 });

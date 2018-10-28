@@ -11,13 +11,11 @@ export interface IUsersComponentProps {
 export default class UsersComponent extends React.Component<IUsersComponentProps, any> {
 
 	public onClickUpdate = (e: React.MouseEvent<HTMLButtonElement>) => {
-		console.log(e.currentTarget.dataset.id)
 		this.props.history.push("/user/" + e.currentTarget.dataset.id)
 	}
 
 	public render() {
 		const Cell = (props: any) => {
-			console.log(props.row.id)
 			const { column } = props;
 			if (column.name === 'action') {
 			  return <Table.Cell {...props} ><Button data-id={props.row.id} onClick={this.onClickUpdate}> add </Button></Table.Cell>;

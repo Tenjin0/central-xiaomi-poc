@@ -20,7 +20,7 @@ const createUser = {
 		card_data: { type: GraphQLString },
 	},
 	resolve: async (value, args) => {
-		console.log(args);
+
 		return User.create(args);
 	},
 };
@@ -46,17 +46,13 @@ const updateUser = {
 			type: new GraphQLNonNull(GraphQLString),
 		},
 	},
-	resolve: async (user, {
-		id,
-	}) => {
-		console.log(user);
-		const foundUser = await User.findById(id);
+	resolve: async (value, args) => {
+		const foundUser = await User.findById(args.id);
 
 		if (!foundUser) {
-			throw new Error(`User with id: ${id} not found!`);
+			throw new Error(`User with id: ${args.id} not found!`);
 		}
-
-		return foundUser.update(updatedUser);
+		return foundUser.update(args);
 	},
 };
 
@@ -69,9 +65,9 @@ const deleteUser = {
 			type: new GraphQLNonNull(GraphQLInt),
 		},
 	},
-	resolve: async (user, {
-		id,
-	}) => {
+	resolve: async (value, args) => {
+		console.log('resolve', value);
+		console.log('resolve', args);
 		const foundUser = await User.findById(id);
 
 		if (!foundUser) {

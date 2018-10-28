@@ -10,7 +10,7 @@ const formLoadingAction: ActionCreator<FormActions> = () => ({
 	type: FormActionTypes.FORM_DATALOAD_REQUESTED
 })
 
-const formSuceedAction: ActionCreator<FormActions> = () => ({
+const formLoadSuceedAction: ActionCreator<FormActions> = () => ({
 
 	type: FormActionTypes.FORM_DATALOAD_SUCEEDED
 })
@@ -51,11 +51,11 @@ export const formFailed = () => {
 	}
 }
 
-export const formSuceeded = () => {
+export const formLoadSuceeded = () => {
 
 	return async (dispatch: ThunkDispatch<any, void, Action>) => {
 
-		dispatch(formSuceedAction())
+		dispatch(formLoadSuceedAction())
 	}
 }
 

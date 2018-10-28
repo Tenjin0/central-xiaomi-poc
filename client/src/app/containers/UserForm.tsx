@@ -4,7 +4,7 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import { connect } from 'react-redux';
 import { Action, compose } from 'redux'
 import { ThunkDispatch } from 'redux-thunk';
-import { formFailed, formIsValid, formLoading, formSubmitting, formSuceeded } from "../actions/form"
+import { formFailed, formIsValid, formLoading, formLoadSuceeded, formSubmitting } from "../actions/form"
 import UserFormComponent from '../components/UserForm'
 import { withService } from '../service/apiContext'
 
@@ -13,7 +13,7 @@ export interface IUserFormDispatch {
 	dispatchFormLoading: () => Promise<void>
 	dispatchFormSubmiting: () => Promise<void>
 	dispatchFormFailed: () => Promise<void>
-	dispatchFormSuceeded: () => Promise<void>
+	dispatchFormLoadSuceeded: () => Promise<void>
 	dispatchformIsValid: (isValid: boolean) => Promise<void>
 }
 
@@ -82,7 +82,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<any, void, Action>) => {
 		dispatchFormSubmiting: () => dispatch(formSubmitting()),
 		// tslint:disable-next-line:object-literal-sort-keys
 		dispatchFormFailed: () => dispatch(formFailed),
-		dispatchFormSuceeded: () => dispatch(formSuceeded()),
+		dispatchFormLoadSuceeded: () => dispatch(formLoadSuceeded()),
 		dispatchformIsValid: (isValid: boolean) => dispatch(formIsValid(isValid)),
 	};
 }

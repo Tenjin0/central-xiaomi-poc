@@ -5,14 +5,17 @@ const path = require('path'),
    app = express(),
    port = process.env.PORT || 3000;
 
+   
+if (process.env.NODE_ENV === 'development') {
 
-let compiler = webpack(webpackConfig);
+	let compiler = webpack(webpackConfig);
+	app.use(require('webpack-dev-middleware')(compiler, {
+	   noInfo: true, publicPath: webpackConfig.output.publicPath, stats:    { colors: true }
+	}));
+	
+	app.use(require('webpack-hot-middleware')(compiler));
 
-app.use(require('webpack-dev-middleware')(compiler, {
-   noInfo: true, publicPath: webpackConfig.output.publicPath, stats:    { colors: true }
-}));
-
-app.use(require('webpack-hot-middleware')(compiler));
+}
 
 app.use(express.static(path.resolve(__dirname, 'dist')));
 

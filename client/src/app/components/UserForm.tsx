@@ -54,8 +54,7 @@ export default class UserForm extends React.PureComponent<WithStyles<typeof styl
 		});
 	}
 
-	public componentDidMount() {
-
+	public async componentDidMount() {
 		if (this.props.socket) {
 			this.props.socket.on("nfc.data", (data: string) => {
 				this.state = {
@@ -70,12 +69,14 @@ export default class UserForm extends React.PureComponent<WithStyles<typeof styl
 				...this.state,
 				action: "UPDATE"
 			}
-			this.props.api.getUser(this.props.match.params.id).then((data: IUser) => {
+			this.props.api.getUser(this.props.match.params.id).then(async (data: IUser) => {
 				this.state = {
 					...this.state,
 					...data
 				}
-				this.props.dispatchFormSuceeded()
+				this.setState(this.state)
+				this.props.dispatchFormLoadSuceeded()
+				
 			}).catch((err: any) => {
 				this.props.dispatchFormFailed()
 				// display error message
@@ -124,7 +125,7 @@ export default class UserForm extends React.PureComponent<WithStyles<typeof styl
 					...this.formErrorsInit
 				}
 			}
-			this.props.dispatchFormSuceeded()
+			this.props.dispatchFormLoadSuceeded()
 		}).catch((err) => {
 			this.props.dispatchFormFailed()
 		})
