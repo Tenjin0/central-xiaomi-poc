@@ -1,19 +1,17 @@
 const {
 	GraphQLSchema,
 	GraphQLObjectType,
-	GraphQLString,
-	GraphQLID,
 } = require('graphql');
 
 const {
 	userQuery,
 	usersQuery,
+	camerasQuery,
 } = require('./queries');
 
 const {
 	createUser,
 	updateUser,
-	// deleteUser,
 } = require('./mutations');
 
 const RootQuery = new GraphQLObjectType({
@@ -22,6 +20,7 @@ const RootQuery = new GraphQLObjectType({
 	fields: () => ({
 		user: userQuery,
 		users: usersQuery,
+		cameras: camerasQuery,
 	}),
 });
 

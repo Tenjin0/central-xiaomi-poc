@@ -22,6 +22,7 @@ export default class UserForm extends React.PureComponent<WithStyles<typeof styl
 
 	private validateForm: Yup.Schema<any>
 	private formErrorsInit: IUser
+
 	constructor(props: any) {
 
 		super(props)

@@ -2,6 +2,11 @@ const path = require('path');
 var webpack = require('webpack')
 const pathToNodeModules = process.env.FROM_PARENT_FOLDER ? path.resolve(__dirname, "..", "node_modules", "client", "node_modules") : path.resolve(__dirname, "node_modules")
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const devMode = process.env.NODE_ENV ? process.env.NODE_ENV === "development" : true
+console.log(devMode)
+
 const config = {
 	mode: "development",
 	entry: {
@@ -41,7 +46,16 @@ const config = {
 				test: /\.js$/,
 				loader: "source-map-loader",
 				exclude: [/node_modules/, /build/, /__test__/],
-			}
+			},
+			{
+				test: /\.(scss|sass|css)$/,
+				exclude: /node_modules/,
+				loaders: [
+				  MiniCssExtractPlugin.loader,
+				'css-loader',
+				'sass-loader',
+				]
+			  },
 		]
 	},
 	plugins: [
@@ -49,6 +63,10 @@ const config = {
 			template: path.resolve(__dirname, 'src', 'app', 'index.html'),
 			baseUrl: "/"
 		}),
+		new MiniCssExtractPlugin({
+			filename: devMode ? '[name].css' : '[name].[hash].css',
+			chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+	  	}),
 		new webpack.HotModuleReplacementPlugin()
 	],
 	// optimization: {

@@ -19,6 +19,9 @@ const userType = new GraphQLObjectType({
 		card_data: {
 			type: GraphQLString,
 		},
+		created_at: {
+			type: GraphQLString,
+		},
 	}),
 });
 

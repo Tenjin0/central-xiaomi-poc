@@ -26,6 +26,7 @@ https://gist.github.com/dnorthrupva/eec46b9c775f171c3a310b6d2dbdd040 (Formik mat
 https://codepen.io/scottloway/pen/zqoLyQ
 http://www.sanjaywebdesigner.com/articles/page-transition-effects/
 https://codepen.io/Kryan74/pen/VEdGad?page=1&
+https://github.com/aholachek/react-flip-toolkit
 
 TODO
 	dockerizer le client

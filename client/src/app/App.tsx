@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from "react-router-dom"
 
 import Hello from "./components/Hello"
 import Home from "./components/Home"
+import CamerasArchiveContainer from "./containers/CameraArchive"
 import Nav from "./containers/Nav"
 import UserFormContainer from "./containers/UserForm"
 import UsersContainer from "./containers/Users"
@@ -21,6 +22,7 @@ export default class App extends React.Component<IAppProps, any> {
 					<Route exact={true} path="/user" component={UserFormContainer} />
 					<Route exact={true} path="/user/:id" component={UserFormContainer} />
 					<Route exact={true} path="/users" component={UsersContainer} />
+					<Route exact={true} path="/camera/archive" component={CamerasArchiveContainer} />
 					<Redirect from='*' to='/' />
 				</Switch>
 			</div>

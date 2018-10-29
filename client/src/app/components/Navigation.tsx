@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import * as React from 'react';
 
@@ -55,6 +56,9 @@ class CentralNavBar extends React.PureComponent<ICentralNavBar & WithStyles<type
 						</Typography>
 						<div className={classes.grow} />
 						<div>
+							<IconButton color="inherit" data-location={"/camera/archive"} onClick={this.handleChange}>
+								<PhotoCameraIcon/>
+							</IconButton>
 							<IconButton color="inherit" data-location={"/user/1"} onClick={this.handleChange}>
 							<AccountCircleIcon />
 							</IconButton>
