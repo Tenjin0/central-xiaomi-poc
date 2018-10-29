@@ -46,13 +46,13 @@ const updateUser = {
 			type: new GraphQLNonNull(GraphQLString),
 		},
 	},
-	resolve: async (value, args) => {
-		const foundUser = await User.findById(args.id);
+	resolve: async (value, { id }) => {
+		const foundUser = await User.findById(id);
 
 		if (!foundUser) {
-			throw new Error(`User with id: ${args.id} not found!`);
+			throw new Error(`User with id: ${id} not found!`);
 		}
-		return foundUser.update(args);
+		return foundUser.update(id);
 	},
 };
 
@@ -65,9 +65,9 @@ const deleteUser = {
 			type: new GraphQLNonNull(GraphQLInt),
 		},
 	},
-	resolve: async (value, args) => {
+	resolve: async (value, { id }) => {
 		console.log('resolve', value);
-		console.log('resolve', args);
+		console.log('resolve', id);
 		const foundUser = await User.findById(id);
 
 		if (!foundUser) {

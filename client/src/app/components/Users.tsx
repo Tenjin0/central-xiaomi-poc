@@ -21,7 +21,7 @@ export default class UsersComponent extends React.Component<IUsersComponentProps
 			const { column } = props;
 
 			if (column.name === 'action') {
-			  return <Table.Cell {...props} ><Button data-id={props.row.id} onClick={this.onClickUpdate}> add </Button></Table.Cell>;
+			  return <Table.Cell {...props} ><Button data-id={props.row.id} onClick={this.onClickUpdate}> Edit </Button></Table.Cell>;
 			} 
 			return <Table.Cell {...props} />;
 		};
