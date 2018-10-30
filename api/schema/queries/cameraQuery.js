@@ -1,11 +1,12 @@
 const {
 	GraphQLID,
 	GraphQLString,
-	GraphQLList,
+	GraphQLInt,
 } = require('graphql');
 
 const {
 	cameraType,
+	pagination,
 } = require('../types');
 
 const {
@@ -29,18 +30,53 @@ const cameraQuery = {
 	}),
 };
 
+
+// const LinkOrderByInput = {
+// 	id_ASC: 'id_ASC',
+// 	id_DESC: 'id_DESC',
+// 	created_at_ASC: 'created_at_ASC',
+// 	created_at_DESC: 'created_at_DESC',
+// };
+
 const camerasQuery = {
-	type: GraphQLList(cameraType),
-	resolve: (source, args, root, ast) => {
+	type: pagination(cameraType),
+	args: {
+		filter: {
+			type: GraphQLString,
+		},
+		per_page: {
+			type: GraphQLInt,
+		},
+		page: {
+			type: GraphQLInt,
+		},
+		// order: {
+		// 	type: LinkOrderByInput,
+		// },
+	},
+	resolve: async (source, args, root, ast) => {
 		const attributes = Object.keys(Camera.attributes);
-		const fields = ast.fieldNodes[0].selectionSet.selections
+		let fields = ast.fieldNodes[0].selectionSet.selections[0].selectionSet.selections
 			.map(selection => selection.name.value)
 			.filter(attribute => attributes.indexOf(attribute) >= 0);
-
-		return Camera.findAll({
+		if (fields.length === 0) {
+			fields = null;
+		}
+		const data = await Camera.findAll({
 			attributes: fields,
-			order: [['created_at', 'DESC']],
+			order: [
+				['created_at', 'DESC'],
+			],
 		});
+			// 	return {data};
+		// }).then((data) => {
+		// 	console.log(data);
+		return {
+			data,
+			pageInfo: {
+			},
+		};
+		console.log()
 	},
 };
 
