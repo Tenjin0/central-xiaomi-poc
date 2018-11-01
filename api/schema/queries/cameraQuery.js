@@ -11,6 +11,7 @@ const {
 
 const {
 	Camera,
+	sequelize,
 } = require('../../database/models');
 
 
@@ -44,7 +45,7 @@ const camerasQuery = {
 		filter: {
 			type: GraphQLString,
 		},
-		per_page: {
+		perPage: {
 			type: GraphQLInt,
 		},
 		page: {
@@ -55,28 +56,43 @@ const camerasQuery = {
 		// },
 	},
 	resolve: async (source, args, root, ast) => {
+		console.log(args)
+
 		const attributes = Object.keys(Camera.attributes);
-		let fields = ast.fieldNodes[0].selectionSet.selections[0].selectionSet.selections
+
+		const askData = ast.fieldNodes[0].selectionSet.selections[0].name.value === 'data'
+		|| (ast.fieldNodes[0].selectionSet.selections[1] && ast.fieldNodes[0].selectionSet.selections[1].name.value === 'data');
+
+		const askPageInfo = ast.fieldNodes[0].selectionSet.selections[0].name.value === 'pageInfo'
+		|| (ast.fieldNodes[0].selectionSet.selections[1] && ast.fieldNodes[0].selectionSet.selections[1].name.value === 'pageInfo');
+
+		let data = null;
+
+		const fields = ast.fieldNodes[0].selectionSet.selections[0].selectionSet.selections
 			.map(selection => selection.name.value)
 			.filter(attribute => attributes.indexOf(attribute) >= 0);
-		if (fields.length === 0) {
-			fields = null;
+
+		if (askData) {
+			data = await Camera.findAll({
+				attributes: fields,
+				order: [
+					['created_at', 'DESC'],
+				],
+			});
 		}
-		const data = await Camera.findAll({
-			attributes: fields,
-			order: [
-				['created_at', 'DESC'],
-			],
-		});
-			// 	return {data};
-		// }).then((data) => {
-		// 	console.log(data);
+
+		const totalCountDatas = (await Camera.findAll({
+			attributes: [[sequelize.fn('COUNT', sequelize.col('id')), 'TOTAL_COUNT']],
+		}))[0].dataValues.TOTAL_COUNT;
+
+		const pageInfo = {
+			totalCountDatas,
+		};
+
 		return {
 			data,
-			pageInfo: {
-			},
+			pageInfo,
 		};
-		console.log()
 	},
 };
 

@@ -19,10 +19,7 @@ const createUser = {
 		last_name: { type: GraphQLString },
 		card_data: { type: GraphQLString },
 	},
-	resolve: async (value, args) => {
-
-		return User.create(args);
-	},
+	resolve: async (value, args) => User.create(args),
 };
 
 const updateUser = {
@@ -66,8 +63,6 @@ const deleteUser = {
 		},
 	},
 	resolve: async (value, { id }) => {
-		console.log('resolve', value);
-		console.log('resolve', id);
 		const foundUser = await User.findById(id);
 
 		if (!foundUser) {

@@ -2,7 +2,7 @@ const {
 	GraphQLObjectType,
 	GraphQLInt,
 	GraphQLBoolean,
-	GraphQLList
+	GraphQLList,
 } = require('graphql');
 
 const pageInfoType = new GraphQLObjectType({
@@ -17,13 +17,13 @@ const pageInfoType = new GraphQLObjectType({
 		hasNextPage: {
 			type: GraphQLBoolean,
 		},
-		per_page: {
+		perPage: {
 			type: GraphQLInt,
 		},
-		total_pages: {
+		totalPages: {
 			type: GraphQLInt,
 		},
-		total_items: {
+		totalCountDatas: {
 			type: GraphQLInt,
 		},
 	}),
@@ -31,7 +31,7 @@ const pageInfoType = new GraphQLObjectType({
 
 
 const pagination = (itemType) => {
-	const name = `${itemType  }sPagination`;
+	const name = `${itemType}sPagination`;
 	return new GraphQLObjectType({
 		name,
 		fields: () => ({
