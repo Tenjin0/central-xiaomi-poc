@@ -29,15 +29,12 @@ https://codepen.io/Kryan74/pen/VEdGad?page=1&
 https://github.com/aholachek/react-flip-toolkit
 
 TODO
-	dockerizer le client
 	config .env avec docker
 	config .env sans docker
 
 	routes
-		users
-		view user
-		add user
-		update user
-		delete user
-		images
+		images filter min_date max_date
 		image/:id
+
+	script
+		finir le seed camera

@@ -32,4 +32,5 @@ services:
       - "traefik.frontend.rule=Host:central.localhost.tv"
     # extra_hosts:
     #   - "outside:${HOST_IP}"
-
+volumes:
+  node_modules:

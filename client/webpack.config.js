@@ -5,7 +5,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const devMode = process.env.NODE_ENV ? process.env.NODE_ENV === "development" : true
-console.log(devMode)
 
 const config = {
 	mode: "development",
@@ -51,11 +50,11 @@ const config = {
 				test: /\.(scss|sass|css)$/,
 				exclude: /node_modules/,
 				loaders: [
-				  MiniCssExtractPlugin.loader,
-				'css-loader',
-				'sass-loader',
+				  	MiniCssExtractPlugin.loader,
+					'css-loader',
+					'sass-loader',
 				]
-			  },
+			},
 		]
 	},
 	plugins: [

@@ -1,4 +1,4 @@
-FROM node:10-alpine
+FROM node:8-alpine
 
 RUN mkdir -p /app
 
@@ -12,3 +12,6 @@ RUN npm install --only=production && \
 npm cache clean --force
 
 EXPOSE 3000
+
+CMD ["npm", "rebuild", "node-sass"]
+CMD ["npm", "run", "start"]

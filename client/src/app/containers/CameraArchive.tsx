@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Flipped, Flipper } from 'react-flip-toolkit';
-import "../styles/main.scss"
+// import "../styles/main.scss"
 
 export interface ICameraArchiveProps {
 }

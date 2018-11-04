@@ -42,7 +42,6 @@
       "install": "^0.12.2",
       "material-table": "^0.9.12",
       "mini-css-extract-plugin": "^0.4.4",
-      "node-sass": "^4.9.4",
       "react": "^16.5.2",
       "react-dom": "^16.5.2",
       "react-redux": "^5.0.7",
