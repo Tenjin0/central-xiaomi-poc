@@ -6,6 +6,7 @@ module.exports = {
 		"allowImportExportEverywhere": true,
 		"import/no-dynamic-require": 0,
 		"allowForLoopAfterthoughts": 0,
-		"no-plusplus": 0
+		"no-plusplus": 0,
+		"padded-blocks" : [2, "always"]
     }
 };

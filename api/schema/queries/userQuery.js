@@ -1,16 +1,22 @@
 const {
 	GraphQLID,
 	GraphQLString,
-	GraphQLList,
+	GraphQLInt,
 } = require('graphql');
 
 const {
 	userType,
+	pagination,
 } = require('../types');
 
 const {
 	User,
 } = require('../../database/models');
+const {
+	Op,
+} = require('../../config');
+
+const GraphQLQueryConverter = require('../../helpers/graphQLQueryConverter');
 
 const userQuery = {
 	type: userType,
@@ -29,16 +35,46 @@ const userQuery = {
 };
 
 const usersQuery = {
-	type: GraphQLList(userType),
-	resolve: (source, args, root, ast) => {
-		const attributes = Object.keys(User.attributes);
-		const fields = ast.fieldNodes[0].selectionSet.selections
-			.map(selection => selection.name.value)
-			.filter(attribute => attributes.indexOf(attribute) >= 0);
+	type: pagination(userType),
+	args: {
+		filter: {
+			type: GraphQLString,
+		},
+		perPage: {
+			type: GraphQLInt,
+		},
+		page: {
+			type: GraphQLInt,
+		},
+		// order: {
+		// 	type: LinkOrderByInput,
+		// },
+	},
+	resolve: async (source, args, root, ast) => {
 
-		return User.all({
-			attributes: fields,
+		const gconv = new GraphQLQueryConverter(User, args, ast);
+		const filter = args.filter ? {
+			[Op.or]: [{
+				first_name: {
+					[Op.like]: `%${args.filter}%`,
+				},
+			},
+			{
+				last_name: {
+					[Op.like]: `%${args.filter}%`,
+				},
+			},
+			],
+		} : null;
+		await gconv.generate({
+			filter,
 		});
+
+		return {
+			data: gconv.data,
+			pageInfo: gconv.pageInfo,
+		};
+
 	},
 };
 

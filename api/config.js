@@ -6,7 +6,12 @@ const path = require('path');
 const config = {
 	dbFile: 'central.db',
 	storeImagePath: process.env.cameraPath || 'public/camera',
+	defaultPerPage: 10,
+	delayRedColor: 10,
+	delayOrangeColor: 10,
+	Op,
 };
+
 config.development = {
 	dialect: 'sqlite',
 	storage: path.join(__dirname, config.dbFile),
