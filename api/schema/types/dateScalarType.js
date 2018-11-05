@@ -1,5 +1,5 @@
 const GraphQL = require('graphql');
-
+// https://www.apollographql.com/docs/graphql-tools/scalars.html
 const DateTimeScalar = new GraphQL.GraphQLScalarType({
 	name: 'DateTime',
 	description: 'An ISO-8601 encoded UTC date string.',
