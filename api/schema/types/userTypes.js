@@ -4,6 +4,8 @@ const {
 	GraphQLID,
 } = require('graphql');
 
+const moment = require('moment');
+
 const UserType = new GraphQLObjectType({
 	name: 'User',
 	fields: () => ({
@@ -21,6 +23,7 @@ const UserType = new GraphQLObjectType({
 		},
 		created_at: {
 			type: GraphQLString,
+			resolve: source => moment(source.created_at, 'x').toISOString(),
 		},
 	}),
 });

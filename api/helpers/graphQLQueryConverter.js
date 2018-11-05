@@ -70,6 +70,7 @@ class GraphQLQueryConverter {
 				attributes: [
 					[sequelize.fn('COUNT', sequelize.col('id')), 'TOTAL_COUNT'],
 				],
+				where: opts.filter,
 			}))[0].dataValues.TOTAL_COUNT;
 
 			if (this.args.perPage || this.args.page) {

@@ -9,12 +9,8 @@ const {
 	paginationFactory,
 } = require('../types');
 
-const {
-	User,
-} = require('../../database/models');
-const {
-	Op,
-} = require('../../config');
+const { User } = require('../../database/models');
+const { Op } = require('../../config');
 
 const GraphQLQueryConverter = require('../../helpers/graphQLQueryConverter');
 

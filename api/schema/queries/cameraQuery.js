@@ -4,6 +4,8 @@ const {
 	GraphQLInt,
 } = require('graphql');
 
+const { Op } = require('../../config');
+
 const {
 	CameraType,
 	RangeDateType,
@@ -55,12 +57,31 @@ const camerasQuery = {
 	},
 	resolve: async (source, args, root, ast) => {
 
+		const filter = {
+			created_at: {},
+		};
+		if (args.filter.min_date) {
+
+			filter.created_at = {
+				[Op.gte]: args.filter.min_date,
+			};
+
+		}
+		if (args.filter.max_date) {
+
+			filter.created_at = {
+				...filter.created_at,
+				[Op.lte]: args.filter.max_date,
+			};
+
+		}
 		const gconv = new GraphQLQueryConverter(Camera, args, ast);
 
 		await gconv.generate({
 			order: [
 				['created_at', 'DESC'],
 			],
+			filter,
 		});
 
 		return {

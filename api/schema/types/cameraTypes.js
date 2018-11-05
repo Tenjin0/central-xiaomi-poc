@@ -19,7 +19,7 @@ const CameraType = new GraphQLObjectType({
 		},
 		created_at: {
 			type: GraphQLString,
-			resolve: source => moment(source.created_at, 'x').format('YYYY-MM-DD HH:mm:ss.SSS'),
+			resolve: source => moment(source.created_at, 'x').toISOString(),
 		},
 	}),
 });
@@ -31,7 +31,7 @@ const RangeDateType = new GraphQLInputObjectType({
 			type: DateTimeScalar,
 		},
 		max_date: {
-			type: GraphQLString,
+			type: DateTimeScalar,
 		},
 	}),
 });
