@@ -8,13 +8,12 @@ const {
 	User,
 } = require('../../database/models');
 
-
 const {
-	userType,
+	UserType,
 } = require('../types');
 
 const createUser = {
-	type: userType,
+	type: UserType,
 	description: 'The mutation that allows you to create a new User',
 	args: {
 		first_name: {
@@ -31,7 +30,7 @@ const createUser = {
 };
 
 const updateUser = {
-	type: userType,
+	type: UserType,
 	description: 'The mutation that allows you to update an existing User by Id',
 	args: {
 		id: {
@@ -68,7 +67,7 @@ const updateUser = {
 };
 
 const deleteUser = {
-	type: userType,
+	type: UserType,
 	description: 'The mutation that allows you to delete a existing User by Id',
 	args: {
 		id: {

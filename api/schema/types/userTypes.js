@@ -4,7 +4,7 @@ const {
 	GraphQLID,
 } = require('graphql');
 
-const userType = new GraphQLObjectType({
+const UserType = new GraphQLObjectType({
 	name: 'User',
 	fields: () => ({
 		id: {
@@ -25,4 +25,4 @@ const userType = new GraphQLObjectType({
 	}),
 });
 
-module.exports = { userType };
+module.exports = { UserType };

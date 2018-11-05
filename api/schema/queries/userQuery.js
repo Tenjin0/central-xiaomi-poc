@@ -5,8 +5,8 @@ const {
 } = require('graphql');
 
 const {
-	userType,
-	pagination,
+	UserType,
+	paginationFactory,
 } = require('../types');
 
 const {
@@ -19,7 +19,7 @@ const {
 const GraphQLQueryConverter = require('../../helpers/graphQLQueryConverter');
 
 const userQuery = {
-	type: userType,
+	type: UserType,
 	args: {
 		id: {
 			type: GraphQLID,
@@ -35,7 +35,7 @@ const userQuery = {
 };
 
 const usersQuery = {
-	type: pagination(userType),
+	type: paginationFactory(UserType),
 	args: {
 		filter: {
 			type: GraphQLString,
@@ -79,6 +79,6 @@ const usersQuery = {
 };
 
 module.exports = {
-	userQuery,
 	usersQuery,
+	userQuery,
 };

@@ -19,7 +19,7 @@ async function findAllUnregisteredCameraFolder() {
 		const cameraFolders = await fs.readdir(cameraDir);
 
 		// eslint-disable-next-line for-direction
-		for (let i = cameraFolders.length - 1; i >= 0; i--) {
+		for (let i = 0; i < cameraFolders.length; i++) {
 
 			const cameraFolder = cameraFolders[i];
 			const cameraFolderToTest = path.join(cameraDir, cameraFolder);
@@ -67,4 +67,24 @@ async function findAllUnregisteredCameraFolder() {
 
 }
 
+async function seedCameraFromFolder() {
+
+	const data = await findAllUnregisteredCameraFolder();
+	await Camera.bulkCreate(data);
+
+}
 module.export = findAllUnregisteredCameraFolder();
+
+if (require.main === module) {
+
+	seedCameraFromFolder().then(() => {
+
+		console.log('done');
+
+	}).catch((e) => {
+
+		console.log(e);
+
+	});
+
+}

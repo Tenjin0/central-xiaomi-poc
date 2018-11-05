@@ -26,7 +26,7 @@ const pageInfoType = new GraphQLObjectType({
 });
 
 
-const pagination = (itemType) => {
+const paginationFactory = (itemType) => {
 
 	const name = `${itemType}sPagination`;
 	return new GraphQLObjectType({
@@ -46,5 +46,5 @@ const pagination = (itemType) => {
 
 module.exports = {
 	pageInfoType,
-	pagination,
+	paginationFactory,
 };

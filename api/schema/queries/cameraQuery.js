@@ -5,8 +5,9 @@ const {
 } = require('graphql');
 
 const {
-	cameraType,
-	pagination,
+	CameraType,
+	RangeDateType,
+	paginationFactory,
 } = require('../types');
 
 const {
@@ -16,7 +17,7 @@ const {
 const GraphQLQueryConverter = require('../../helpers/graphQLQueryConverter');
 
 const cameraQuery = {
-	type: cameraType,
+	type: CameraType,
 	args: {
 		id: {
 			type: GraphQLID,
@@ -40,10 +41,10 @@ const cameraQuery = {
 // };
 
 const camerasQuery = {
-	type: pagination(cameraType),
+	type: paginationFactory(CameraType),
 	args: {
 		filter: {
-			type: GraphQLString,
+			type: RangeDateType,
 		},
 		perPage: {
 			type: GraphQLInt,
@@ -51,9 +52,6 @@ const camerasQuery = {
 		page: {
 			type: GraphQLInt,
 		},
-		// order: {
-		// 	type: LinkOrderByInput,
-		// },
 	},
 	resolve: async (source, args, root, ast) => {
 
