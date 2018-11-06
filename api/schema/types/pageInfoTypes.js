@@ -7,6 +7,9 @@ const {
 const pageInfoType = new GraphQLObjectType({
 	name: 'PageInfo',
 	fields: () => ({
+		currentPage: {
+			type: GraphQLInt,
+		},
 		previousPage: {
 			type: GraphQLInt,
 		},
@@ -19,7 +22,7 @@ const pageInfoType = new GraphQLObjectType({
 		totalPages: {
 			type: GraphQLInt,
 		},
-		totalCountDatas: {
+		totalDatas: {
 			type: GraphQLInt,
 		},
 	}),
@@ -35,7 +38,7 @@ const paginationFactory = (itemType) => {
 			data: {
 				type: GraphQLList(itemType),
 			},
-			pageInfo: {
+			pagination: {
 				type: pageInfoType,
 			},
 		}),

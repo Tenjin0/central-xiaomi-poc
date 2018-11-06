@@ -13,7 +13,7 @@ class GraphQLQueryConverter {
 		this.setFields(ast);
 		this.model = model;
 		this.data = [];
-		this.pageInfo = {
+		this.pagination = {
 			offset: null,
 			page: null,
 			perPage: null,
@@ -64,9 +64,9 @@ class GraphQLQueryConverter {
 
 	async generate(opts) {
 
-		if (this.fields.has('pageInfo') || this.args.perPage || this.args.page) {
+		if (this.fields.has('pagination') || this.args.perPage || this.args.page) {
 
-			this.pageInfo.totalCountDatas = (await this.model.findAll({
+			this.pagination.totalDatas = (await this.model.findAll({
 				attributes: [
 					[sequelize.fn('COUNT', sequelize.col('id')), 'TOTAL_COUNT'],
 				],
@@ -75,26 +75,25 @@ class GraphQLQueryConverter {
 
 			if (this.args.perPage || this.args.page) {
 
-				this.pageInfo.perPage = this.args.perPage || config.defaultPerPage;
-				this.pageInfo.page = this.args.page || 1;
-				this.pageInfo.totalPages = Math.ceil(this.pageInfo.totalCountDatas / this.pageInfo.perPage);
-				this.pageInfo.offset = this.pageInfo.perPage * (this.pageInfo.page - 1);
-				this.pageInfo.previousPage = this.pageInfo.page <= 1 ? null : this.pageInfo.page - 1;
-				this.pageInfo.nextPage = this.pageInfo.page >= this.pageInfo.totalPages
+				this.pagination.perPage = this.args.perPage || config.defaultPerPage;
+				this.pagination.currentPage = this.args.page || 1;
+				this.pagination.totalPages = Math.ceil(this.pagination.totalCountDatas / this.pagination.perPage);
+				this.pagination.offset = this.pagination.perPage * (this.pagination.page - 1);
+				this.pagination.previousPage = this.pagination.page <= 1 ? null : this.pagination.page - 1;
+				this.pagination.nextPage = this.pagination.page >= this.pagination.totalPages
 					? null
-					: this.pageInfo.page + 1;
+					: this.pagination.page + 1;
 
 			}
 
 		}
 
-
 		if (this.fields.has('data')) {
 
 			this.data = await this.model.findAll({
 				attributes: this.getOnlyFromModel('data'),
-				offset: this.pageInfo.offset,
-				limit: this.pageInfo.perPage,
+				offset: this.pagination.offset,
+				limit: this.pagination.perPage,
 				order: opts.order,
 				where: opts.filter,
 			});

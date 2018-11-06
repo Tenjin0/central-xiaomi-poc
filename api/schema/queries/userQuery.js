@@ -36,7 +36,7 @@ const usersQuery = {
 		filter: {
 			type: GraphQLString,
 		},
-		perPage: {
+		per_page: {
 			type: GraphQLInt,
 		},
 		page: {
@@ -68,7 +68,7 @@ const usersQuery = {
 
 		return {
 			data: gconv.data,
-			pageInfo: gconv.pageInfo,
+			pagination: gconv.pagination,
 		};
 
 	},
