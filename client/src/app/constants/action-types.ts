@@ -1,5 +1,5 @@
 import { Action } from "redux";
-import { IUser } from "./interface";
+import { IListWithPagination, IPagination, IUser } from "./interface";
 
 export enum UsersActionTypes {
 	USERS_REQUESTED = "USERS_REQUESTED",
@@ -30,7 +30,8 @@ export interface IRequestUsersSuceededAction extends Action {
 
 	type: UsersActionTypes.USERS_REQUEST_SUCEEDED;
 	payload: {
-		data: IUser[]
+		data: IUser[],
+		pagination: IPagination
 	}
 }
 

@@ -4,9 +4,9 @@ import { Redirect, Route, Switch } from "react-router-dom"
 import Hello from "./components/Hello"
 import Home from "./components/Home"
 import CamerasArchiveContainer from "./containers/CameraArchive"
-import Nav from "./containers/Nav"
-import UserFormContainer from "./containers/UserForm"
-import UsersContainer from "./containers/Users"
+import Nav from "./containers/NavigationContainer"
+import UserFormContainer from "./containers/UserFormContainer"
+import UsersContainer from "./containers/UsersContainer"
 
 export interface IAppProps {
 	history: any

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Action, compose } from 'redux'
 import { ThunkDispatch } from 'redux-thunk';
 import { formFailed, formIsValid, formLoading, formLoadSuceeded, formSubmitting } from "../actions/form"
-import UserFormComponent from '../components/UserForm'
+import UserFormComponent from '../components/UserFormComponent'
 import { withService } from '../service/apiContext'
 
 

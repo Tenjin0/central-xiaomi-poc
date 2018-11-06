@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import * as React from 'react';
 import * as Yup from 'yup';
 import { IFormState, IUser } from '../constants/interface'
-import { IUserFormDispatch, styles } from '../containers/UserForm'
+import { IUserFormDispatch, styles } from '../containers/UserFormContainer'
 import { IApiContext } from '../service/apiContext';
 
 

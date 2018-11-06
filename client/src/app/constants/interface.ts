@@ -1,8 +1,11 @@
-export interface IUsersState {
+export interface IListWithPagination<T> {
 	isLoading: boolean
 	isFailure: boolean
-	data: IUser[]
-} 
+	data: T[]
+	pagination?: IPagination
+}
+
+
 export interface IUser {
 	id?: number
 	first_name: string
@@ -17,3 +20,24 @@ export interface IFormState {
 	isValid: boolean
 
 } 
+
+export interface IPagination {
+	currentPage?: number
+	previousPage?: number
+	nextPage?: number
+	perPage?: number
+	totalPages?: number
+	totalDatas?: number
+}
+
+export interface IGraphQLDataList<T> {
+	data: T[]
+	pagination?: IPagination
+}
+
+export interface IAppState {
+	form: IFormState,
+	usersRequest: IListWithPagination<IUser>,
+	// tslint:disable-next-line:object-literal-sort-keys
+	routerReducer: any
+}

@@ -1,6 +1,7 @@
 import ApolloClient, { InMemoryCache } from "apollo-boost";
 import gql from 'graphql-tag';
 import * as io from 'socket.io-client';
+import { API_GRAPHQL_URL } from "../../config";
 import { IUser } from "../constants/interface";
 
 
@@ -36,14 +37,14 @@ export default class ServiceApi {
 	private client: any
 
 	constructor() {
-		const URI = "http://localhost:3001/graphql";
+		const URI = API_GRAPHQL_URL;
 
 		this.client = new ApolloClient({
 			uri: URI,
 			// tslint:disable-next-line:object-literal-sort-keys
 			cache: new InMemoryCache({
 				addTypename: false
-			  })
+			})
 		})
 	}
 
@@ -76,18 +77,27 @@ export default class ServiceApi {
 
 	}
 
-	public getUsers = () => {
+	public getUsers = (filter: string, perPage: number, page: number) => {
 
 		const GET_USERS = gql`
 		{
-			users {
-			  id
-			  first_name
-			  last_name
-			}
+			users(filter: $filter, per_page: $perPage, page: $page)  {
+				data {
+				  id
+				  first_name
+				  last_name
+				}
+				pagination {
+				  previousPage
+				  nextPage
+				  perPage
+				  totalPages
+				  totalDatas
+				}
+			  }
 		  }
 		`
-		return this.client.query({ query: GET_USERS }).then((response: any) => {
+		return this.client.query({ query: GET_USERS, variables: { filter, perPage, page }  }).then((response: any) => {
 			return response.data.users
 		})
 

@@ -5,7 +5,7 @@ import usersReducer from "./usersReducer"
 
 const reducer = combineReducers({
 	form: formReducer,
-	users: usersReducer,
+	usersRequest: usersReducer,
 	// tslint:disable-next-line:object-literal-sort-keys
 	routerReducer
 })
