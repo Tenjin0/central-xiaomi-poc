@@ -10,7 +10,7 @@ export interface ICameraArchiveState {
 }
 
 
-export default class CameraArchive extends React.Component<{}, ICameraArchiveState> {
+export default class CameraArchive extends React.PureComponent<{}, ICameraArchiveState> {
 
 	constructor(props: any) {
 

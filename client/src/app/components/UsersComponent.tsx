@@ -9,40 +9,34 @@ import { IPagination, IUser } from '../constants/interface';
 
 export interface IUsersComponentProps {
 	users: IUser[],
+	filter: string,
 	history: any
 	pagination: IPagination
 	requestUsers: (filter:string, perPage: number, page: number) => Promise<void>
 
 }
 
-interface IUsersState {
-	filter: string
-	pageSize: number
-}
-
-export default class UsersComponent extends React.Component<IUsersComponentProps, IUsersState> {
+export default class UsersComponent extends React.PureComponent<IUsersComponentProps, {}> {
 
 	constructor(props: IUsersComponentProps) {
 		super(props);
-		this.state = {
-			filter: "",
-			pageSize: DEFAULT_PER_PAGE,
-		}
+
 	}
 	public onClickUpdate = (e: React.MouseEvent<HTMLButtonElement>) => {
 		this.props.history.push("/user/" + e.currentTarget.dataset.id)
 	}
 
 	public changeCurrentPage = (currentPage: number): void => {
-		console.log(currentPage);
+		if (currentPage + 1 !== this.props.pagination.currentPage) {
+			console.log(currentPage, this.props.pagination.currentPage, currentPage + 1 !== this.props.pagination.currentPage)
+			this.props.requestUsers(this.props.filter, this.props.pagination.perPage, this.props.pagination.currentPage + 1)
+		}
+
 	}
 
 	public onPageSizeChange = (pageSize: number): void => {
-		console.log(pageSize);
-		this.setState({
-			...this.state,
-			pageSize
-		})
+		console.log("onPageSizeChange", pageSize, this.props.pagination.perPage);
+
 	}
 
 	public render() {
@@ -69,7 +63,7 @@ export default class UsersComponent extends React.Component<IUsersComponentProps
 					]}>
 					<PagingState
 						currentPage={this.props.pagination.currentPage}
-						pageSize={this.state.pageSize}
+						pageSize={this.props.pagination.perPage}
 						onCurrentPageChange={this.changeCurrentPage}
 						onPageSizeChange={this.onPageSizeChange}
 					/>

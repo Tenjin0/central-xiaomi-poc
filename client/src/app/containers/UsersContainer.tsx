@@ -11,15 +11,16 @@ export interface IUsersContainerProps extends IFormState {
 
 	requestUsers: (filter:string, perPage: number, page: number) => Promise<void>
 	data: IUser[]
+	filter: string
 	pagination: IPagination
 	history: any
 }
 
-class UsersContainer extends React.Component<IUsersContainerProps, any> {
+class UsersContainer extends React.PureComponent<IUsersContainerProps, any> {
 
 	public componentDidMount() {
 
-		this.props.requestUsers(null, this.props.pagination.perPage, this.props.pagination.currentPage)
+		this.props.requestUsers("", this.props.pagination.perPage, this.props.pagination.currentPage)
 	}
 
 	public render() {
@@ -29,7 +30,7 @@ class UsersContainer extends React.Component<IUsersContainerProps, any> {
 
 		return (
 			<div>
-				<UsersComponent history={this.props.history} users={users} pagination={pagination} requestUsers= {this.props.requestUsers}/>
+				<UsersComponent history={this.props.history} users={users} pagination={pagination} filter={this.props.filter} requestUsers= {this.props.requestUsers}/>
 			</div>
 		);
 	}
@@ -38,6 +39,7 @@ class UsersContainer extends React.Component<IUsersContainerProps, any> {
 const mapStateToProps = (state: IAppState) => {
 	return {
 		data: state.usersRequest.data,
+		filte: state.usersRequest.usersFilter,
 		pagination: state.usersRequest.pagination
 	}
 }

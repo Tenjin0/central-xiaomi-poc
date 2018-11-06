@@ -80,22 +80,26 @@ export default class ServiceApi {
 	public getUsers = (filter: string, perPage: number, page: number) => {
 
 		const GET_USERS = gql`
-		{
-			users(filter: $filter, per_page: $perPage, page: $page)  {
-				data {
-				  id
-				  first_name
-				  last_name
+			query getUsers($filter: String!, $perPage: Int!, $page: Int!) {
+
+				users(filter: $filter, per_page: $perPage, page: $page ) {
+					data {
+						id
+						first_name
+						last_name
+						card_data
+					}
+					pagination {
+						currentPage
+						previousPage
+						nextPage
+						perPage
+						totalPages
+						totalDatas
+					}
+					
 				}
-				pagination {
-				  previousPage
-				  nextPage
-				  perPage
-				  totalPages
-				  totalDatas
-				}
-			  }
-		  }
+			}
 		`
 		return this.client.query({ query: GET_USERS, variables: { filter, perPage, page }  }).then((response: any) => {
 			return response.data.users

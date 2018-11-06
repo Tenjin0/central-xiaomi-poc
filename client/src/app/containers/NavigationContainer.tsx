@@ -4,7 +4,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import Navigation from "../components/NavigationComponent"
 
-class Nav extends React.Component<RouteComponentProps<any>, any> {
+class Nav extends React.PureComponent<RouteComponentProps<any>, any> {
 	
   public render() {
 	return (
