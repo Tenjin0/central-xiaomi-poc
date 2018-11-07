@@ -4,13 +4,13 @@ import { IListWithPagination, IPagination, IUser } from "./interface";
 export enum UsersActionTypes {
 	USERS_REQUESTED = "USERS_REQUESTED",
 	USERS_REQUEST_FAILED = "USERS_REQUEST_FAILED",
-	USERS_REQUEST_SUCEEDED = "USERS_REQUEST_SUCEEDED",
+	USERS_REQUEST_SUCCEEDED = "USERS_REQUEST_SUCCEEDED",
 }
 
 export enum FormActionTypes {
 	FORM_DATALOAD_REQUESTED = "FORM_DATALOAD_REQUESTED",
 	FORM_DATALOAD_FAILED = "FORM_DATALOAD_FAILED",
-	FORM_DATALOAD_SUCEEDED = "FORM_DATALOAD_SUCEEDED",
+	FORM_DATALOAD_SUCCEEDED = "FORM_DATALOAD_SUCCEEDED",
 	FORM_DATA_SUBMITING = "FORM_DATA_SUBMITING",
 	FORM_DATA_IS_VALID = "FORM_DATA_IS_VALID",
 }
@@ -26,9 +26,9 @@ export interface IRequestUsersFailedAction extends Action {
 	type: UsersActionTypes.USERS_REQUEST_FAILED
 }
 
-export interface IRequestUsersSuceededAction extends Action {
+export interface IRequestUsersSucceededAction extends Action {
 
-	type: UsersActionTypes.USERS_REQUEST_SUCEEDED;
+	type: UsersActionTypes.USERS_REQUEST_SUCCEEDED;
 	payload: {
 		data: IUser[],
 		pagination: IPagination
@@ -45,9 +45,9 @@ export interface IFormDataLoadFailedAction extends Action {
 	type: FormActionTypes.FORM_DATALOAD_FAILED
 }
 
-export interface IFormDataLoadSuceededAction extends Action {
+export interface IFormDataLoadSucCeededAction extends Action {
 
-	type: FormActionTypes.FORM_DATALOAD_SUCEEDED;
+	type: FormActionTypes.FORM_DATALOAD_SUCCEEDED;
 }
 export interface IFormDataSubmitingAction extends Action {
 
@@ -67,8 +67,8 @@ export interface IFormDataIsValidAction extends Action {
 }
 
 
-export type UsersActions = IRequestUsersAction | IRequestUsersFailedAction | IRequestUsersSuceededAction
-export type FormActions = IFormDataLoadingAction | IFormDataLoadFailedAction | IFormDataLoadSuceededAction |
+export type UsersActions = IRequestUsersAction | IRequestUsersFailedAction | IRequestUsersSucceededAction
+export type FormActions = IFormDataLoadingAction | IFormDataLoadFailedAction | IFormDataLoadSucCeededAction |
 	IFormDataSubmitingAction | IFormDataIsValidAction
 
 

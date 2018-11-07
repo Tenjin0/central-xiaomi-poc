@@ -28,7 +28,7 @@ const formReducer: Reducer<IFormState> = (state: IFormState = initialState, acti
 			isSubmiting: false
 
 		}
-		case FormActionTypes.FORM_DATALOAD_SUCEEDED:
+		case FormActionTypes.FORM_DATALOAD_SUCCEEDED:
 			return {
 				...state,
 				isFailure: false,

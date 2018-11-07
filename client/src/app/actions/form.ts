@@ -12,7 +12,7 @@ const formLoadingAction: ActionCreator<FormActions> = () => ({
 
 const formLoadSuceedAction: ActionCreator<FormActions> = () => ({
 
-	type: FormActionTypes.FORM_DATALOAD_SUCEEDED
+	type: FormActionTypes.FORM_DATALOAD_SUCCEEDED
 })
 
 const formFailedAction: ActionCreator<FormActions> = () => ({

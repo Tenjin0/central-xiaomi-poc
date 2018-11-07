@@ -3,7 +3,6 @@ export interface IListWithPagination<T> {
 	isFailure: boolean
 	data: T[]
 	pagination?: IPagination
-	usersFilter: string
 }
 
 

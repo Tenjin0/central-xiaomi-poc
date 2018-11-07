@@ -17,7 +17,6 @@ const initialState: IListWithPagination<IUser> = {
 		totalDatas: null,
 		
 	},
-	usersFilter: DEFAULT_FILTER,
 }
 
 const usersReducer: Reducer<IListWithPagination<IUser>> = (state: IListWithPagination<IUser> = initialState, action: UsersActions) => {
@@ -34,7 +33,7 @@ const usersReducer: Reducer<IListWithPagination<IUser>> = (state: IListWithPagin
 			isFailure: true,
 			isLoading: false,
 		}
-		case UsersActionTypes.USERS_REQUEST_SUCEEDED:
+		case UsersActionTypes.USERS_REQUEST_SUCCEEDED:
 			return {
 				isFailure: false,
 				isLoading: false,
@@ -45,7 +44,6 @@ const usersReducer: Reducer<IListWithPagination<IUser>> = (state: IListWithPagin
 					currentPage: action.payload.pagination.currentPage || DEFAULT_PAGE,
 					perPage: action.payload.pagination.perPage || DEFAULT_PER_PAGE
 				},
-				usersFilter: state.usersFilter
 			}
 		default:
 			return state
