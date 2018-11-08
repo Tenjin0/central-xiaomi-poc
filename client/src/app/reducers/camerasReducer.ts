@@ -1,9 +1,9 @@
 import { Reducer } from "redux"
 import { DEFAULT_FILTER, DEFAULT_PAGE, DEFAULT_PER_PAGE } from "../../config"
-import { UsersActions, UsersActionTypes } from "../constants/action-types"
-import { IListWithPagination, IUser } from "../constants/interface"
+import { CamerasActions, CamerasActionTypes } from "../constants/action-types"
+import { ICamera, IListWithPagination } from "../constants/interface"
 
-const initialState: IListWithPagination<IUser> = {
+const initialState: IListWithPagination<ICamera> = {
 	isFailure: false,
 	isLoading: false,
 	// tslint:disable-next-line:object-literal-sort-keys
@@ -20,21 +20,21 @@ const initialState: IListWithPagination<IUser> = {
 	},
 }
 
-const usersReducer: Reducer<IListWithPagination<IUser>> = (state: IListWithPagination<IUser> = initialState, action: UsersActions) => {
+const camerasReducer: Reducer<IListWithPagination<ICamera>> = (state: IListWithPagination<ICamera> = initialState, action: CamerasActions) => {
 	switch (action.type) {
-		case UsersActionTypes.USERS_REQUESTED:
+		case CamerasActionTypes.CAMERAS_REQUESTED:
 		return {
 			...state,
 			isFailure: false,
 			isLoading: true,
 		}		
-		case UsersActionTypes.USERS_REQUEST_FAILED:
+		case CamerasActionTypes.CAMERAS_REQUEST_FAILED:
 		return {
 			...state,
 			isFailure: true,
 			isLoading: false,
 		}
-		case UsersActionTypes.USERS_REQUEST_SUCCEEDED:
+		case CamerasActionTypes.CAMERAS_REQUEST_SUCCEEDED:
 			return {
 				isFailure: false,
 				isLoading: false,
@@ -51,4 +51,4 @@ const usersReducer: Reducer<IListWithPagination<IUser>> = (state: IListWithPagin
 	}
 }
 
-export default usersReducer
+export default camerasReducer

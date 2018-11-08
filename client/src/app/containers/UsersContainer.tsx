@@ -7,26 +7,11 @@ import { getUsers } from "../actions/users"
 import UsersComponent from '../components/UsersComponent'
 import { IAppState, IListWithPagination, IUser } from '../constants/interface';
 
-export interface IUsersContainerProps extends IListWithPagination<IUser> {
+export interface IUsersProps extends IListWithPagination<IUser> {
 
 	requestUsers: (filter:string, perPage: number, page: number) => Promise<void>
 	history: any
 }
-
-// class UsersContainer extends React.PureComponent<IUsersContainerProps, any> {
-
-// 	public render() {
-
-// 		const users: IUser[] = this.props.data || []
-// 		const pagination: IPagination  = this.props.pagination || null
-
-// 		return (
-// 			<div>
-// 				<UsersComponent history={this.props.history} users={users} pagination={pagination} requestUsers= {this.props.requestUsers}/>
-// 			</div>
-// 		);
-// 	}
-// }
 
 const mapStateToProps = (state: IAppState) => {
 	return {

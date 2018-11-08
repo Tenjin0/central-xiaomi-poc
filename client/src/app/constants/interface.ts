@@ -13,6 +13,12 @@ export interface IUser {
 	card_data: string
 }
 
+export interface ICamera {
+	id?: number
+	path: string
+	created_at: string
+}
+
 export interface IFormState {
 	isLoading: boolean
 	isFailure: boolean
@@ -38,6 +44,13 @@ export interface IGraphQLDataList<T> {
 export interface IAppState {
 	form: IFormState,
 	usersRequest: IListWithPagination<IUser>,
+	camerasRequest: IListWithPagination<ICamera>,
 	// tslint:disable-next-line:object-literal-sort-keys
 	routerReducer: any
+}
+
+
+export interface IDateRange {
+	min_date?: string,
+	max_date?: string
 }

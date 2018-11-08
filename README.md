@@ -22,6 +22,13 @@ https://medium.com/@khwsc1/step-by-step-guide-of-simple-routing-transition-effec
 text Animation
 https://freefrontend.com/css-text-effects/
 
+
+Div to fullscreen animation
+https://codemyui.com/div-fullscreen-click/
+
+slider material ui 
+https://codepen.io/SimplicityGB/pen/ZOWjOB
+
 Material-ui / Typescript
 https://github.com/goemen/react-material-ui-typescript
 https://github.com/mui-org/material-ui/blob/master/examples/create-react-app-with-typescript/
@@ -38,9 +45,15 @@ TODO
 	config .env avec docker
 	config .env sans docker
 
-	routes
-		images filter min_date max_date
-		image/:id
+	API
+		script
+			generer des utilisateur  avec une un card_data unique
 
-	script
-		finir le seed camera
+	CLIENT
+		creer une list de card pour la camera
+		slider view images
+		bonus:
+			animation routes
+			animation menu
+			animation div to slider
+			search bar users

@@ -10,17 +10,17 @@ import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 import { DEFAULT_DEBOUNCE_TIME, DEFAULT_FILTER, DEFAULT_PAGE, PAGE_SIZES } from '../../config';
-import { IUsersContainerProps } from '../containers/UsersContainer'
+import { IUsersProps } from '../containers/UsersContainer'
 
 export interface IUsersState {
 	filter: string
 }
 
-export default class UsersComponent extends React.PureComponent<IUsersContainerProps, IUsersState> {
+export default class UsersComponent extends React.PureComponent<IUsersProps, IUsersState> {
 
 	private inputSearch = new Subject<string>();
 
-	constructor(props: IUsersContainerProps) {
+	constructor(props: IUsersProps) {
 		super(props);
 		this.state = {
 			filter: DEFAULT_FILTER

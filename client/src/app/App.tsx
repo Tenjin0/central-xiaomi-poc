@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from "react-router-dom"
 
 import Hello from "./components/Hello"
 import Home from "./components/Home"
-import CamerasArchiveContainer from "./containers/CameraArchive"
+import CamerasArchiveContainer from "./containers/CameraArchiveContainer"
 import Nav from "./containers/NavigationContainer"
 import UserFormContainer from "./containers/UserFormContainer"
 import UsersContainer from "./containers/UsersContainer"

@@ -1,10 +1,16 @@
 import { Action } from "redux";
-import { IListWithPagination, IPagination, IUser } from "./interface";
+import { ICamera, IPagination, IUser } from "./interface";
 
 export enum UsersActionTypes {
 	USERS_REQUESTED = "USERS_REQUESTED",
 	USERS_REQUEST_FAILED = "USERS_REQUEST_FAILED",
 	USERS_REQUEST_SUCCEEDED = "USERS_REQUEST_SUCCEEDED",
+}
+
+export enum CamerasActionTypes {
+	CAMERAS_REQUESTED = "CAMERAS_REQUESTED",
+	CAMERAS_REQUEST_FAILED = "CAMERAS_REQUEST_FAILED",
+	CAMERAS_REQUEST_SUCCEEDED = "CAMERAS_REQUEST_SUCCEEDED",
 }
 
 export enum FormActionTypes {
@@ -31,6 +37,25 @@ export interface IRequestUsersSucceededAction extends Action {
 	type: UsersActionTypes.USERS_REQUEST_SUCCEEDED;
 	payload: {
 		data: IUser[],
+		pagination: IPagination
+	}
+}
+
+export interface IRequestCamerasAction extends Action {
+
+	type: CamerasActionTypes.CAMERAS_REQUESTED
+}
+
+export interface IRequestCamerasFailedAction extends Action {
+
+	type: CamerasActionTypes.CAMERAS_REQUEST_FAILED
+}
+
+export interface IRequestCamerasSucceededAction extends Action {
+
+	type: CamerasActionTypes.CAMERAS_REQUEST_SUCCEEDED;
+	payload: {
+		data: ICamera[],
 		pagination: IPagination
 	}
 }
@@ -68,6 +93,7 @@ export interface IFormDataIsValidAction extends Action {
 
 
 export type UsersActions = IRequestUsersAction | IRequestUsersFailedAction | IRequestUsersSucceededAction
+export type CamerasActions = IRequestCamerasAction | IRequestCamerasFailedAction | IRequestCamerasSucceededAction
 export type FormActions = IFormDataLoadingAction | IFormDataLoadFailedAction | IFormDataLoadSucCeededAction |
 	IFormDataSubmitingAction | IFormDataIsValidAction
 

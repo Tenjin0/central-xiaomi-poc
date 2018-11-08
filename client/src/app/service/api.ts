@@ -2,7 +2,7 @@ import ApolloClient, { InMemoryCache } from "apollo-boost";
 import gql from 'graphql-tag';
 import * as io from 'socket.io-client';
 import { API_GRAPHQL_URL } from "../../config";
-import { IUser } from "../constants/interface";
+import { IDateRange, IUser } from "../constants/interface";
 
 
 const USERS: IUser[] = [
@@ -157,8 +157,38 @@ export default class ServiceApi {
 			})
 	}
 
+	public getCameras = (filter: IDateRange, perPage: number, page: number) => {
+
+		const GET_CAMERAS = gql`
+			query getCameras($filter: RangeDate!, $perPage: Int!, $page: Int!) {
+
+				cameras(filter: $filter, per_page: $perPage, page: $page ) {
+					data {
+						id
+						path
+						created_at
+					}
+					pagination {
+						currentPage
+						previousPage
+						nextPage
+						perPage
+						totalPages
+						totalDatas
+					}
+					
+				}
+			}
+		`
+		return this.client.query({ query: GET_CAMERAS, variables: { filter, perPage, page }  }).then((response: any) => {
+			return response.data.cameras
+		})
+	}
+
 }
+
 export const api = new ServiceApi()
+
 export const socket = io('http://localhost:3001/client', {
 	reconnection: false
 });
