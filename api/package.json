@@ -20,6 +20,7 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
+    "express-request-id": "^1.4.1",
     "graphql": "^14.0.2",
     "moment": "^2.22.2",
     "sequelize": "^4.38.1",

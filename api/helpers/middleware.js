@@ -1,10 +1,12 @@
 const bodyParser = require('body-parser');
 const express = require('express');
+const addRequestId = require('express-request-id')();
 const logger = require('./logger');
 const { PUBLIC_FOLDER } = require('../config');
 
 module.exports = (app) => {
 
+	app.use(addRequestId);
 	app.use('/static', express.static(PUBLIC_FOLDER));
 
 	app.use('/static', (req, res) => {
@@ -43,7 +45,7 @@ module.exports = (app) => {
 		function afterResponse() {
 
 			res.removeListener('finish', afterResponse);
-			res.removeListener('close', afterResponse);
+			// res.removeListener('close', afterResponse);
 			const log = logger.loggerInstance.child({
 				id: req.id,
 			}, true);
@@ -54,7 +56,7 @@ module.exports = (app) => {
 		}
 
 		res.on('finish', afterResponse);
-		res.on('close', afterResponse);
+		// res.on('close', afterResponse);
 		next();
 
 	});
