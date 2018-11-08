@@ -25,7 +25,7 @@ const CameraType = new GraphQLObjectType({
 });
 
 const RangeDateType = new GraphQLInputObjectType({
-	name: 'rangeDate',
+	name: 'RangeDate',
 	fields: () => ({
 		min_date: {
 			type: DateTimeScalar,

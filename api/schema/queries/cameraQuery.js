@@ -5,7 +5,7 @@ const {
 } = require('graphql');
 
 const {
-	Op
+	Op,
 } = require('../../config');
 
 const {
@@ -61,7 +61,7 @@ const camerasQuery = {
 
 		let filter = null;
 
-		if (args.filter) {
+		if (args.filter && Object.keys(args.filter).length > 0) {
 
 			filter = {
 				created_at: {},
@@ -83,6 +83,7 @@ const camerasQuery = {
 			}
 
 		}
+
 		const gconv = new GraphQLQueryConverter(Camera, args, ast);
 
 		await gconv.generate({

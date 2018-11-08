@@ -3,6 +3,7 @@ const path = require('path');
 const moment = require('moment');
 
 const {
+	publicFolder,
 	storeImagePath,
 } = require('../config');
 const {
@@ -15,21 +16,22 @@ async function findAllUnregisteredCameraFolder() {
 
 	try {
 
-		const cameraDir = path.join(__dirname, '..', storeImagePath);
-		const cameraFolders = await fs.readdir(cameraDir);
+		const publicDir = path.join(__dirname, '..', publicFolder);
 
-		// eslint-disable-next-line for-direction
+		const cameraFolders = await fs.readdir(path.join(publicDir, storeImagePath));
+
 		for (let i = 0; i < cameraFolders.length; i++) {
 
 			const cameraFolder = cameraFolders[i];
-			const cameraFolderToTest = path.join(cameraDir, cameraFolder);
+			const cameraFolderToTest = path.join(storeImagePath, cameraFolder);
+			const fullCameraPath = path.join(publicDir, cameraFolderToTest);
 			// eslint-disable-next-line no-await-in-loop
-			const stat = await fs.lstat(cameraFolderToTest);
+			const stat = await fs.lstat(fullCameraPath);
 
 			if (stat.isDirectory()) {
 
 				// eslint-disable-next-line no-await-in-loop
-				const imageFiles = await fs.readdir(cameraFolderToTest);
+				const imageFiles = await fs.readdir(fullCameraPath);
 				if (imageFiles.length > 0) {
 
 					const date = moment(cameraFolder, 'x');
@@ -37,6 +39,7 @@ async function findAllUnregisteredCameraFolder() {
 						path: cameraFolderToTest,
 						created_at: date.format('YYYY-MM-DD HH:mm:ss.SSS'),
 					};
+					console.log(cameraInstance);
 					// eslint-disable-next-line no-await-in-loop
 					const result = await Camera.find({
 						where: cameraInstance,

@@ -1,7 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 const moment = require('moment');
-const config = require('../config');
+const {
+	CAMERA_ID,
+	SCREENSHOT_INTERVAL,
+	SCREENSHOT_NUMBER,
+	STORE_IMAGE_PATH,
+} = require('../config');
+
 const {
 	Camera,
 } = require('../database/models');
@@ -39,25 +45,21 @@ module.exports = function centralSocket(io, models) {
 	const nc = io.of('/camera');
 	const nclients = io.of('/client');
 
-	const imagePath = config.storeImagePath;
-	// 	var rawImg = req.body.imageByteArray,
-	//     base64Data = rawImg.replace(/^data:image\/png;base64,/, ''),
-	//     dirpath = config.root + '/files/Documents/',
-	//     imageName = req.body.filename + '.png',
-	//     imageLocation = dirpath + imageName;
-	//   fs.writeFile(imageLocation, base64Data, 'base64', function(err) {});
 	let imageToStore = null;
-	const cameraId = 0;
+
+	const emitCentralInit = (socket) => {
+
+		socket.emit('central.init',
+			['xiaomihome.devices', 'xiaomihome.device.color', 'camera.device.start', 'camera.device.stop'],
+			['xiaomihome.gateway.read', 'xiaomihome.devices', 'nfc.data', 'camera.device.data', 'xiaomihome.started']);
+
+	};
 
 	const saveImage = (folder, indice, arrayBufferImage) => {
 
 		const imagepathToStore = `${folder}/${indice}.png`;
 
-		fs.writeFile(imagepathToStore, arrayBufferImage, 'base64', (err) => {
-
-			console.log(err); // writes out file without error, but it's not a valid image
-
-		});
+		fs.writeFile(imagepathToStore, arrayBufferImage, 'base64');
 
 	};
 
@@ -65,7 +67,7 @@ module.exports = function centralSocket(io, models) {
 
 		let count = 0;
 		const now = moment();
-		const folderInstanceCamera = path.join(imagePath, now.format('x'));
+		const folderInstanceCamera = path.join(STORE_IMAGE_PATH, now.format('x'));
 
 		Camera.create({
 			path: folderInstanceCamera,
@@ -82,15 +84,15 @@ module.exports = function centralSocket(io, models) {
 					saveImage(folderInstanceCamera, count, imageToStore);
 					count += 1;
 
-					if (count > 2) {
+					if (count >= SCREENSHOT_NUMBER) {
 
 						clearTimeout(timeout);
-						socket.emit('camera.device.stop', cameraId);
+						socket.emit('camera.device.stop', CAMERA_ID);
 						socket.emit('xiaomihome.device.color', 'all', null, colors.green);
 
 					}
 
-				}, 3000);
+				}, SCREENSHOT_INTERVAL);
 
 			}
 
@@ -111,7 +113,6 @@ module.exports = function centralSocket(io, models) {
 		//     timeout: null,
 		//     gateways: []
 		// }
-		console.log('a user connected');
 
 		socket.on('central.init', () => {
 
@@ -119,9 +120,11 @@ module.exports = function centralSocket(io, models) {
 
 		});
 
-		socket.emit('central.init',
-			['xiaomihome.devices', 'xiaomihome.device.color', 'camera.device.start', 'camera.device.stop'],
-			['xiaomihome.gateway.read', 'xiaomihome.devices', 'nfc.data', 'camera.device.data']);
+		socket.on('xiaomihome.started', () => {
+
+			emitCentralInit(socket);
+
+		});
 
 		socket.on('xiaomihome.gateway.read', (gtsid, device) => {
 
@@ -134,7 +137,7 @@ module.exports = function centralSocket(io, models) {
 					socket.emit('xiaomihome.device.color', 'all', null, colors.red);
 
 					const camera = {
-						deviceid: cameraId,
+						deviceid: CAMERA_ID,
 						fps: 5,
 						height: 200,
 						width: 200,
@@ -169,7 +172,6 @@ module.exports = function centralSocket(io, models) {
 				}
 
 			});
-			console.log('socket');
 			socket.to('/client').emit('nfc.data', data);
 			nclients.emit('nfc.data', data);
 

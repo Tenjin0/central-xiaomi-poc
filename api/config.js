@@ -3,18 +3,22 @@ const {
 } = require('sequelize');
 const path = require('path');
 
+
 const config = {
-	dbFile: 'central.db',
-	storeImagePath: process.env.cameraPath || 'public/camera',
+	CAMERAID: process.env.cameraId || 0,
+	DB_FILE: 'central.db',
 	defaultPerPage: 10,
-	delayRedColor: 10,
-	delayOrangeColor: 10,
+	DELAY_RED_COLOR: 10000,
+	DELAY_ORANGE_COLOR: 10000,
 	Op,
+	PUBLIC_FOLDER: 'public',
+	SCREENSHOT_INTERVAL: 3000,
+	STORE_IMAGE_PATH: process.env.cameraPath || 'camera',
 };
 
 config.development = {
 	dialect: 'sqlite',
-	storage: path.join(__dirname, config.dbFile),
+	storage: path.join(__dirname, config.DB_FILE),
 	operatorsAliases: Op,
 	dialectOptions: {
 		useUTC: false, // for reading from database
@@ -36,7 +40,7 @@ config.test = {
 };
 config.production = {
 	dialect: 'sqlite',
-	storage: path.join(__dirname, config.dbFile),
+	storage: path.join(__dirname, config.DB_FILE),
 	operatorsAliases: Op,
 	dialectOptions: {
 		useUTC: false, // for reading from database
