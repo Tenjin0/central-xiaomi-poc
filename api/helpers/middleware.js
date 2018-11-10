@@ -29,10 +29,21 @@ module.exports = (app) => {
 
 	app.use((req, res, next) => {
 
-		const log = logger.loggerInstance.child({
+		const childOptions = {
 			id: req.id,
-			body: req.body,
-		}, true);
+		};
+
+		childOptions.body = { ...req.body };
+
+		if (req.path === '/graphql' && req.method === 'POST') {
+
+			childOptions.query = req.body.query;
+			delete childOptions.body.query;
+
+		}
+
+		const log = logger.loggerInstance.child(childOptions, true);
+
 		log.info({
 			req,
 		});
@@ -49,9 +60,9 @@ module.exports = (app) => {
 			const log = logger.loggerInstance.child({
 				id: req.id,
 			}, true);
-			log.info({
-				res,
-			}, 'response');
+			// log.info({
+			// 	res,
+			// }, 'response');
 
 		}
 
