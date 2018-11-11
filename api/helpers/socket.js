@@ -3,6 +3,9 @@ const path = require('path');
 const moment = require('moment');
 const {
 	CAMERA_ID,
+	CAMERA_FPS,
+	CAMERA_HEIGHT,
+	CAMERA_WIDTH,
 	SCREENSHOT_INTERVAL,
 	SCREENSHOT_NUMBER,
 	STORE_IMAGE_PATH,
@@ -138,9 +141,9 @@ module.exports = function centralSocket(io, models) {
 
 					const camera = {
 						deviceid: CAMERA_ID,
-						fps: 5,
-						height: 200,
-						width: 200,
+						fps: CAMERA_FPS,
+						height: CAMERA_HEIGHT,
+						width: CAMERA_WIDTH,
 					};
 					socket.emit('camera.device.start', camera);
 					storeImagesFromCamera(socket);

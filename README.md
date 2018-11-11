@@ -26,6 +26,9 @@ https://freefrontend.com/css-text-effects/
 Div to fullscreen animation
 https://codemyui.com/div-fullscreen-click/
 
+modal animation
+https://codepen.io/matthewvincent/pen/reLPQZ
+
 slider material ui 
 https://codepen.io/SimplicityGB/pen/ZOWjOB
 

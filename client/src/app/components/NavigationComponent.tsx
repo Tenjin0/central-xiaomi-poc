@@ -59,7 +59,7 @@ class CentralNavBar extends React.PureComponent<ICentralNavBar & WithStyles<type
 							<IconButton color="inherit" data-location={"/camera/archive"} onClick={this.handleChange}>
 								<PhotoCameraIcon/>
 							</IconButton>
-							<IconButton color="inherit" data-location={"/user/1"} onClick={this.handleChange}>
+							<IconButton color="inherit" data-location={"/user"} onClick={this.handleChange}>
 							<AccountCircleIcon />
 							</IconButton>
 							<IconButton color="inherit" data-location={"/users"} onClick={this.handleChange}>

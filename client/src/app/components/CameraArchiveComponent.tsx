@@ -1,12 +1,23 @@
- import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
+import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import * as React from 'react';
-import { API_STATIC_URL } from "../../config";
 import { ICamera } from '../constants/interface';
 import { ICameraArchiveProps } from '../containers/CameraArchiveContainer'
+import CameraCard from './CameraCard';
 
-export default class CameraArchive extends React.PureComponent<ICameraArchiveProps, null> {
+
+export const styles = (theme: Theme) => createStyles({
+	container: {
+		display: 'flex',
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		justifyContent: 'flex-start',
+		paddingInlineStart: 30,
+		// tslint:disable-next-line:object-literal-sort-keys
+		paddingInlineEnd: 30,
+	},
+})
+
+class CameraArchive extends React.PureComponent<ICameraArchiveProps & WithStyles<typeof styles>, null> {
 
 	constructor(props: any) {
 
@@ -19,24 +30,21 @@ export default class CameraArchive extends React.PureComponent<ICameraArchivePro
 	}
 
 	public render() {
+
+		const classes = this.props.classes;
+
 		return (
 
-			<ul>
+			<ul className={this.props.classes.container}>
 				{
-					this.props.data.map((aCamera: ICamera) => (
-						<Card key={"archive-" + aCamera.id}>
-							<CardHeader>
-								{ aCamera.created_at }
-							</CardHeader>
-							<CardContent>
-								{aCamera.path}
-								<img src={API_STATIC_URL + "/" + aCamera.path + "/1.png"} alt=""/>
-							</CardContent>
-						</Card>
+					this.props.data.map((aCameraArchive: ICamera) => (
+						<CameraCard key={"camera-archive-" + aCameraArchive.id} cameraArchive={aCameraArchive} />
 					))
 				}
 			</ul>
-			
+
 		);
 	}
 }
+
+export default withStyles(styles)(CameraArchive)

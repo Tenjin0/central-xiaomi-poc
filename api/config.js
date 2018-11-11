@@ -5,7 +5,10 @@ const path = require('path');
 
 
 const config = {
-	CAMERAID: process.env.cameraId || 0,
+	CAMERA_ID: process.env.CAMERA_ID || 0,
+	CAMERA_FPS: process.env.CAMERA_FPS,
+	CAMERA_WIDTH: process.env.CAMERA_WIDTH,
+	CAMERA_HEIGHT: process.env.CAMERA_HEIGHT,
 	DB_FILE: 'central.db',
 	defaultPerPage: 10,
 	DELAY_RED_COLOR: 10000,

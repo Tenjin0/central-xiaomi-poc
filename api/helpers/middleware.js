@@ -60,9 +60,10 @@ module.exports = (app) => {
 			const log = logger.loggerInstance.child({
 				id: req.id,
 			}, true);
-			// log.info({
-			// 	res,
-			// }, 'response');
+
+			log.info({
+				res,
+			}, 'response');
 
 		}
 
