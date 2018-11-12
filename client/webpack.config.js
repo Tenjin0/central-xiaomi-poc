@@ -49,11 +49,11 @@ const config = {
 			{
 				test: /\.(scss|sass|css)$/,
 				exclude: /node_modules/,
-				loaders: [
-				  	MiniCssExtractPlugin.loader,
+				use: [
+					MiniCssExtractPlugin.loader,
 					'css-loader',
 					'sass-loader',
-				]
+				  ],
 			},
 		]
 	},

@@ -16,7 +16,13 @@ const styles = (theme: Theme) =>
 	createStyles({
 		root: {
 			marginBottom: '5em',
+			position: "fixed",
 			width: '100%',
+			// tslint:disable-next-line:object-literal-sort-keys
+			top: 0,
+			right: 0,
+			left: 0,
+			zIndex: 1030,
 		},
 		// tslint:disable-next-line:object-literal-sort-keys
 		grow: {

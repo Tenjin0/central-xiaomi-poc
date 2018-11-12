@@ -14,9 +14,8 @@ export interface IAppProps {
 export default class App extends React.Component<IAppProps, any> {
 	public render() {
 		return (
-			<div>
+			<div id="app-body">
 				<Nav />
-				<div id="app-body">
 					<Switch>
 						<Route exact={true} path="/" component={Home} />
 						<Route exact={true} path="/hello" component={Hello} />
@@ -26,7 +25,6 @@ export default class App extends React.Component<IAppProps, any> {
 						<Route exact={true} path="/camera/archive" component={CamerasArchiveContainer} />
 						<Redirect from='*' to='/' />
 					</Switch>
-				</div>
 			</div>
 		);
 	}

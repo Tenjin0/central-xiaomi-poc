@@ -1,15 +1,16 @@
 #app-body {
-    display: table;
-    margin: 0 auto;
-}
-ul {
-	list-style: none;
-	padding-top: 20px;
+	width: 90%;
+    margin: 10em auto;
 }
 
-li {
-	display: inline
+.card-container {
+	list-style: none;
+	li {
+		position: relative;
+		width: 20%
+	}
 }
+
 .full-screen-square {
 	position: fixed;
 	top: 0;

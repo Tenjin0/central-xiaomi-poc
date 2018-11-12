@@ -3,8 +3,6 @@ const path = require('path'),
 	app = express(),
 	port = process.env.PORT || 3000;
 
-console.log(process.env.NODE_ENV);
-
 if (process.env.NODE_ENV === 'development') {
 
 	const webpack = require('webpack'),

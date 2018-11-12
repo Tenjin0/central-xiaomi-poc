@@ -1,3 +1,12 @@
+#app-body {
+  width: 90%;
+  margin: 0 auto; }
+
+.card-container {
+  list-style: none; }
+  .card-container li {
+    width: 20%; }
+
 .full-screen-square {
   position: fixed;
   top: 0;
