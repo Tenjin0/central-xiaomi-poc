@@ -1,4 +1,11 @@
 # central-xiaomi-poc
+
+
+reminder
+
+docker rmi $(docker images -f "dangling=true" -q)
+
+
 https://github.com/tomlagier/crypto-dca
 https://github.com/aichbauer/express-graphql-boilerplate
 

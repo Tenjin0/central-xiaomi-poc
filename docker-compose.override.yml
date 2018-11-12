@@ -7,7 +7,7 @@ services:
       context: ./api
     container_name: central_xiaomi_api_dev
     image: central_xiaomi_api
-    command: "npm run dev"
+    command:  "npm run dev"
     volumes:
       - ./api:/app
       - ./api/node_modules:/app/node_modules
@@ -21,16 +21,13 @@ services:
       context: ./client
     container_name: central_xiaomi_client_dev
     command: "npm run start"
+    environment:
+      - "NODE_ENV=development"
     volumes:
       - ./client:/app
       - ./client/node_modules:/app/node_modules
     image: central_xiaomi_client
     ports:
       - 3000:3000
-    labels:
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:central.localhost.tv"
     # extra_hosts:
     #   - "outside:${HOST_IP}"
-volumes:
-  node_modules:

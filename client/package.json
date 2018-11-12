@@ -5,13 +5,15 @@
    "main": "index.js",
    "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "build": "./node_modules/.bin/webpack",
-      "start": "pm2-docker start ecosystem.config.js"
+      "build": "npm rebuild node-sass && npx webpack",
+      "start": "npm run build && pm2-docker start ecosystem.config.js",
+      "postinstall": "npm rebuild node-sass"
    },
    "author": "Patrice PETIT",
    "license": "ISC",
    "dependencies": {
       "express": "^4.16.3",
+      "node-sass": "^4.10.0",
       "react-flip-toolkit": "^5.0.5",
       "rxjs": "^6.3.3",
       "webpack": "^4.20.2",

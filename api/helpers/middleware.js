@@ -23,12 +23,6 @@ module.exports = (app) => {
 
 	app.use((req, res, next) => {
 
-		next();
-
-	});
-
-	app.use((req, res, next) => {
-
 		const childOptions = {
 			id: req.id,
 		};

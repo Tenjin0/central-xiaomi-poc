@@ -1,3 +1,5 @@
+console.log(process.env.NODE_ENV)
+
 module.exports = {
   apps: [
 
@@ -11,7 +13,7 @@ module.exports = {
         "followSymlinks": false
       },
       "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": process.env.NODE_ENV || "development"
       }
     }
   ]

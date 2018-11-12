@@ -1,3 +1,15 @@
+#app-body {
+    display: table;
+    margin: 0 auto;
+}
+ul {
+	list-style: none;
+	padding-top: 20px;
+}
+
+li {
+	display: inline
+}
 .full-screen-square {
 	position: fixed;
 	top: 0;

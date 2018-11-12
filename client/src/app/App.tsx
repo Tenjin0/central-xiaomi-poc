@@ -16,15 +16,17 @@ export default class App extends React.Component<IAppProps, any> {
 		return (
 			<div>
 				<Nav />
-				<Switch>
-					<Route exact={true} path="/" component={Home} />
-					<Route exact={true} path="/hello" component={Hello} />
-					<Route exact={true} path="/user" component={UserFormContainer} />
-					<Route exact={true} path="/user/:id" component={UserFormContainer} />
-					<Route exact={true} path="/users" component={UsersContainer} />
-					<Route exact={true} path="/camera/archive" component={CamerasArchiveContainer} />
-					<Redirect from='*' to='/' />
-				</Switch>
+				<div id="app-body">
+					<Switch>
+						<Route exact={true} path="/" component={Home} />
+						<Route exact={true} path="/hello" component={Hello} />
+						<Route exact={true} path="/user" component={UserFormContainer} />
+						<Route exact={true} path="/user/:id" component={UserFormContainer} />
+						<Route exact={true} path="/users" component={UsersContainer} />
+						<Route exact={true} path="/camera/archive" component={CamerasArchiveContainer} />
+						<Redirect from='*' to='/' />
+					</Switch>
+				</div>
 			</div>
 		);
 	}

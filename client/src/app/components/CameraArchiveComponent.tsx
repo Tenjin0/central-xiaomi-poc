@@ -11,9 +11,9 @@ export const styles = (theme: Theme) => createStyles({
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		justifyContent: 'flex-start',
-		paddingInlineStart: 30,
+		paddingInlineStart: "30px",
 		// tslint:disable-next-line:object-literal-sort-keys
-		paddingInlineEnd: 30,
+		paddingInlineEnd: "30px",
 	},
 })
 
@@ -26,6 +26,8 @@ class CameraArchive extends React.PureComponent<ICameraArchiveProps & WithStyles
 	}
 
 	public componentDidMount() {
+		
+		console.log("componentDidMount")
 		this.props.requestCameraArchive(null, this.props.pagination.perPage, this.props.pagination.currentPage)
 	}
 
@@ -38,7 +40,9 @@ class CameraArchive extends React.PureComponent<ICameraArchiveProps & WithStyles
 			<ul className={this.props.classes.container}>
 				{
 					this.props.data.map((aCameraArchive: ICamera) => (
-						<CameraCard key={"camera-archive-" + aCameraArchive.id} cameraArchive={aCameraArchive} />
+						<li>
+							<CameraCard key={"camera-archive-" + aCameraArchive.id} cameraArchive={aCameraArchive} />
+						</li>
 					))
 				}
 			</ul>
