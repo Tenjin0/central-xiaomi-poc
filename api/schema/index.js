@@ -12,6 +12,7 @@ const {
 const {
 	createUser,
 	updateUser,
+	deleteUser
 } = require('./mutations');
 
 const RootQuery = new GraphQLObjectType({
@@ -31,7 +32,7 @@ const RootMutation = new GraphQLObjectType({
 	fields: {
 		createUser,
 		updateUser,
-		// deleteUser
+		deleteUser,
 	},
 });
 module.exports = new GraphQLSchema({

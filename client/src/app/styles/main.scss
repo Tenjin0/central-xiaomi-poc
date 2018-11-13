@@ -9,6 +9,7 @@
 		position: relative;
 		width: 20%
 	}
+	transition: width 2s
 }
 
 .full-screen-square {
@@ -20,6 +21,7 @@
 	cursor: pointer;
 	background-color: #7971ea;
 }
+
 .square {
 	width: 5rem;
 	height: 5rem;

@@ -2,8 +2,8 @@ import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import * as React from 'react';
 import { ICamera } from '../constants/interface';
 import { ICameraArchiveProps } from '../containers/CameraArchiveContainer'
-import CardContainer from './CardContainer'
 import CameraCard from './CameraCard';
+import CardContainer from './CardContainer'
 
 export const styles = (theme: Theme) => createStyles({
 	"card-list-container": {
@@ -18,8 +18,10 @@ export const styles = (theme: Theme) => createStyles({
 	},
 	// tslint:disable-next-line:object-literal-sort-keys
 	"card-container": {
+		display: 'flex',
+		justifyContent: "center",
 		position: 'relative',
-		width: "20%"
+		width: "20%",
 	},
 })
 
@@ -46,7 +48,6 @@ class CameraArchive extends React.PureComponent<ICameraArchiveProps & WithStyles
 				{
 					this.props.data.map((aCameraArchive: ICamera) => (
 						<li key={"camera-archive-" + aCameraArchive.id} className={classes["card-container"]}>
-							<CardContainer cameraArchive={aCameraArchive}/>
 							<CameraCard cameraArchive={aCameraArchive} />
 						</li>
 					))

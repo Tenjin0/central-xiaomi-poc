@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Flipped, Flipper } from 'react-flip-toolkit';
+import CameraArchiveSlider from './CameraArchiveSlider';
+import { ICamera } from '../constants/interface';
 
 export interface IHomeProps {
 	history: any
@@ -30,15 +32,15 @@ export default class Home extends React.PureComponent<IHomeProps, any> {
 	};
 
 	public render() {
+
+		const cameraArchive: ICamera = {
+			id: 24,
+			path: "camera/1540564406059",
+			// tslint:disable-next-line:object-literal-sort-keys
+			"created_at": "2018-11-02T17:05:43.156Z"
+		}
 		return (
-			<Flipper flipKey={this.state.fullScreen}>
-				<Flipped flipId="square">
-					<div
-						className={this.state.fullScreen ? "full-screen-square" : "square"}
-						onClick={this.toggleFullScreen}
-					/>
-				</Flipped>
-			</Flipper>
+			<CameraArchiveSlider cameraArchive={cameraArchive} />
 		);
 	}
 }
