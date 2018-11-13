@@ -10,9 +10,15 @@ import * as moment from "moment";
 import * as React from 'react';
 import { API_STATIC_URL } from '../../config';
 import { ICamera } from '../constants/interface';
+import ButtonToModal from './ButtonToModal';
 export interface ICameraCardProps {
 	cameraArchive: ICamera
 }
+
+export interface ICameraCardState {
+	open: boolean
+}
+
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -39,8 +45,21 @@ export const styles = (theme: Theme) =>
 		},
 	})
 
-class CameraCard extends React.Component<ICameraCardProps & WithStyles<typeof styles>, any> {
+class CameraCard extends React.Component<ICameraCardProps & WithStyles<typeof styles>, ICameraCardState> {
 
+	public constructor(props: ICameraCardProps & WithStyles<typeof styles>) {
+		super(props);
+		this.state = {
+			open: false
+		}
+	}
+
+	public openModal = (e: React.MouseEvent<HTMLElement>) => {
+		console.log(this.state)
+		this.setState({
+			open: !this.state.open
+		})
+	}
 	public render() {
 
 		const classes = this.props.classes;
@@ -51,9 +70,7 @@ class CameraCard extends React.Component<ICameraCardProps & WithStyles<typeof st
 			<Card className={classes.card}>
 				<CardHeader
 					action={
-						<IconButton>
-							<ExpandMoreIcon />
-						</IconButton>
+						<ButtonToModal open={this.state.open}/>
 					}
 					classes={{
 						title : classes.title
@@ -64,6 +81,7 @@ class CameraCard extends React.Component<ICameraCardProps & WithStyles<typeof st
 					className={classes.media}
 					image={API_STATIC_URL + "/" + cameraArchive.path + "/1.png"}
 					title="Paella dish"
+					onClick={this.openModal}
 				/>
 			</Card>
 		);
