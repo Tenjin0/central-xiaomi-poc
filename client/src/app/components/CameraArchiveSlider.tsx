@@ -2,7 +2,6 @@ import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import * as React from 'react';
 import { API_STATIC_URL } from '../../config';
 import { ICamera } from '../constants/interface';
-import zIndex from '@material-ui/core/styles/zIndex';
 
 export interface ICameraArchiveSliderProps {
 	cameraArchive: ICamera
@@ -64,9 +63,9 @@ export const styles = (theme: Theme) => createStyles({
 
 	},
 	"carousel-indicator": {
-		width: '12px',
+		width: '10px',
 		// tslint:disable-next-line:object-literal-sort-keys
-		height: '12px',
+		height: '10px',
 		cursor: 'pointer',
 		border: '1px solid blue',
 		backgroundColor: "transparent",

@@ -1,3 +1,7 @@
+#root {
+	margin-top: 10em;
+}
+
 #app-body {
   width: 90%;
   margin: 0 auto; }
