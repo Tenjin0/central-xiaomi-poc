@@ -31,6 +31,16 @@ class CameraArchive extends React.PureComponent<ICameraArchiveProps & WithStyles
 
 		super(props);
 
+		window.onscroll = () => {
+			const hasScroll = window.innerHeight > document.documentElement.scrollHeight
+			if (
+			  window.innerHeight + document.documentElement.scrollTop
+			  === document.documentElement.offsetHeight
+			) {
+				alert("I will call api")
+			}
+		  };
+
 	}
 
 	public componentDidMount() {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Flipped, Flipper } from 'react-flip-toolkit';
-import CameraArchiveSlider from './CameraArchiveSlider';
 import { ICamera } from '../constants/interface';
+import CameraArchiveSlider from './CameraArchiveSlider';
 
 export interface IHomeProps {
 	history: any

@@ -2,6 +2,7 @@ import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import * as React from 'react';
 import { API_STATIC_URL } from '../../config';
 import { ICamera } from '../constants/interface';
+import zIndex from '@material-ui/core/styles/zIndex';
 
 export interface ICameraArchiveSliderProps {
 	cameraArchive: ICamera
@@ -13,17 +14,14 @@ export interface ICameraArchiveSliderState {
 
 
 export const styles = (theme: Theme) => createStyles({
-	carousel: {
-
-	},
 	header: {
-		width: "100%",
+		width: "500px",
 		// tslint:disable-next-line:object-literal-sort-keys
 		height: '50px'
 	},
 	slider: {
 		backgroundColor: 'white',
-		boxShadow: '0px 4px 6px fade-out(black, 0.8)',
+		boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.2)',
 		display: 'block',
 		margin:' 0 auto',
 		maxWidth:'500px',
@@ -45,24 +43,43 @@ export const styles = (theme: Theme) => createStyles({
 	},
 	'carousel-inner': {
 		borderRadius: '3px',
+		height: '375px',
 		overflow: 'visible',
 		position: 'relative'
 	},
 	'intro-img': {
-		// maxHeight: '250px',
 		overflow: 'hidden',
-		// tslint:disable-next-line:object-literal-sort-keys
 		position: 'absolute',
-		transition: "all .4s ease-in-out",
-		width: '100%'
+		top: '0%',
+		transition: "all .1s ease-in-out",
+		width: '100%',
+	},
+	'intro-img-blank': {
+		backgroundColor: 'transparent',
+		// tslint:disable-next-line:object-literal-sort-keys
+		position: 'relative',
+		width: '100%',
+		// tslint:disable-next-line:object-literal-sort-keys
+		height: '375x',
+		zIndex: 1
 	},
 	img: {
 		width: '100%',
 		// tslint:disable-next-line:object-literal-sort-keys
-		transition: "all .4s ease-in-out"
+		transition: "all .1s ease-in-out"
 
 	},
 	"carousel-indicator": {
+		width: '10px',
+		// tslint:disable-next-line:object-literal-sort-keys
+		height: '10px',
+		cursor: 'pointer',
+		border: '1px solid blue',
+		backgroundColor: "transparent",
+		borderRadius: '10px',
+		margin: '4px'
+	},
+	"carousel-indicator-blank": {
 		width: '10px',
 		// tslint:disable-next-line:object-literal-sort-keys
 		height: '10px',
@@ -80,7 +97,7 @@ export const styles = (theme: Theme) => createStyles({
 	},
 	active: {
 		opacity: 1,
-		"zIndex": 1,
+		"zIndex": 2,
 	}
 })
 
@@ -115,11 +132,13 @@ class CameraArchiveSlider extends React.Component<ICameraArchiveSliderProps & Wi
 					header
 				</div>
 				<div className={classes["carousel-inner"]} role="listbox">
-						{
-							images
-						}
+					{/* <div key={"intro-img-blank"} className= {classes["intro-img-blank"]}/> */}
+					{
+						images
+					}
 				</div>
 				<ul className={classes["carousel-indicators"]}>
+
 					{
 						carouselIndicator
 					}
@@ -133,5 +152,4 @@ class CameraArchiveSlider extends React.Component<ICameraArchiveSliderProps & Wi
 	}
 }
 
-export default withStyles(styles)(CameraArchiveSlider)
-;
+export default withStyles(styles)(CameraArchiveSlider);

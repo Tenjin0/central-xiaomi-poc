@@ -11,6 +11,7 @@ import * as React from 'react';
 import { API_STATIC_URL } from '../../config';
 import { ICamera } from '../constants/interface';
 import ButtonToModal from './ButtonToModal';
+import CameraArchiveSlider from './CameraArchiveSlider';
 export interface ICameraCardProps {
 	cameraArchive: ICamera
 }
@@ -25,23 +26,22 @@ export const styles = (theme: Theme) =>
 		actions: {
 			display: 'flex',
 		},
-		title: {
-			fontSize: '1rem'
-		},
 		avatar: {
 			backgroundColor: "red",
 		},
-		expandOpen: {
-			transform: 'rotate(180deg)',
-		},
-		// tslint:disable-next-line:object-literal-sort-keys
 		card: {
 			margin: '0px 10px 20px',
 			width: '100%;'
 		},
+		expandOpen: {
+			transform: 'rotate(180deg)',
+		},
 		media: {
 			height: 0,
-			paddingTop: '56.25%', // 16:9
+			paddingTop: '56.25%',
+		},
+		title: {
+			fontSize: '1rem'
 		},
 	})
 
@@ -55,7 +55,6 @@ class CameraCard extends React.Component<ICameraCardProps & WithStyles<typeof st
 	}
 
 	public openModal = (e: React.MouseEvent<HTMLElement>) => {
-		console.log(this.state)
 		this.setState({
 			open: !this.state.open
 		})
@@ -65,12 +64,16 @@ class CameraCard extends React.Component<ICameraCardProps & WithStyles<typeof st
 		const classes = this.props.classes;
 		const cameraArchive = this.props.cameraArchive;
 		const dateToDisplay = moment(cameraArchive.created_at).format('MMMM Do YYYY, HH:mm:ss');
-
+		const ButtonToModalWrapper = () => (
+			<ButtonToModal >
+				<CameraArchiveSlider cameraArchive={cameraArchive} />
+			</ButtonToModal>
+		  )
 		return (
 			<Card className={classes.card}>
 				<CardHeader
 					action={
-						<ButtonToModal open={this.state.open}/>
+						<ButtonToModalWrapper />
 					}
 					classes={{
 						title : classes.title
