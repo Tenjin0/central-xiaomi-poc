@@ -33,6 +33,7 @@ class CameraArchive extends React.PureComponent<ICameraArchiveProps & WithStyles
 
 		window.onscroll = () => {
 			const hasScroll = window.innerHeight > document.documentElement.scrollHeight
+			console.log(hasScroll)
 			if (
 			  window.innerHeight + document.documentElement.scrollTop
 			  === document.documentElement.offsetHeight
@@ -45,7 +46,11 @@ class CameraArchive extends React.PureComponent<ICameraArchiveProps & WithStyles
 
 	public componentDidMount() {
 		
-		this.props.requestCameraArchive(null, this.props.pagination.perPage, this.props.pagination.currentPage)
+		this.props.requestCameraArchive(null, 20, this.props.pagination.currentPage).then(() => {
+			const hasScroll = window.innerHeight > document.documentElement.scrollHeight
+			console.log(window.innerHeight, document.documentElement.scrollHeight)
+			console.log(hasScroll)
+		})
 	}
 
 	public render() {
