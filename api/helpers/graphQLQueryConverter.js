@@ -64,7 +64,7 @@ class GraphQLQueryConverter {
 
 	async generate(opts) {
 
-		if (this.fields.has('pagination') || this.args.perPage || this.args.page) {
+		if (this.fields.has('pagination') || this.args.per_page || this.args.page) {
 
 			this.pagination.totalDatas = (await this.model.findAll({
 				attributes: [
@@ -73,9 +73,9 @@ class GraphQLQueryConverter {
 				where: opts.filter,
 			}))[0].dataValues.TOTAL_COUNT;
 
-			if (this.args.perPage || this.args.page) {
+			if (this.args.per_page || this.args.page) {
 
-				this.pagination.perPage = this.args.perPage || config.defaultPerPage;
+				this.pagination.perPage = this.args.per_page || config.defaultPerPage;
 				this.pagination.currentPage = this.args.page || 1;
 				this.pagination.totalPages = Math.ceil(this.pagination.totalCountDatas / this.pagination.perPage);
 				this.pagination.offset = this.pagination.perPage * (this.pagination.page - 1);
@@ -87,7 +87,6 @@ class GraphQLQueryConverter {
 			}
 
 		}
-
 		if (this.fields.has('data')) {
 
 			this.data = await this.model.findAll({
