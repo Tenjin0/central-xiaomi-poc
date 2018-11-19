@@ -37,8 +37,8 @@ export const styles = (theme: Theme) => createStyles({
 		// tslint:disable-next-line:object-literal-sort-keys
 		height: '56px !important',
 		transform: 'translate(90%, 50%)',
-		top: '5%',
-    	left: '93%',
+		top: '0%',
+    	right: '0%',
 	},
 })
 
@@ -73,16 +73,17 @@ class ButtonToModal extends React.Component<WithStyles<typeof styles>, IButtonTo
 			"created_at": "2018-11-02T17:05:43.156Z"
 		}
 
+		console.log(this.props.classes.modal)
 		return (
 			<div className={`${this.props.classes.modal} ${this.state.open ? 'show-modal' : ''}`}>
 				<Button className={`${this.props.classes["modal-button"]} ${this.state.open ? this.props.classes["modal-button-open"] : ''}`} variant="fab" color="primary" aria-label="Add" onClick={this.onClickHandler}>
 					<AddIcon className={`${this.props.classes.icon} ${this.state.open ? this.props.classes["add-icon-to-close"] : ''}`} />
 				</Button>
-				{this.state.open &&
-					<div className="modal-content">
-						{this.props.children}
+					<div className={`modal-content ${this.state.open ? "modal-content-open" :  ''}`}>
+						{this.state.open &&
+								this.props.children
+						}
 					</div>
-				}
 			</div>
 		);
 	}
