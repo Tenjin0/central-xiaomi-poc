@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:400,900");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1b1b05;
+  color: #fbf6de;
+  line-height: 1.6;
+  -webkit-font-rendering: antialiased;
+  font-family: "Source Code Pro";
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+main {
+  padding: 1rem;
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.list {
+  list-style-type: none;
+  display: flex;
+  margin: 2rem 0 0 0;
+  padding: 0;
+}
+
+.listItem {
+  width: 9rem;
+  height: 9rem;
+  display: block;
+  cursor: pointer;
+}
+
+.listItem > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.listItem + .listItem {
+  margin-left: 1.5rem;
+}
+
+.focusedItem {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.focusedItem > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+code {
+  color: #1b1b05;
+  background-color: #fbf6de;
+  border-radius: 2px;
+  margin: 0 0.5rem;
+}

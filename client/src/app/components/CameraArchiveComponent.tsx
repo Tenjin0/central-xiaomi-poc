@@ -68,7 +68,6 @@ class CameraArchive extends React.PureComponent<ICameraArchiveProps & WithStyles
 					))
 				}
 			</ul>
-
 		);
 	}
 }

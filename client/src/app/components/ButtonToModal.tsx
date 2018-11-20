@@ -2,6 +2,7 @@ import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import * as React from 'react';
+import { Flipped, Flipper } from 'react-flip-toolkit';
 import posed from "react-pose";
 import { ICamera } from '../constants/interface';
 
@@ -23,9 +24,14 @@ export const styles = (theme: Theme) => createStyles({
 		transition: '1s all',
 	},
 	modal: {
-		transition: '1s all',
+		position: 'absolute',
+		width: '25px',
+		// tslint:disable-next-line:object-literal-sort-keys
+		height: '25px',
+		backgroundColor: 'rgba(0, 0, 0, 0.5) transparent'
 	},
 	'modal-button': {
+		position: 'absolute',
 		width: '25px',
 		// tslint:disable-next-line:object-literal-sort-keys
 		height: '25px',
@@ -36,10 +42,22 @@ export const styles = (theme: Theme) => createStyles({
 		width: '56px !important',
 		// tslint:disable-next-line:object-literal-sort-keys
 		height: '56px !important',
-		transform: 'translate(90%, 50%)',
 		top: '0%',
-    	right: '0%',
+		right: '0%',
+		position: 'fixed'
 	},
+	'show-modal': {
+		position: 'fixed',
+		top: '0%',
+		// tslint:disable-next-line:object-literal-sort-keys
+		left: '0%',
+		width: '100%',
+		height: '100%',
+		zIndex: 1100,
+		backgroundColor: 'rgba(0, 0, 0, 0.5)'
+
+	}
+
 })
 
 
@@ -73,18 +91,27 @@ class ButtonToModal extends React.Component<WithStyles<typeof styles>, IButtonTo
 			"created_at": "2018-11-02T17:05:43.156Z"
 		}
 
-		console.log(this.props.classes.modal)
 		return (
-			<div className={`${this.props.classes.modal} ${this.state.open ? 'show-modal' : ''}`}>
-				<Button className={`${this.props.classes["modal-button"]} ${this.state.open ? this.props.classes["modal-button-open"] : ''}`} variant="fab" color="primary" aria-label="Add" onClick={this.onClickHandler}>
-					<AddIcon className={`${this.props.classes.icon} ${this.state.open ? this.props.classes["add-icon-to-close"] : ''}`} />
-				</Button>
-					<div className={`modal-content ${this.state.open ? "modal-content-open" :  ''}`}>
-						{this.state.open &&
+
+			<Flipper flipKey={this.state.open} >
+				<Flipped flipId={"camera-archive" + cameraArchive.id}>
+					<div className={`${this.props.classes.modal} ${this.state.open ? this.props.classes["show-modal"] : ''}`}>
+						<Flipped
+							inverseFlipId={"camera-archive" + cameraArchive.id}
+							transformOrigin="0 0"
+						>
+							<Button className={`${this.props.classes["modal-button"]} ${this.state.open ? this.props.classes["modal-button-open"] : ''}`} variant="fab" color="primary" aria-label="Add" onClick={this.onClickHandler}>
+								<AddIcon className={`${this.props.classes.icon} ${this.state.open ? this.props.classes["add-icon-to-close"] : ''}`} />
+							</Button>
+							{/* <div className={`modal-content ${this.state.open ? "modal-content-open" : ''}`}>
+							{this.state.open &&
 								this.props.children
-						}
+							}
+						</div> */}
+						</Flipped>
 					</div>
-			</div>
+				</Flipped>
+			</Flipper>
 		);
 	}
 }

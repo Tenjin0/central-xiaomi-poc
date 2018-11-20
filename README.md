@@ -32,7 +32,7 @@ https://freefrontend.com/css-text-effects/
 
 Div to fullscreen animation
 https://codemyui.com/div-fullscreen-click/
-
+https://github.com/aholachek/react-flip-toolkit#1-purecomponent
 modal animation
 https://codepen.io/matthewvincent/pen/reLPQZ
 
