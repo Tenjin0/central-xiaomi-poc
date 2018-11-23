@@ -55,9 +55,18 @@ export const styles = (theme: Theme) => createStyles({
 		height: '100%',
 		zIndex: 1100,
 		backgroundColor: 'rgba(0, 0, 0, 0.5)'
-
+	},
+	"modal-content": {
+		marginTop: "25vh"
+	},
+	"modal-content-open": {
+		// transform: translate(-50%);
+		padding: "10px",
+		width: "500px",
+		height: "500px",
+		left: "50%",
+		top: "20%",
 	}
-
 })
 
 
@@ -98,17 +107,16 @@ class ButtonToModal extends React.Component<WithStyles<typeof styles>, IButtonTo
 					<div className={`${this.props.classes.modal} ${this.state.open ? this.props.classes["show-modal"] : ''}`}>
 						<Flipped
 							inverseFlipId={"camera-archive" + cameraArchive.id}
-							transformOrigin="0 0"
-						>
-							<Button className={`${this.props.classes["modal-button"]} ${this.state.open ? this.props.classes["modal-button-open"] : ''}`} variant="fab" color="primary" aria-label="Add" onClick={this.onClickHandler}>
-								<AddIcon className={`${this.props.classes.icon} ${this.state.open ? this.props.classes["add-icon-to-close"] : ''}`} />
-							</Button>
-							{/* <div className={`modal-content ${this.state.open ? "modal-content-open" : ''}`}>
-							{this.state.open &&
-								this.props.children
-							}
-						</div> */}
+							transformOrigin="0 0">
+								<Button className={`${this.props.classes["modal-button"]} ${this.state.open ? this.props.classes["modal-button-open"] : ''}`} variant="fab" color="primary" aria-label="Add" onClick={this.onClickHandler}>
+									<AddIcon className={`${this.props.classes.icon} ${this.state.open ? this.props.classes["add-icon-to-close"] : ''}`} />
+								</Button>
 						</Flipped>
+						{this.state.open &&
+							<div className={this.props.classes["modal-content"]}>
+								{this.props.children}
+							</div>
+						}
 					</div>
 				</Flipped>
 			</Flipper>

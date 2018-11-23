@@ -6,6 +6,12 @@ import CameraCard from './CameraCard';
 import CardContainer from './CardContainer'
 
 export const styles = (theme: Theme) => createStyles({
+	"card-container": {
+		display: 'flex',
+		justifyContent: "center",
+		position: 'relative',
+		width: "20%",
+	},
 	"card-list-container": {
 		display: 'flex',
 		flexDirection: 'row',
@@ -15,13 +21,6 @@ export const styles = (theme: Theme) => createStyles({
 		// tslint:disable-next-line:object-literal-sort-keys
 		paddingInlineEnd: "0px",
 		listStyle: "none"
-	},
-	// tslint:disable-next-line:object-literal-sort-keys
-	"card-container": {
-		display: 'flex',
-		justifyContent: "center",
-		position: 'relative',
-		width: "20%",
 	},
 })
 
@@ -33,28 +32,23 @@ class CameraArchive extends React.PureComponent<ICameraArchiveProps & WithStyles
 
 		window.onscroll = () => {
 			const hasScroll = window.innerHeight > document.documentElement.scrollHeight
-			console.log(hasScroll)
 			if (
-			  window.innerHeight + document.documentElement.scrollTop
-			  === document.documentElement.offsetHeight
+				hasScroll && window.innerHeight + document.documentElement.scrollTop
+				=== document.documentElement.offsetHeight
 			) {
 				alert("I will call api")
 			}
-		  };
+		};
+		console.log(this.props.pagination)
 
 	}
 
 	public componentDidMount() {
-		
-		this.props.requestCameraArchive(null, 20, this.props.pagination.currentPage).then(() => {
-			const hasScroll = window.innerHeight > document.documentElement.scrollHeight
-			console.log(window.innerHeight, document.documentElement.scrollHeight)
-			console.log(hasScroll)
-		})
+		console.log(this.props.pagination)
+		this.props.requestCameraArchive(null, this.props.pagination.currentPage, this.props.pagination.currentPage);
 	}
 
 	public render() {
-
 		const classes = this.props.classes;
 
 		return (

@@ -23,8 +23,8 @@ export interface ICameraCardState {
 
 export const styles = (theme: Theme) =>
 	createStyles({
-		actions: {
-			display: 'flex',
+		action: {
+			margin: "-3px 15px auto"
 		},
 		avatar: {
 			backgroundColor: "red",
@@ -76,7 +76,8 @@ class CameraCard extends React.Component<ICameraCardProps & WithStyles<typeof st
 						<ButtonToModalWrapper />
 					}
 					classes={{
-						title : classes.title
+						action: classes.action,
+						title : classes.title,
 					}}
 					title={dateToDisplay}
 				/>
