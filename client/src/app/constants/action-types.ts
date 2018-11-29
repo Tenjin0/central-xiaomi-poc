@@ -11,6 +11,7 @@ export enum CamerasActionTypes {
 	CAMERAS_REQUESTED = "CAMERAS_REQUESTED",
 	CAMERAS_REQUEST_FAILED = "CAMERAS_REQUEST_FAILED",
 	CAMERAS_REQUEST_SUCCEEDED = "CAMERAS_REQUEST_SUCCEEDED",
+	CAMERAS_REQUEST_MORE_SUCCEEDED = "CAMERAS_REQUEST_MORE_SUCCEEDED",
 }
 
 export enum FormActionTypes {
@@ -56,6 +57,7 @@ export interface IRequestCamerasSucceededAction extends Action {
 	type: CamerasActionTypes.CAMERAS_REQUEST_SUCCEEDED;
 	payload: {
 		data: ICamera[],
+		more: boolean,
 		pagination: IPagination
 	}
 }

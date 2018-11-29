@@ -24,11 +24,23 @@ export const styles = (theme: Theme) => createStyles({
 		transition: '1s all',
 	},
 	modal: {
-		position: 'absolute',
+		// position: 'absolute',
 		width: '25px',
 		// tslint:disable-next-line:object-literal-sort-keys
 		height: '25px',
-		backgroundColor: 'rgba(0, 0, 0, 0.5) transparent'
+		backgroundColor: 'rgba(0, 0, 0, 0.5) transparent',
+		transition: "height 0.2s; width 0.1s",
+
+	},
+	'modal-show': {
+		position: 'fixed',
+		top: '0%',
+		// tslint:disable-next-line:object-literal-sort-keys
+		left: '0%',
+		width: '100%',
+		height: '100%',
+		zIndex: 1100,
+		backgroundColor: 'rgba(0, 0, 0, 0.5)'
 	},
 	'modal-button': {
 		position: 'absolute',
@@ -46,16 +58,8 @@ export const styles = (theme: Theme) => createStyles({
 		right: '0%',
 		position: 'fixed'
 	},
-	'show-modal': {
-		position: 'fixed',
-		top: '0%',
-		// tslint:disable-next-line:object-literal-sort-keys
-		left: '0%',
-		width: '100%',
-		height: '100%',
-		zIndex: 1100,
-		backgroundColor: 'rgba(0, 0, 0, 0.5)'
-	},
+	
+	// tslint:disable-next-line:object-literal-sort-keys
 	"modal-content": {
 		marginTop: "25vh"
 	},
@@ -63,6 +67,7 @@ export const styles = (theme: Theme) => createStyles({
 		// transform: translate(-50%);
 		padding: "10px",
 		width: "500px",
+		// tslint:disable-next-line:object-literal-sort-keys
 		height: "500px",
 		left: "50%",
 		top: "20%",
@@ -103,14 +108,19 @@ class ButtonToModal extends React.Component<WithStyles<typeof styles>, IButtonTo
 		return (
 
 			<Flipper flipKey={this.state.open} >
-				<Flipped flipId={"camera-archive" + cameraArchive.id}>
-					<div className={`${this.props.classes.modal} ${this.state.open ? this.props.classes["show-modal"] : ''}`}>
+				<Flipped flipId={"camera-archive" + cameraArchive.id} spring="veryGentle">
+					<div className={`${this.props.classes.modal} ${this.state.open ? this.props.classes["modal-show"] : ''}`}>
 						<Flipped
 							inverseFlipId={"camera-archive" + cameraArchive.id}
-							transformOrigin="0 0">
-								<Button className={`${this.props.classes["modal-button"]} ${this.state.open ? this.props.classes["modal-button-open"] : ''}`} variant="fab" color="primary" aria-label="Add" onClick={this.onClickHandler}>
-									<AddIcon className={`${this.props.classes.icon} ${this.state.open ? this.props.classes["add-icon-to-close"] : ''}`} />
-								</Button>
+						>
+							<Button className={`${this.props.classes["modal-button"]} ${this.state.open ? this.props.classes["modal-button-open"] : ''}`} variant="fab" color="primary" aria-label="Add" onClick={this.onClickHandler}>
+								<AddIcon className={`${this.props.classes.icon} ${this.state.open ? this.props.classes["add-icon-to-close"] : ''}`} />
+							</Button>
+							{/* <div className={`modal-content ${this.state.open ? "modal-content-open" : ''}`}>
+							{this.state.open &&
+								this.props.children
+							}
+						</div> */}
 						</Flipped>
 						{this.state.open &&
 							<div className={this.props.classes["modal-content"]}>

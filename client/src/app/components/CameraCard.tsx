@@ -24,7 +24,7 @@ export interface ICameraCardState {
 export const styles = (theme: Theme) =>
 	createStyles({
 		action: {
-			margin: "-3px 15px auto"
+			// margin: "-3px 15px auto"
 		},
 		avatar: {
 			backgroundColor: "red",

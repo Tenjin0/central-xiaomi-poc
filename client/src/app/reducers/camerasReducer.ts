@@ -1,6 +1,6 @@
 import { Reducer } from "redux"
 import { DEFAULT_FILTER, DEFAULT_PAGE, DEFAULT_PER_PAGE } from "../../config"
-import { CamerasActions, CamerasActionTypes } from "../constants/action-types"
+import { CamerasActions, CamerasActionTypes, IRequestCamerasSucceededAction } from "../constants/action-types"
 import { ICamera, IListWithPagination } from "../constants/interface"
 
 const initialState: IListWithPagination<ICamera> = {
@@ -39,7 +39,7 @@ const camerasReducer: Reducer<IListWithPagination<ICamera>> = (state: IListWithP
 				isFailure: false,
 				isLoading: false,
 				// tslint:disable-next-line:object-literal-sort-keys
-				data: action.payload.data,
+				data: action.payload.more ? state.data.concat(action.payload.data): action.payload.data,
 				pagination: {
 					...action.payload.pagination,
 					currentPage: action.payload.pagination.currentPage || DEFAULT_PAGE,

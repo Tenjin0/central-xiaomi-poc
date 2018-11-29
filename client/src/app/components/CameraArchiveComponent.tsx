@@ -31,7 +31,8 @@ class CameraArchive extends React.PureComponent<ICameraArchiveProps & WithStyles
 		super(props);
 
 		window.onscroll = () => {
-			const hasScroll = window.innerHeight > document.documentElement.scrollHeight
+			const hasScroll = window.innerHeight < document.documentElement.scrollHeight
+			console.log(hasScroll, window.innerHeight, document.documentElement.scrollHeight)
 			if (
 				hasScroll && window.innerHeight + document.documentElement.scrollTop
 				=== document.documentElement.offsetHeight
@@ -39,13 +40,46 @@ class CameraArchive extends React.PureComponent<ICameraArchiveProps & WithStyles
 				alert("I will call api")
 			}
 		};
-		console.log(this.props.pagination)
+		// window.onload = function () { alert("It's loaded!") }
+		// document.on(function(){alert("Loaded.")});
+		// console.log(this.props.pagination)
 
 	}
 
+	// public componentDidUpdate(prevProps: ICameraArchiveProps, prevState: any) {
+	// 	console.log("componentDidUpdate")
+	// 	const hasScroll = window.innerHeight > document.documentElement.scrollHeight
+	// 	// console.log(window.innerHeight, document.documentElement.scrollHeight)
+	// 	console.log(prevProps.data.length !== this.props.data.length, !hasScroll, this.props.data.length < this.props.pagination.totalDatas)
+	// 	// console.log(this.props.pagination.totalDatas, this.props.data.length)
+	// 	if (prevProps.data.length !== this.props.data.length && !hasScroll &&  this.props.data.length < this.props.pagination.totalDatas)  {
+	// 		console.log("fetch new data")
+	// 		this.props.requestCameraArchive(null, 1, this.props.pagination.nextPage, true).then(() => {
+	// 			// console.log(window.innerHeight, document.documentElement.scrollHeight)
+	// 			// console.log(hasScroll)
+	// 		})
+	// 	}
+	// }
+
 	public componentDidMount() {
-		console.log(this.props.pagination)
-		this.props.requestCameraArchive(null, this.props.pagination.currentPage, this.props.pagination.currentPage);
+		// console.log(this.props.pagination.currentPage)
+		
+		this.props.requestCameraArchive(null, 10, this.props.pagination.currentPage, false).then(() => {
+			// 		// console.log(window.innerHeight, document.documentElement.scrollHeight)
+			// 		// console.log(hasScroll)
+			setTimeout(() => {
+				const hasScroll = window.innerHeight < document.documentElement.scrollHeight
+				console.log(hasScroll, window.innerHeight,  document.documentElement.scrollHeight)
+				if (!hasScroll &&  this.props.data.length < this.props.pagination.totalDatas)  {
+					// console.log("fetch new data")
+					// console.log(this.props.pagination)
+					this.props.requestCameraArchive(null, this.props.pagination.perPage, this.props.pagination.currentPage + 1, true).then(() => {
+						// console.log(window.innerHeight, document.documentElement.scrollHeight)
+						// console.log(hasScroll)
+					})
+				}
+			}, 0)
+		})
 	}
 
 	public render() {

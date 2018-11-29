@@ -9,7 +9,7 @@ import { IAppState, ICamera, IDateRange, IListWithPagination } from '../constant
 
 export interface ICameraArchiveProps extends IListWithPagination<ICamera> {
 
-	requestCameraArchive: (filter: IDateRange, perPage: number, page: number) => Promise<void>
+	requestCameraArchive: (filter: IDateRange, perPage: number, page: number, more: boolean) => Promise<void>
 	history: any
 }
 
@@ -21,7 +21,7 @@ const mapStateToProps = (state: IAppState) => {
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, void, Action>) => {
 	return {
-		requestCameraArchive: (filter: IDateRange, perPage: number, page: number) => dispatch(getCameraArchive(filter, perPage, page)),
+		requestCameraArchive: (filter: IDateRange, perPage: number, page: number, more: boolean) => dispatch(getCameraArchive(filter, perPage, page, more)),
 	};
 }
 

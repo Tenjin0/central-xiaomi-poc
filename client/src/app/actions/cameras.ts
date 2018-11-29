@@ -9,17 +9,18 @@ const CamerasRequestedAction: ActionCreator<IRequestCamerasAction> = () => ({
 	type: CamerasActionTypes.CAMERAS_REQUESTED
 })
 
-const camerasRequestSuceededAction: ActionCreator<IRequestCamerasSucceededAction> = (response: IGraphQLDataList<ICamera>) => ({
+const camerasRequestSuceededAction: ActionCreator<IRequestCamerasSucceededAction> = (response: IGraphQLDataList<ICamera>, more: boolean) => ({
 
 	type: CamerasActionTypes.CAMERAS_REQUEST_SUCCEEDED,
 	// tslint:disable-next-line:object-literal-sort-keys
 	payload: {
 		data: response.data,
+		more,
 		pagination: response.pagination,
 	}
 })
 
-export const getCameraArchive = (filter: IDateRange, perPage: number, page: number) => {
+export const getCameraArchive = (filter: IDateRange, perPage: number, page: number, more: boolean) => {
 
 	return async (dispatch: ThunkDispatch<any, void, Action>) => {
 		if (!filter) {
@@ -27,6 +28,6 @@ export const getCameraArchive = (filter: IDateRange, perPage: number, page: numb
 		}
 		dispatch(CamerasRequestedAction())
 		const data = await api.getCameras(filter, perPage, page)
-		dispatch(camerasRequestSuceededAction(data))
+		dispatch(camerasRequestSuceededAction(data, more))
 	}
 }
