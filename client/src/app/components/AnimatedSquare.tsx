@@ -6,7 +6,7 @@ import '../styles/test.scss';
 
 const colors = ["#ff4f66", "#7971ea", "#5900d8"];
 
-export interface IAnimatedSquareProps { }
+export interface IAnimatedSquareProps {}
 export interface IAnimatedSquareState {
 	focused: boolean
 }

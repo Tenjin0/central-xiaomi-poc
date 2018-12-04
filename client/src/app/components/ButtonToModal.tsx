@@ -42,6 +42,7 @@ export const styles = (theme: Theme) => createStyles({
 		zIndex: 1100,
 		backgroundColor: 'rgba(0, 0, 0, 0.5)'
 	},
+	// tslint:disable-next-line:object-literal-sort-keys
 	'modal-button': {
 		position: 'absolute',
 		width: '25px',
