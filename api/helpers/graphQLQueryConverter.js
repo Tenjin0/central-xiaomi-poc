@@ -78,12 +78,9 @@ class GraphQLQueryConverter {
 
 				this.pagination.perPage = this.args.per_page || config.defaultPerPage;
 				this.pagination.currentPage = this.args.page || 1;
-				console.log(this.pagination.totalDatas)
 				this.pagination.totalPages = Math.ceil(this.pagination.totalDatas / this.pagination.perPage);
-				console.log(this.pagination.totalPages)
 				this.pagination.offset = this.pagination.perPage * (this.pagination.currentPage - 1);
 				this.pagination.previousPage = this.pagination.currentPage <= 1 ? null : this.pagination.currentPage - 1;
-				console.log(this.pagination.currentPage >= this.pagination.totalPages)
 				this.pagination.nextPage = this.pagination.currentPage >= this.pagination.totalPages
 					? null
 					: this.pagination.currentPage + 1;
