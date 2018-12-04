@@ -101,7 +101,6 @@ const camerasQuery = {
 	},
 };
 
-
 module.exports = {
 	camerasQuery,
 	cameraQuery,
