@@ -8,6 +8,10 @@ export interface ICardContainerProps {
 }
 
 export const styles = (theme: Theme) => createStyles({
+	'card-container' : {
+		position:'relative',
+		transition: 'all 1s ease-out',
+	},
 	'full-screen-container': {
 		top: "0",
 		// tslint:disable-next-line:object-literal-sort-keys
@@ -24,11 +28,6 @@ export const styles = (theme: Theme) => createStyles({
 		// tslint:disable-next-line:object-literal-sort-keys
 		height: "100%",
 	},
-	// tslint:disable-next-line:object-literal-sort-keys
-	'card-container' : {
-		transition: 'all 1s ease-out',
-		position:'relative'
-	}
 })
 
 class CardContainer extends React.Component<ICardContainerProps & WithStyles<typeof styles>, any> {

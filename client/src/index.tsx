@@ -22,7 +22,8 @@ declare let module: any
 const theme = createMuiTheme({
 	palette: {
 		primary: blue,
-		secondary: pink
+		secondary: pink,
+		type: "dark"
 	},
 	typography: {
 		useNextVariants: true

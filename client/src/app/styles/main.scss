@@ -1,9 +1,12 @@
-#root {
-	margin-top: 10em;
-	width: 100%;
+@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:400,900");
+
+* {
+  box-sizing: border-box;
 }
 
-
+h1 {
+  font-size: 1.5rem;
+}
 
 body {
 	padding: 0;
@@ -14,6 +17,15 @@ body {
 	height: 100%;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
+	color: white;
+	line-height: 1.6;
+	-webkit-font-rendering: antialiased;
+	font-family: "Source Code Pro";
+}
+
+#root {
+	margin-top: 10em;
+	width: 100%;
 }
 
 .inner-modal {
