@@ -135,17 +135,19 @@ module.exports = function centralSocket(io, models) {
 
 				socket.emit('xiaomihome.device.color', 'all', null, colors.orange);
 
+				const camera = {
+					deviceid: CAMERA_ID,
+					fps: CAMERA_FPS,
+					height: CAMERA_HEIGHT,
+					width: CAMERA_WIDTH,
+				};
+				socket.emit('camera.device.start', camera);
+
 				setTimeout(() => {
 
 					socket.emit('xiaomihome.device.color', 'all', null, colors.red);
 
-					const camera = {
-						deviceid: CAMERA_ID,
-						fps: CAMERA_FPS,
-						height: CAMERA_HEIGHT,
-						width: CAMERA_WIDTH,
-					};
-					socket.emit('camera.device.start', camera);
+
 					storeImagesFromCamera(socket);
 
 				}, 10000);
@@ -157,6 +159,12 @@ module.exports = function centralSocket(io, models) {
 		socket.on('camera.device.data', (data) => {
 
 			imageToStore = data.buffer;
+
+		});
+
+		socket.on('camera.start', () => {
+
+			nc.emit('camera.start');
 
 		});
 
