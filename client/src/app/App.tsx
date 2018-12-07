@@ -15,6 +15,7 @@ export interface IAppProps {
 export default class App extends React.Component<IAppProps, any> {
 
 	public render() {
+
 		return (
 			<React.Fragment>
 				<Nav />

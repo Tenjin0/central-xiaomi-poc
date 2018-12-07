@@ -1,6 +1,6 @@
 import { Action, ActionCreator } from "redux"
-import { ThunkAction, ThunkDispatch } from "redux-thunk"
-import { IRequestUsersAction, IRequestUsersSucceededAction, UsersActionTypes } from "../constants/action-types"
+import { ThunkDispatch } from "redux-thunk"
+import { IRequestUsersAction, IRequestUsersSucceededAction, UsersActionTypes } from "../actionTypes/users"
 import { IGraphQLDataList, IUser } from "../constants/interface";
 import { api } from "../service/api"
 

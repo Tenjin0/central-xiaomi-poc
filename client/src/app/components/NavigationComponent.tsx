@@ -6,6 +6,7 @@ import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
@@ -62,11 +63,14 @@ class CentralNavBar extends React.PureComponent<ICentralNavBar & WithStyles<type
 						</Typography>
 						<div className={classes.grow} />
 						<div>
+							<IconButton color="inherit" data-location={"/"} onClick={this.handleChange}>
+								<HomeIcon/>
+							</IconButton>
 							<IconButton color="inherit" data-location={"/camera/archive"} onClick={this.handleChange}>
 								<PhotoCameraIcon/>
 							</IconButton>
 							<IconButton color="inherit" data-location={"/user"} onClick={this.handleChange}>
-							<AccountCircleIcon />
+								<AccountCircleIcon />
 							</IconButton>
 							<IconButton color="inherit" data-location={"/users"} onClick={this.handleChange}>
 								<SupervisedUserCircleIcon />

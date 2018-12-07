@@ -1,6 +1,6 @@
 import { Reducer } from "redux"
 import { DEFAULT_FILTER, DEFAULT_PAGE, DEFAULT_PER_PAGE } from "../../config"
-import { UsersActions, UsersActionTypes } from "../constants/action-types"
+import { UsersActions, UsersActionTypes } from "../actionTypes/users"
 import { IListWithPagination, IUser } from "../constants/interface"
 
 const initialState: IListWithPagination<IUser> = {

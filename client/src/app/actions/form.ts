@@ -1,9 +1,7 @@
 import { Action, ActionCreator } from "redux"
-import { ThunkAction, ThunkDispatch } from "redux-thunk"
+import { ThunkDispatch } from "redux-thunk"
 
-import { FormActions, FormActionTypes } from "../constants/action-types"
-import { IUser } from "../constants/interface";
-import { api } from "../service/api"
+import { FormActions, FormActionTypes } from "../actionTypes/form"
 
 const formLoadingAction: ActionCreator<FormActions> = () => ({
 

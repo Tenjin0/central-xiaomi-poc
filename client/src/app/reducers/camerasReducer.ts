@@ -1,6 +1,6 @@
 import { Reducer } from "redux"
 import { DEFAULT_FILTER, DEFAULT_PAGE, DEFAULT_PER_PAGE } from "../../config"
-import { CamerasActions, CamerasActionTypes, IRequestCamerasSucceededAction } from "../constants/action-types"
+import { CamerasActions, CamerasActionTypes, IRequestCamerasSucceededAction } from "../actionTypes/cameras"
 import { ICamera, IListWithPagination } from "../constants/interface"
 
 const initialState: IListWithPagination<ICamera> = {

@@ -1,6 +1,6 @@
 import { Action, ActionCreator } from "redux"
 import { ThunkAction, ThunkDispatch } from "redux-thunk"
-import { CamerasActionTypes, IRequestCamerasAction, IRequestCamerasSucceededAction } from "../constants/action-types"
+import { CamerasActionTypes, IRequestCamerasAction, IRequestCamerasSucceededAction } from "../actionTypes/cameras"
 import { ICamera, IDateRange, IGraphQLDataList } from "../constants/interface";
 import { api } from "../service/api"
 

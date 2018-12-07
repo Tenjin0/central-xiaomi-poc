@@ -29,7 +29,7 @@ export const styles = (theme: Theme) => createStyles({
 		// tslint:disable-next-line:object-literal-sort-keys
 		height: '25px',
 		backgroundColor: 'rgba(0, 0, 0, 0.5) transparent',
-		transition: "height 0.2s; width 0.1s",
+		// transition: "height 0.2s; width 0.1s",
 
 	},
 	'modal-show': {

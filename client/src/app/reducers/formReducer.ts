@@ -1,5 +1,5 @@
 import { Reducer } from "redux"
-import { FormActions, FormActionTypes } from "../constants/action-types"
+import { FormActions, FormActionTypes } from "../actionTypes/form"
 import { IFormState } from "../constants/interface"
 
 const initialState: IFormState = {
