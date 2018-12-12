@@ -1,6 +1,6 @@
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import * as React from 'react';
-import { ICamera } from '../constants/interface';
+import { ICameraArchive } from '../constants/interface';
 import { ICameraArchiveProps } from '../containers/CameraArchiveContainer'
 import CameraCard from './CameraCard';
 import CardContainer from './CardContainer'
@@ -24,7 +24,7 @@ export const styles = (theme: Theme) => createStyles({
 	},
 })
 
-class CameraArchive extends React.PureComponent<ICameraArchiveProps & WithStyles<typeof styles>, null> {
+class CameraArchives extends React.PureComponent<ICameraArchiveProps & WithStyles<typeof styles>, null> {
 
 	constructor(props: any) {
 
@@ -85,7 +85,7 @@ class CameraArchive extends React.PureComponent<ICameraArchiveProps & WithStyles
 
 			<ul className={classes["card-list-container"]}>
 				{
-					this.props.data.map((aCameraArchive: ICamera) => (
+					this.props.data.map((aCameraArchive: ICameraArchive) => (
 						<li key={"camera-archive-" + aCameraArchive.id} className={classes["card-container"]}>
 							<CameraCard cameraArchive={aCameraArchive} />
 						</li>
@@ -96,4 +96,4 @@ class CameraArchive extends React.PureComponent<ICameraArchiveProps & WithStyles
 	}
 }
 
-export default withStyles(styles)(CameraArchive)
+export default withStyles(styles)(CameraArchives)

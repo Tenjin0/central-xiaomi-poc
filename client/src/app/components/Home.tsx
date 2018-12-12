@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { Flipped, Flipper } from 'react-flip-toolkit';
-import { ICamera } from '../constants/interface';
 import CameraPlayer from './CameraPlayer';
 
 export interface IHomeProps {

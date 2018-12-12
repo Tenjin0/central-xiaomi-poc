@@ -157,10 +157,10 @@ export default class ServiceApi {
 			})
 	}
 
-	public getCameras = (filter: IDateRange, perPage: number, page: number) => {
+	public getCameraArchives = (filter: IDateRange, perPage: number, page: number) => {
 
-		const GET_CAMERAS = gql`
-			query getCameras($filter: RangeDate!, $perPage: Int!, $page: Int!) {
+		const GET_CAMERA_ARCHIVES = gql`
+			query getCameraArchives($filter: RangeDate!, $perPage: Int!, $page: Int!) {
 
 				cameras(filter: $filter, per_page: $perPage, page: $page ) {
 					data {
@@ -180,7 +180,7 @@ export default class ServiceApi {
 				}
 			}
 		`
-		return this.client.query({ query: GET_CAMERAS, variables: { filter, perPage, page }  }).then((response: any) => {
+		return this.client.query({ query: GET_CAMERA_ARCHIVES, variables: { filter, perPage, page }  }).then((response: any) => {
 			return response.data.cameras
 		})
 	}

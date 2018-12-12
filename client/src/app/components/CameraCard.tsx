@@ -9,11 +9,11 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import * as moment from "moment";
 import * as React from 'react';
 import { API_STATIC_URL } from '../../config';
-import { ICamera } from '../constants/interface';
+import { ICameraArchive } from '../constants/interface';
 import ButtonToModal from './ButtonToModal';
 import CameraArchiveSlider from './CameraArchiveSlider';
 export interface ICameraCardProps {
-	cameraArchive: ICamera
+	cameraArchive: ICameraArchive
 }
 
 export interface ICameraCardState {

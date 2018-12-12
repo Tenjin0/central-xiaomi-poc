@@ -13,12 +13,14 @@ export interface IUser {
 	card_data: string
 }
 
-export interface ICamera {
+export interface ICameraArchive {
 	id?: number
 	path: string
 	created_at: string
 }
-
+export interface ICameraStream {
+	on: boolean
+}
 export interface IFormState {
 	isLoading: boolean
 	isFailure: boolean
@@ -44,7 +46,7 @@ export interface IGraphQLDataList<T> {
 export interface IAppState {
 	form: IFormState,
 	usersRequest: IListWithPagination<IUser>,
-	camerasRequest: IListWithPagination<ICamera>,
+	camerasArchives: IListWithPagination<ICameraStream>,
 	// tslint:disable-next-line:object-literal-sort-keys
 	routerReducer: any
 }

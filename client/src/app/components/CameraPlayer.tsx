@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
+import * as React from 'react';
 
 export interface ICameraPlayerProps {
 	width: number,

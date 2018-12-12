@@ -1,10 +1,9 @@
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import * as React from 'react';
-import { Flipped, Flipper } from 'react-flip-toolkit';
-import { ICamera } from '../constants/interface';
+import { ICameraArchive } from '../constants/interface';
 
 export interface ICardContainerProps {
-	cameraArchive: ICamera
+	cameraArchive: ICameraArchive
 }
 
 export const styles = (theme: Theme) => createStyles({

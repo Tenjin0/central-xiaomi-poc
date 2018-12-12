@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ICamera } from '../constants/interface';
+import { ICameraArchive } from '../constants/interface';
 import ButtonToModal from './ButtonToModal'
 import CameraArchiveSlider from './CameraArchiveSlider';
 
@@ -10,7 +10,7 @@ export default class Hello extends React.PureComponent<{}, any> {
 
 	public render() {
 
-		const cameraArchive: ICamera = {
+		const cameraArchive: ICameraArchive = {
 			id: 24,
 			path: "camera/1540564406059",
 			// tslint:disable-next-line:object-literal-sort-keys

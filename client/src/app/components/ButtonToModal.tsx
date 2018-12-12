@@ -4,7 +4,7 @@ import AddIcon from '@material-ui/icons/Add';
 import * as React from 'react';
 import { Flipped, Flipper } from 'react-flip-toolkit';
 import posed from "react-pose";
-import { ICamera } from '../constants/interface';
+import { ICameraArchive } from '../constants/interface';
 
 // export interface IButtonToModalProps {
 // 	// content: React.Component
@@ -99,7 +99,7 @@ class ButtonToModal extends React.Component<WithStyles<typeof styles>, IButtonTo
 
 	public render() {
 
-		const cameraArchive: ICamera = {
+		const cameraArchive: ICameraArchive = {
 			"id": 24,
 			"path": "camera/1541178343156",
 			// tslint:disable-next-line:object-literal-sort-keys

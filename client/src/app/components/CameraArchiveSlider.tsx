@@ -1,10 +1,10 @@
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import * as React from 'react';
 import { API_STATIC_URL } from '../../config';
-import { ICamera } from '../constants/interface';
+import { ICameraArchive } from '../constants/interface';
 
 export interface ICameraArchiveSliderProps {
-	cameraArchive: ICamera
+	cameraArchive: ICameraArchive
 }
 
 export interface ICameraArchiveSliderState {
