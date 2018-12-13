@@ -1,5 +1,5 @@
 import * as React from 'react';
-import CameraPlayer from './CameraPlayer';
+import CameraStream from './CameraStream';
 
 export interface IHomeProps {
 	history: any
@@ -27,7 +27,7 @@ export default class Home extends React.PureComponent<IHomeProps, IHomeState> {
 
 		return (
 			<React.Fragment>
-				<CameraPlayer position={"center"} width={this.state.width} height={this.state.height}/>
+				<CameraStream position={"center"} width={this.state.width} height={this.state.height}/>
 			</React.Fragment>
 		);
 	}
