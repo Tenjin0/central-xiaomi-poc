@@ -13,6 +13,7 @@
    "author": "Patrice PETIT",
    "license": "ISC",
    "dependencies": {
+      "@material-ui/core": "^3.6.2",
       "express": "^4.16.3",
       "moment": "^2.22.2",
       "node-sass": "^4.10.0",
@@ -27,7 +28,6 @@
       "@devexpress/dx-react-core": "^1.8.0",
       "@devexpress/dx-react-grid": "^1.8.0",
       "@devexpress/dx-react-grid-material-ui": "^1.8.0",
-      "@material-ui/core": "^3.2.0",
       "@material-ui/icons": "^3.0.1",
       "@types/material-ui-datatables": "^0.18.2",
       "@types/react": "^16.4.16",
